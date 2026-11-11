@@ -4,7 +4,7 @@ Turn questions about lecture slides into editable supplementary notes inserted a
 
 ## Status
 
-Planning and initial repository setup. The Python package is not implemented or published on PyPI yet. The name is provisional pending package-name availability checks.
+Planning and initial repository setup.The Python package is not implemented or published on PyPI yet. The name is provisional pending package-name availability checks.
 
 ## Planned workflow
 
