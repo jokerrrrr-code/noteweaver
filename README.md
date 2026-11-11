@@ -33,6 +33,7 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Project documents
 
+- [四人小組分工與交付標準](TEAM_PLAN.md)
 - [Development roadmap and suggested workstreams](ROADMAP.md)
 - [Contribution workflow](CONTRIBUTING.md)
 

@@ -2,7 +2,7 @@
 
 ## Workstreams
 
-These are suggested responsibilities, not assigned team members. For a two-person team, one member can own A + C and the other B + D, with mutual review.
+The project is planned for four members: member 1 owns A, member 2 owns B, member 3 owns C, and member 4 owns D. Names have not been assigned. See [the detailed team plan](TEAM_PLAN.md) for deliverables, interfaces, review responsibilities, and first tasks.
 
 | Workstream | Responsibility | Acceptance criterion |
 | --- | --- | --- |
