@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local credentials (an example file may contain placeholders only)
+.env
+.env.*
+!.env.example
+
+# Local lecture inputs and generated outputs
+local_data/
+generated/
+.ipynb_checkpoints/
+
+# Operating-system metadata
+.DS_Store
