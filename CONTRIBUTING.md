@@ -1,5 +1,7 @@
 # Contributing
 
+Start with [the teammate and AI-agent guide](TEAMMATE_GUIDE.md), then read [AGENTS.md](AGENTS.md) and your role in [TEAM_PLAN.md](TEAM_PLAN.md). The guide explains the existing files, planned modules, and copyable prompts for all four roles.
+
 1. Clone the shared repository using your own GitHub account.
 2. Create a focused feature branch, such as `feature/pdf-reader`.
 3. Make small, meaningful commits with descriptive messages.

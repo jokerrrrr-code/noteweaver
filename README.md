@@ -33,6 +33,9 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Project documents
 
+- [組員與 AI agent 使用指南（含可複製指令）](TEAMMATE_GUIDE.md)
+- [Repository instructions for coding agents](AGENTS.md)
+- [四人小組分工與交付標準](TEAM_PLAN.md)
 - [Development roadmap and suggested workstreams](ROADMAP.md)
 - [Contribution workflow](CONTRIBUTING.md)
 
