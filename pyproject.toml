@@ -8,8 +8,16 @@ version = "0.0.1.dev0"
 description = "Shared data contracts for lecture-linked supplementary notes"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "pypdf>=4.0",
+]
 classifiers = ["Development Status :: 2 - Pre-Alpha", "Private :: Do Not Upload"]
+
+[project.optional-dependencies]
+preview = [
+    "pypdfium2>=4.0",
+    "pillow>=10.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/jokerrrrr-code/noteweaver"
