@@ -11,30 +11,30 @@ def main() -> None:
     document = DocumentInfo("sha256:" + "0" * 64, "demo.pdf", 3)
     project = create_project(document, "local_data/demo.pdf")
     project = add_manual_note(
-        project, original_page=2, title="機會成本 Opportunity cost",
-        content="機會成本是放棄的最佳選擇之價值。", language="zh-Hant",
+        project, original_page=2, title="Opportunity cost",
+        content="Opportunity cost is the value of the next-best alternative forgone.", language="en",
     )
     note_id = project.notes[-1].note_id
-    print("新增筆記：", list_notes(project)[0].status)
+    print("New note:", list_notes(project)[0].status)
 
     # In a UI, this call follows the student's explicit confirmation.
     project = approve_note(project, note_id)
-    print("學生確認後：", list_notes(project)[0].status)
-    project = update_note(project, note_id, content="機會成本也包括時間，不只是金錢。\nTime matters too.")
+    print("After student confirmation:", list_notes(project)[0].status)
+    project = update_note(project, note_id, content="Opportunity cost includes time, not only money.\nTime matters too.")
     note = list_notes(project, original_page=2)[0]
     assert note.note_id == note_id and note.original_page == 2
     assert note.status == "draft"
-    print("修改後需要再次確認：", note.status)
-    print("原始頁碼：", note.original_page)
-    print("筆記內容：", note.sections[0].content)
-    print("可匯出筆記數：", len(list_notes(project, status="approved")))
+    print("After editing, confirmation is required again:", note.status)
+    print("Original page:", note.original_page)
+    print("Note content:", note.sections[0].content)
+    print("Notes eligible for export:", len(list_notes(project, status="approved")))
 
     project = approve_note(project, note_id)
-    print("再次確認後可匯出筆記數：", len(list_notes(project, status="approved")))
+    print("Notes eligible after reconfirmation:", len(list_notes(project, status="approved")))
     project = delete_note(project, note_id)
     assert list_notes(project) == ()
-    print("刪除後筆記數：", len(list_notes(project)))
-    print("此範例只管理記憶體中的筆記；沒有呼叫 AI、讀寫 PDF 或存檔。")
+    print("Notes remaining after deletion:", len(list_notes(project)))
+    print("This demo manages notes in memory only; no AI calls, PDF operations, or file saving.")
 
 
 if __name__ == "__main__":

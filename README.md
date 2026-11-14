@@ -17,7 +17,9 @@ python examples/manual_notes_demo.py
 python -m unittest discover -s tests -v
 ```
 
-Both demos are offline and use synthetic document metadata; they do not create a PDF or call an AI model. See [手寫筆記操作指南](docs/PROJECT_WORKFLOW.md) for the new API and its return values. Install this checkout, not an unrelated package with the same name on PyPI. See [共用資料格式 v1](docs/DATA_CONTRACTS.md) before implementing any module.
+Both demos are offline and use synthetic document metadata; they do not create a PDF or call an AI model. See the [manual note workflow guide](docs/PROJECT_WORKFLOW.md) for the new API and its return values. Install this checkout, not an unrelated package with the same name on PyPI. Read the [shared data contracts v1](docs/DATA_CONTRACTS.md) before implementing any module.
+
+Repository documentation and code explanations are written in English. Chinese sample text in the shared fixtures and tests demonstrates bilingual content support.
 
 ## Planned workflow
 
@@ -46,11 +48,11 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Project documents
 
-- [組員 4：手寫筆記操作與使用範例](docs/PROJECT_WORKFLOW.md)
-- [共用資料格式 v1、欄位規則與模組介面](docs/DATA_CONTRACTS.md)
-- [組員與 AI agent 使用指南（含可複製指令）](TEAMMATE_GUIDE.md)
+- [Member 4: manual note workflow and examples](docs/PROJECT_WORKFLOW.md)
+- [Shared data contracts v1: fields, rules, and interfaces](docs/DATA_CONTRACTS.md)
+- [Teammate and AI-agent guide, including task prompts](TEAMMATE_GUIDE.md)
 - [Repository instructions for coding agents](AGENTS.md)
-- [四人小組分工與交付標準](TEAM_PLAN.md)
+- [Four-member responsibilities and acceptance criteria](TEAM_PLAN.md)
 - [Development roadmap and suggested workstreams](ROADMAP.md)
 - [Contribution workflow](CONTRIBUTING.md)
 

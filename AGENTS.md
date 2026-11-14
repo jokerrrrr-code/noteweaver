@@ -42,6 +42,8 @@ Use the actual contributor's configured identity. Do not copy another member's e
 
 ## Validation and delivery
 
+Write repository documentation, code comments, docstrings, demo explanations, and PR descriptions in English for the university assignment. Chinese text may be used as clearly identified sample data or test input to demonstrate bilingual support. This documentation convention does not change the package's supported content languages or shared data contracts.
+
 Run the checks appropriate to the implemented behavior. If packaging/tests do not exist yet, state that and add only the relevant infrastructure for your assigned task. Do not claim an unrun test passed. Generation tests should use a deterministic fake provider; distinguish those checks from any real-provider test. For PDF layout changes, inspect representative rendered output as well as structural checks.
 
 Keep secrets in local environment variables or ignored files. Use original/licensed fixtures. Do not commit personal lecture PDFs, local notes, generated study PDFs, or API keys. `.gitignore` does not untrack files already committed, and unknown filenames are not automatically private.
