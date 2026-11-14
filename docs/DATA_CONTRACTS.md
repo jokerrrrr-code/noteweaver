@@ -1,6 +1,6 @@
 # NoteWeaver Shared Data Contracts v1
 
-This document, `src/noteweaver/models.py`, `interfaces.py`, and `examples/data/` define the common agreement between the four modules. Models, validators, JSON conversion, and [in-memory note operations](PROJECT_WORKFLOW.md) are implemented. PDF reading, AI calls, PDF rendering, file save/load, and full integration remain pending.
+This document, `src/noteweaver/models.py`, `interfaces.py`, and `examples/data/` define the common agreement between the four modules. Models, validators, JSON conversion, [in-memory note operations](PROJECT_WORKFLOW.md), and [verified file save/load](PERSISTENCE.md) are implemented. PDF reading, AI calls, PDF rendering, and full integration remain pending.
 
 ## 1. Data flow
 
@@ -138,7 +138,7 @@ restored = ProjectState.from_json(json_text)
 assert restored == project
 ```
 
-Member 4 must still implement file save/load operations and path resolution; member 3 also checks the source before export. Both can call `verify_source(project, resolved_path)` to verify unchanged original bytes. If a file moves, users may select another file with the same hash. Different hashes must not silently reuse existing page anchors.
+The public save_project/load_project functions implement file persistence and source verification; see the [persistence guide](PERSISTENCE.md) for path semantics and overwrite handling. Saved source paths are relative when possible; load_project returns an absolute source path to support Save As. Member 3 still checks the source before export with `verify_source(project, resolved_path)`. If a file moves, load_project accepts a source_path override only with the same hash. Different hashes must not silently reuse existing page anchors.
 
 Project files do not embed PDFs, previews, or API keys. Store private lectures and notes in ignored local directories. Rejection of unknown fields can catch misplaced settings but cannot detect credentials embedded in arbitrary text.
 
@@ -191,8 +191,8 @@ generate(document: DocumentInfo, request: NoteRequest,
 # Member 3: exporter
 export(source: Path, project: ProjectState, output: Path) -> ExportResult
 
-# Member 4: editing is implemented in project.py;
-# file persistence and orchestration of the above modules remain pending.
+# Member 4: editing is in project.py; save/load is in persistence.py.
+# Orchestration of the above modules remains pending.
 ```
 
 The block above illustrates signatures, not executable Python. Type/field mismatches, unsupported versions, and inconsistent associations use ContractError. File I/O failures retain OSError subclasses. Member 2 defines provider connection/authentication errors; do not return an empty successful note to represent failure. Integrate error presentation as modules become available.

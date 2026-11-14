@@ -4,7 +4,7 @@ Turn questions about lecture slides into editable supplementary notes inserted a
 
 ## Status
 
-Shared data contracts v1 and in-memory note management are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, and filter the note list. PDF reading, AI generation, rendering, file save/load, and the complete end-user workflow are not implemented yet. Nothing has been published on PyPI; the distribution name remains provisional.
+Shared data contracts v1, in-memory note management, and verified project save/load are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, filter the note list, and save/reopen JSON files while checking source fingerprints. PDF reading, AI generation, rendering, and the complete end-user workflow are not implemented yet. Nothing has been published on PyPI; the distribution name remains provisional.
 
 ## Try the shared contracts locally
 
@@ -14,10 +14,11 @@ From this checkout in a Python 3.10+ virtual environment:
 python -m pip install -e .
 python examples/contract_demo.py
 python examples/manual_notes_demo.py
+python examples/persistence_demo.py
 python -m unittest discover -s tests -v
 ```
 
-Both demos are offline and use synthetic document metadata; they do not create a PDF or call an AI model. See the [manual note workflow guide](docs/PROJECT_WORKFLOW.md) for the new API and its return values. Install this checkout, not an unrelated package with the same name on PyPI. Read the [shared data contracts v1](docs/DATA_CONTRACTS.md) before implementing any module.
+The demos are offline and use synthetic document metadata; they do not create a PDF or call an AI model. The persistence demo writes real JSON and source-byte fixtures in a temporary directory and removes them afterward. See the [manual note workflow guide](docs/PROJECT_WORKFLOW.md) for the new API and its return values. Install this checkout, not an unrelated package with the same name on PyPI. Read the [shared data contracts v1](docs/DATA_CONTRACTS.md) before implementing any module.
 
 Repository documentation and code explanations are written in English. Chinese sample text in the shared fixtures and tests demonstrates bilingual content support.
 
@@ -48,6 +49,7 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Project documents
 
+- [Member 4: project saving, loading, and source verification](docs/PERSISTENCE.md)
 - [Member 4: manual note workflow and examples](docs/PROJECT_WORKFLOW.md)
 - [Shared data contracts v1: fields, rules, and interfaces](docs/DATA_CONTRACTS.md)
 - [Teammate and AI-agent guide, including task prompts](TEAMMATE_GUIDE.md)
@@ -58,4 +60,4 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Development and licensing
 
-The runnable examples cover contracts and in-memory note management. Team members should implement the agreed interfaces using the same models. The project is marked `Private :: Do Not Upload` in package metadata until distribution name and licensing are decided. The repository itself remains public. Use original or appropriately licensed sample material.
+The runnable examples cover contracts, in-memory note management, and verified file persistence. Team members should implement the agreed interfaces using the same models. The project is marked `Private :: Do Not Upload` in package metadata until distribution name and licensing are decided. The repository itself remains public. Use original or appropriately licensed sample material.

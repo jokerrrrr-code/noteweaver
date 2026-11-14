@@ -6,7 +6,7 @@ Repository: https://github.com/jokerrrrr-code/noteweaver
 
 ## 1. Current status
 
-Shared models, JSON conversion, validators, module interfaces, minimal packaging, and offline examples are available. Member 4's in-memory note operations are described in the [workflow guide](docs/PROJECT_WORKFLOW.md). PDF reading, AI calls, PDF rendering, file save/load, and full integration remain pending. There is no PyPI release.
+Shared models, JSON conversion, validators, module interfaces, minimal packaging, and offline examples are available. Member 4's note operations and file save/load are described in the [workflow guide](docs/PROJECT_WORKFLOW.md) and [persistence guide](docs/PERSISTENCE.md). PDF reading, AI calls, PDF rendering, and full integration remain pending. There is no PyPI release.
 
 The team-guide and shared-contract PRs (#1 and #2) have been merged into main. Use current main as the baseline for new work. When your task depends on an unmerged feature, identify that dependency in the PR and coordinate the merge order; do not duplicate its implementation.
 
@@ -29,6 +29,7 @@ Write assignment documentation, comments, and explanations in English. Chinese l
 | `TEAMMATE_GUIDE.md` | This guide and copyable task prompts | Use the common prompt plus your role's task |
 | `docs/DATA_CONTRACTS.md` | Exact fields, rules, and module boundaries | Required reading for everyone; member 4 coordinates changes |
 | `docs/PROJECT_WORKFLOW.md` | Implemented in-memory note API and examples | Read before extending project operations |
+| `docs/PERSISTENCE.md` | Save/load APIs, path rules, source checks, and file errors | Read before extending persistence |
 
 Implemented code and examples:
 
@@ -36,11 +37,13 @@ Implemented code and examples:
 - `src/noteweaver/interfaces.py`: reader, generator, and exporter Protocol signatures, not implementations.
 - `src/noteweaver/__init__.py`: public exports; `py.typed`: typing marker.
 - `src/noteweaver/project.py`: project creation and manual-note addition, editing, confirmation, deletion, and filtering; in-memory only.
+- `src/noteweaver/persistence.py`: verified JSON saving/loading, relative paths, source relinking, and atomic file publication.
 - `pyproject.toml`: local installation and build configuration, not an existing PyPI release.
 - `examples/data/page.json`, `project.json`, and `export.json`: common synthetic fixtures; their hashes and paths do not identify real PDFs.
 - `examples/contract_demo.py`: offline contract demonstration; no AI calls or PDF creation.
 - `examples/manual_notes_demo.py`: offline note-management demonstration.
-- `tests/test_contracts.py` and `tests/test_project.py`: shared-contract and note-operation tests.
+- `examples/persistence_demo.py`: real JSON save/load demonstration using temporary synthetic source bytes.
+- `tests/test_contracts.py`, `tests/test_project.py`, and `tests/test_persistence.py`: contract, note-operation, and persistence tests.
 
 The `.git/` directory contains internal version history. Do not edit it manually.
 
@@ -109,10 +112,11 @@ Use Python 3.10+ in a virtual environment, then run from the repository root:
 python -m pip install -e .
 python examples/contract_demo.py
 python examples/manual_notes_demo.py
+python examples/persistence_demo.py
 python -m unittest discover -s tests -v
 ```
 
-These demos cover contracts and in-memory operations. They do not demonstrate completed PDF or AI modules. Do not assume `pip install noteweaver` retrieves this team's work: the distribution name and published release have not been finalized.
+These demos cover contracts, in-memory operations, and verified JSON persistence. They do not demonstrate completed PDF or AI modules. Do not assume `pip install noteweaver` retrieves this team's work: the distribution name and published release have not been finalized.
 
 ## 5. Remaining module work
 
@@ -121,7 +125,7 @@ These demos cover contracts and in-memory operations. They do not demonstrate co
 | `src/noteweaver/pdf_reader.py` | Member 1 | PDF loading, text, preview, and source identity |
 | `src/noteweaver/generation.py`, `providers/` | Member 2 | Context, provider interface, structured output, and fake provider |
 | `src/noteweaver/rendering.py`, `export.py` | Member 3 | Layout, pagination, insertion, page maps, and bookmarks |
-| Extend `src/noteweaver/project.py` | Member 4 | File persistence and integration, reusing existing editing operations and ProjectState |
+| Extend public project orchestration | Member 4 | Integrate reader, generator, and exporter using existing editing, persistence, and ProjectState |
 | Additional module tests in `tests/` | Each feature owner | Preserve existing tests; member 4 coordinates integration testing |
 | Notebook examples in `examples/` | Member 4 coordinates; everyone contributes | Complete demonstrations beyond the offline examples |
 
@@ -198,14 +202,14 @@ rendered PDF for missing glyphs, clipping, and overlap.
 Do not call AI, alter original-page content, or confuse output and original page numbers.
 ```
 
-### Member 4: Persistence and project operations
+### Member 4: Project operations and integration
 
 ```text
-Read docs/PROJECT_WORKFLOW.md and inspect the existing in-memory operations first.
-Reuse ProjectState, GeneratedNote, NoteSection, and their JSON conversion.
-For the next persistence task, implement file saving/loading, path resolution, and
-source verification, preserving note IDs, original pages, state, and order.
-Use verify_source to check the actual source file when reopening it.
+Read docs/PROJECT_WORKFLOW.md and docs/PERSISTENCE.md first.
+Reuse ProjectState, GeneratedNote, NoteSection, and the existing editing and save/load APIs.
+Integrate available reader, generator, and exporter implementations through the
+agreed interfaces, preserving note IDs, original pages, review state, and order.
+Use load_project for verified reopening; still verify the source before export.
 Keep edits as drafts until the user confirms them. Manual mode needs no AI key.
 Use clearly identified test doubles for unavailable modules, not replacements
 presented as real functionality. Extend existing package exports as needed.

@@ -1,6 +1,6 @@
 # NoteWeaver Four-Member Team Plan
 
-Shared models, validation, JSON fixtures, and tests are implemented; see the [shared data contracts v1](docs/DATA_CONTRACTS.md). Member 4's in-memory note operations are available in the [workflow guide](docs/PROJECT_WORKFLOW.md). Other features and full integration remain pending. Member numbers identify responsibilities.
+Shared models, validation, JSON fixtures, and tests are implemented; see the [shared data contracts v1](docs/DATA_CONTRACTS.md). Member 4's in-memory note operations and verified save/load are available in the [workflow guide](docs/PROJECT_WORKFLOW.md) and [persistence guide](docs/PERSISTENCE.md). Other features and full integration remain pending. Member numbers identify responsibilities.
 
 ## Shared objective
 
@@ -74,7 +74,7 @@ Acceptance: short, long, and multiple notes export correctly; Chinese glyphs ren
 
 Suggested files: `src/noteweaver/project.py`, `src/noteweaver/__init__.py`, project and integration tests, and `examples/`. Coordinate shared changes to `models.py` and `pyproject.toml` rather than replacing them.
 
-Current progress: in-memory manual-note creation, editing, approval, deletion, and filtering are implemented. Next, add file save/load and source verification, then integrate the other modules. Reuse ProjectState and the existing model definitions.
+Current progress: in-memory manual-note creation, editing, approval, deletion, filtering, and JSON file save/load with source verification are implemented. Next, integrate the other modules. Reuse ProjectState and the existing model definitions.
 
 Acceptance: the public API supports the complete workflow; content and anchors survive save/reload; manual mode works without AI credentials.
 
