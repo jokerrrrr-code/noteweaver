@@ -1,4 +1,4 @@
-"""Shared contracts and in-memory note management."""
+"""Shared contracts, note management, and verified project persistence."""
 
 from .models import (
     SCHEMA_VERSION,
@@ -22,6 +22,7 @@ from .models import (
 from .project import (
     add_manual_note, approve_note, create_project, delete_note, list_notes, update_note,
 )
+from .persistence import load_project, save_project
 
 __all__ = [
     "SCHEMA_VERSION", "ContractError", "DocumentInfo", "ExportResult",
@@ -31,4 +32,5 @@ __all__ = [
     "verify_source",
     "add_manual_note", "approve_note", "create_project", "delete_note", "list_notes",
     "update_note",
+    "load_project", "save_project",
 ]

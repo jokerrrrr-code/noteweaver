@@ -15,7 +15,7 @@ Every contributor should document and test their own module and review another c
 
 ## Shared data contracts v1
 
-Implemented in `src/noteweaver/models.py`, with signatures in `interfaces.py`, synthetic JSON fixtures, and offline tests. Read [the full contract](docs/DATA_CONTRACTS.md) for exact fields, provenance, draft/approval handling, persistence, and export mappings. Member 4's [in-memory note management](docs/PROJECT_WORKFLOW.md) is implemented; save/load, reader, generator, and exporter integration remain pending.
+Implemented in `src/noteweaver/models.py`, with signatures in `interfaces.py`, synthetic JSON fixtures, and offline tests. Read [the full contract](docs/DATA_CONTRACTS.md) for exact fields, provenance, draft/approval handling, persistence, and export mappings. Member 4's [in-memory note management](docs/PROJECT_WORKFLOW.md) and [verified save/load](docs/PERSISTENCE.md) are implemented; reader, generator, and exporter integration remain pending.
 
 - `PageContent`: original page number, extracted text, preview, extraction status.
 - `NoteRequest`: target original page number, selected text, question, language, level, style.

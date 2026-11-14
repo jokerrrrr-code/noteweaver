@@ -1,6 +1,6 @@
 # Member 4: Manual Note Management (Step 2)
 
-This version provides in-memory project and note operations. It requires no network connection, AI credentials, or other members' modules. A manual note is text entered by the user, not handwriting recognition. PDF reading, generation, export, and file save/load are not integrated yet.
+This version provides in-memory project and note operations. It requires no network connection, AI credentials, or other members' modules. A manual note is text entered by the user, not handwriting recognition. PDF reading, generation, and export are not integrated yet. Separate [save/load functions](PERSISTENCE.md) are now available for this project state.
 
 ## Quick start
 
@@ -78,6 +78,6 @@ The new tests cover Chinese and English text, unique IDs, note order, approval i
 
 ## Next steps and handoff
 
-Member 4's step 3 will add actual file saving/loading, path resolution, and source verification. Results from these operations are standard ProjectState objects, so existing `to_json()` serialization works; serialization alone is not a complete save/load workflow.
+Member 4's step 3 is implemented in the [persistence module](PERSISTENCE.md): actual file saving/loading, path resolution, and source verification. Use save_project/load_project for file operations. The in-memory editing functions above continue to return standard ProjectState objects without performing file I/O.
 
 Member 1 will supply real DocumentInfo values. Member 2 returns GeneratedNote objects using the same structure. Member 3 accepts the same ProjectState and exports approved notes according to the common contract. This implementation does not replace those members' modules.

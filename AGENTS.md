@@ -6,7 +6,7 @@ Read `README.md`, `TEAM_PLAN.md`, `ROADMAP.md`, `CONTRIBUTING.md`, `docs/DATA_CO
 
 ## Current status and scope
 
-Shared data contracts, validation, JSON fixtures, module Protocol signatures, minimal packaging, and in-memory note management are implemented. Read `docs/PROJECT_WORKFLOW.md` before extending `project.py`; run `python examples/manual_notes_demo.py` for its offline example. PDF reading, model calls, PDF rendering, file save/load, and full end-user orchestration are not implemented. There is no PyPI release. Re-check the current tree for teammate additions. Do not mistake illustrative product APIs for existing code.
+Shared data contracts, validation, JSON fixtures, module Protocol signatures, minimal packaging, in-memory note management, and verified JSON file save/load are implemented. Read `docs/PROJECT_WORKFLOW.md` before extending `project.py`, and `docs/PERSISTENCE.md` before changing persistence. Run `python examples/manual_notes_demo.py` and `python examples/persistence_demo.py` for offline examples. PDF reading, model calls, PDF rendering, and full end-user orchestration are not implemented. There is no PyPI release. Re-check the current tree for teammate additions. Do not mistake illustrative product APIs for existing code.
 
 Use the existing `noteweaver.models` types and `docs/DATA_CONTRACTS.md`; do not create parallel definitions. Run `python -m unittest discover -s tests -v` for the shared contracts and `python examples/contract_demo.py` for the offline example after installing the checkout. The fixture document hash is synthetic, not a real PDF fingerprint.
 
