@@ -1,0 +1,188 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [8 0 R 10 0 R 12 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Length 1368 >>
+stream
+/CIDInit /ProcSet findresource begin
+12 dict begin
+begincmap
+/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def
+/CMapName /CustomUTF16 def
+/CMapType 2 def
+1 begincodespacerange
+<0000> <FFFF>
+endcodespacerange
+75 beginbfchar
+<0001> <3002>
+<0002> <4E00>
+<0003> <4E09>
+<0004> <4E0D>
+<0005> <4E5F>
+<0006> <4ECD>
+<0007> <4ED6>
+<0008> <4EE3>
+<0009> <4F73>
+<000A> <500B>
+<000B> <503C>
+<000C> <50C5>
+<000D> <50F9>
+<000E> <514D>
+<000F> <5176>
+<0010> <5177>
+<0011> <5206>
+<0012> <5305>
+<0013> <53EF>
+<0014> <542B>
+<0015> <5802>
+<0016> <5BE6>
+<0017> <5C11>
+<0018> <601D>
+<0019> <6027>
+<001A> <6210>
+<001B> <6389>
+<001C> <64C7>
+<001D> <653E>
+<001E> <65B9>
+<001F> <6602>
+<0020> <662F>
+<0021> <6642>
+<0022> <66FF>
+<0023> <6700>
+<0024> <6703>
+<0025> <6709>
+<0026> <672C>
+<0027> <6790>
+<0028> <67D0>
+<0029> <6848>
+<002A> <68C4>
+<002B> <6A5F>
+<002C> <6DB5>
+<002D> <6E90>
+<002E> <70BA>
+<002F> <7136>
+<0030> <751A>
+<0031> <7684>
+<0032> <7A00>
+<0033> <7B2C>
+<0034> <8003>
+<0035> <800C>
+<0036> <80FD>
+<0037> <8207>
+<0038> <82B1>
+<0039> <84CB>
+<003A> <8AB2>
+<003B> <8CBB>
+<003C> <8CC7>
+<003D> <9078>
+<003E> <908A>
+<003F> <914D>
+<0040> <91D1>
+<0041> <9322>
+<0042> <9593>
+<0043> <969B>
+<0044> <96B1>
+<0045> <9801>
+<0046> <984C>
+<0047> <9AD8>
+<0048> <9EBC>
+<0049> <FF0C>
+<004A> <FF1A>
+<004B> <FF1F>
+endbfchar
+endcmap
+CMapName currentdict /CMap defineresource pop
+end
+end
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /CIDFontType0 /BaseFont /MSung-Light /CIDSystemInfo << /Registry (Adobe) /Ordering (CNS1) /Supplement 0 >> /DW 1000 >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type0 /BaseFont /MSung-Light /Encoding /Identity-H /DescendantFonts [5 0 R] /ToUnicode 4 0 R >>
+endobj
+7 0 obj
+<< /Length 354 >>
+stream
+BT
+72 750 Td
+/F1 13 Tf (Lecture 1: Scarcity and Resource Allocation \(Page 1 of 3\)) Tj
+0 -28 Td
+/F2 13 Tf <003300020045004A0032001700190037003C002D0011003F> Tj
+0 -28 Td
+/F1 13 Tf (1. Resources such as time, budget, and attention are finite.) Tj
+0 -28 Td
+/F1 13 Tf (2. Scarcity requires every decision-maker to choose among alternatives.) Tj
+0 -28 Td
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 6 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 434 >>
+stream
+BT
+72 750 Td
+/F1 13 Tf (Lecture 1: Opportunity Cost \(Page 2 of 3\)) Tj
+0 -28 Td
+/F2 13 Tf <002B0024001A00260020002E0028000A003D001C0035001D002A00310023000900220008001E0029000D000B0001> Tj
+0 -28 Td
+/F1 13 Tf (Opportunity cost is the value of the next-best alternative forgone.) Tj
+0 -28 Td
+/F2 13 Tf <002B0024001A00260004000C00120014001600430038001B00310040004100490005002C0039002100420037000F000700440019001A00260001> Tj
+0 -28 Td
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 6 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 404 >>
+stream
+BT
+72 750 Td
+/F1 13 Tf (Lecture 1: Marginal Analysis and Review \(Page 3 of 3\)) Tj
+0 -28 Td
+/F2 13 Tf <003300030045004A003E0043001100270037003A0015001800340046> Tj
+0 -28 Td
+/F1 13 Tf (Optimal allocation occurs when marginal benefit equals marginal cost.) Tj
+0 -28 Td
+/F2 13 Tf <003A001500180034004A002E00300048000E003B0031003D001C0006002F00130036001000250047001F0031002B0024001A0026004B> Tj
+0 -28 Td
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 6 0 R >> >> /Contents 11 0 R >>
+endobj
+xref
+0 13
+0000000000 65535 f
+0000000009 00000 n
+0000000058 00000 n
+0000000129 00000 n
+0000000226 00000 n
+0000001645 00000 n
+0000001803 00000 n
+0000001939 00000 n
+0000002343 00000 n
+0000002479 00000 n
+0000002963 00000 n
+0000003100 00000 n
+0000003555 00000 n
+trailer
+<< /Size 13 /Root 1 0 R >>
+startxref
+3693
+%%EOF
