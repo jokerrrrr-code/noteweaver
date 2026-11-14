@@ -1,4 +1,4 @@
-"""NoteWeaver's implemented surface currently consists of shared contracts."""
+"""Shared contracts and in-memory note management."""
 
 from .models import (
     SCHEMA_VERSION,
@@ -19,6 +19,9 @@ from .models import (
     validate_request,
     verify_source,
 )
+from .project import (
+    add_manual_note, approve_note, create_project, delete_note, list_notes, update_note,
+)
 
 __all__ = [
     "SCHEMA_VERSION", "ContractError", "DocumentInfo", "ExportResult",
@@ -26,4 +29,6 @@ __all__ = [
     "OriginalPageLocation", "PageContent", "ProjectState", "document_id_for_file",
     "validate_export", "validate_generation", "validate_page", "validate_request",
     "verify_source",
+    "add_manual_note", "approve_note", "create_project", "delete_note", "list_notes",
+    "update_note",
 ]

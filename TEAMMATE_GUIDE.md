@@ -6,7 +6,7 @@ Repository：https://github.com/jokerrrrr-code/noteweaver
 
 ## 1. 先理解現在的狀態
 
-共用資料模型、JSON 存取、驗證器、模組介面、最小套件設定及離線範例已建立。PDF 讀取、AI 呼叫、PDF 排版及使用者操作流程仍由四位組員開發；尚未發布 PyPI。
+共用資料模型、JSON 轉換、驗證器、模組介面、最小套件設定及離線範例已建立。組員 4 的記憶體內筆記管理已可使用，見 [操作指南](docs/PROJECT_WORKFLOW.md)。PDF 讀取、AI 呼叫、PDF 排版、檔案保存／載入及完整流程仍待完成；尚未發布 PyPI。
 
 分工指南 PR #1 已合併。共用格式最初位於 `feature/shared-data-contracts` 分支；如果最新 main 還沒有 `docs/DATA_CONTRACTS.md`，先查看該分支的 PR。需要立即開發時，可從該分支建立自己的功能分支，並在 PR 標明依賴。不要另外建立一套模型。
 
@@ -38,6 +38,8 @@ Repository：https://github.com/jokerrrrr-code/noteweaver
 - `examples/data/page.json`、`project.json`、`export.json`：所有人共用的模擬資料，來源 hash 及路徑不對應真實 PDF。
 - `examples/contract_demo.py`：離線展示資料流及驗證，不呼叫 AI、不產生 PDF。
 - `tests/test_contracts.py`：共用模型的正常及錯誤案例測試。
+- `src/noteweaver/project.py`：建立專案及手寫筆記的新增、編輯、確認、刪除、查詢；純記憶體操作。
+- `tests/test_project.py`、`examples/manual_notes_demo.py`：筆記操作測試及離線展示。
 
 `.git/` 是版本紀錄的內部目錄，不是你們要手動修改的程式檔案。
 
@@ -124,7 +126,7 @@ python -m unittest discover -s tests -v
 | `src/noteweaver/pdf_reader.py` | 組員 1 | PDF 載入、文字、頁面預覽及來源識別 |
 | `src/noteweaver/generation.py`、`providers/` | 組員 2 | 上下文、生成服務介面、結構化筆記及假資料提供者 |
 | `src/noteweaver/rendering.py`、`export.py` | 組員 3 | 筆記排版、分頁、插入、輸出對照與書籤 |
-| `src/noteweaver/project.py` | 組員 4 | 公開操作 API、編輯、儲存及載入；沿用已存在的 ProjectState |
+| `src/noteweaver/project.py` 後續擴充 | 組員 4 | 編輯操作已存在；接下來加入儲存、載入及模組整合，沿用 ProjectState |
 | `tests/` 新增各模組測試 | 全組各自負責 | 保留既有共用格式測試；組員 4 協調整合測試 |
 | `examples/` 新增 notebook | 組員 4 協調，全組提供 | 在既有離線範例之外加入完整展示流程 |
 

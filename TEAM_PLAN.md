@@ -1,6 +1,6 @@
 # NoteWeaver 四人小組分工草案
 
-共用資料模型、驗證、JSON 範例與測試已建立，詳見 [共用資料格式 v1](docs/DATA_CONTRACTS.md)。以下功能模組仍待實作。組員 1–4 是責任代稱，未指定真人或 GitHub 帳戶。
+共用資料模型、驗證、JSON 範例與測試已建立，詳見 [共用資料格式 v1](docs/DATA_CONTRACTS.md)。組員 4 的記憶體內筆記管理已實作，詳見 [操作指南](docs/PROJECT_WORKFLOW.md)；其餘功能及整合仍待完成。組員 1–4 是責任代稱。
 
 ## 共同目標
 

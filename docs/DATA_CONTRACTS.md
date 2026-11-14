@@ -1,6 +1,6 @@
 # NoteWeaver 共用資料格式 v1
 
-本文件、`src/noteweaver/models.py`、`interfaces.py` 及 `examples/data/` 是四個模組的共同約定。模型、驗證器、JSON 轉換已實作；PDF 讀取、AI 呼叫、PDF 排版和專案操作介面尚待各組員實作。
+本文件、`src/noteweaver/models.py`、`interfaces.py` 及 `examples/data/` 是四個模組的共同約定。模型、驗證器、JSON 轉換與[記憶體內筆記操作](PROJECT_WORKFLOW.md)已實作；PDF 讀取、AI 呼叫、PDF 排版、檔案 save/load 及完整整合尚待實作。
 
 ## 1. 資料如何流動
 
@@ -189,7 +189,7 @@ generate(document: DocumentInfo, request: NoteRequest,
 # 組員 3：實作 exporter
 export(source: Path, project: ProjectState, output: Path) -> ExportResult
 
-# 組員 4：編輯、保存和協調上述方法；公開專案 API 尚待實作
+# 組員 4：編輯 API 已在 project.py；保存和協調上述方法尚待實作
 ```
 
 Python 型別／欄位不符、版本不符或資料關聯錯誤使用 `ContractError`。讀取不存在檔案等 I/O 問題保留 `OSError` 子類；provider 的連線／認證錯誤由組員 2 的 provider 層定義，不能用空白「成功」筆記代替失敗。各模組完成後再整合錯誤展示方式。

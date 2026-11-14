@@ -4,7 +4,7 @@ Turn questions about lecture slides into editable supplementary notes inserted a
 
 ## Status
 
-Shared data contracts v1 are implemented: validated Python models, JSON serialization, module interface signatures, synthetic examples, and contract tests. PDF reading, AI generation, rendering, and the end-user workflow are not implemented yet. Nothing has been published on PyPI; the distribution name remains provisional.
+Shared data contracts v1 and in-memory note management are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, and filter the note list. PDF reading, AI generation, rendering, file save/load, and the complete end-user workflow are not implemented yet. Nothing has been published on PyPI; the distribution name remains provisional.
 
 ## Try the shared contracts locally
 
@@ -13,10 +13,11 @@ From this checkout in a Python 3.10+ virtual environment:
 ```bash
 python -m pip install -e .
 python examples/contract_demo.py
+python examples/manual_notes_demo.py
 python -m unittest discover -s tests -v
 ```
 
-The demo is offline: it validates synthetic data and does not create a PDF or call an AI model. Install this checkout, not an unrelated package with the same name on PyPI. See [共用資料格式 v1](docs/DATA_CONTRACTS.md) before implementing any module.
+Both demos are offline and use synthetic document metadata; they do not create a PDF or call an AI model. See [手寫筆記操作指南](docs/PROJECT_WORKFLOW.md) for the new API and its return values. Install this checkout, not an unrelated package with the same name on PyPI. See [共用資料格式 v1](docs/DATA_CONTRACTS.md) before implementing any module.
 
 ## Planned workflow
 
@@ -45,6 +46,7 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Project documents
 
+- [組員 4：手寫筆記操作與使用範例](docs/PROJECT_WORKFLOW.md)
 - [共用資料格式 v1、欄位規則與模組介面](docs/DATA_CONTRACTS.md)
 - [組員與 AI agent 使用指南（含可複製指令）](TEAMMATE_GUIDE.md)
 - [Repository instructions for coding agents](AGENTS.md)
@@ -54,4 +56,4 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Development and licensing
 
-The runnable example currently covers contracts only. Team members should implement the agreed interfaces using the same models. The project is marked `Private :: Do Not Upload` in package metadata until distribution name and licensing are decided. The repository itself remains public. Use original or appropriately licensed sample material.
+The runnable examples cover contracts and in-memory note management. Team members should implement the agreed interfaces using the same models. The project is marked `Private :: Do Not Upload` in package metadata until distribution name and licensing are decided. The repository itself remains public. Use original or appropriately licensed sample material.
