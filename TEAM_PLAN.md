@@ -1,118 +1,122 @@
-# NoteWeaver 四人小組分工草案
+# NoteWeaver Four-Member Team Plan
 
-共用資料模型、驗證、JSON 範例與測試已建立，詳見 [共用資料格式 v1](docs/DATA_CONTRACTS.md)。以下功能模組仍待實作。組員 1–4 是責任代稱，未指定真人或 GitHub 帳戶。
+Shared models, validation, JSON fixtures, and tests are implemented; see the [shared data contracts v1](docs/DATA_CONTRACTS.md). Member 4's in-memory note operations are available in the [workflow guide](docs/PROJECT_WORKFLOW.md). Other features and full integration remain pending. Member numbers identify responsibilities.
 
-## 共同目標
+## Shared objective
 
-在 JupyterHub 完成：匯入講義 PDF → 選頁並輸入疑問 → 生成或手寫筆記 → 預覽修改 → 插入原始頁面後 → 匯出溫習版 PDF。
+Demonstrate this workflow in JupyterHub:
 
-第一版支援可選取文字的 PDF、中文及英文文字筆記、原始頁碼定位。OCR、手寫辨識、圖片內容理解和自動跨講義搜尋留到後續版本。公式需要約定支援範圍；未支援的公式應保留原文或明確提示，不能靜默刪除。
+> Import a lecture PDF → select an original page and ask a question → generate or manually enter a note → review and edit → insert supplementary pages → export a study PDF.
 
-## 組員 1：講義讀取與頁面定位
+The first release targets PDFs with selectable text, Chinese and English note content, and stable original-page references. OCR, handwriting recognition, image interpretation, and automatic cross-document topic search are deferred. Agree on formula support; preserve unsupported formulas as source text or report them explicitly rather than silently dropping them.
 
-**主要責任：讓套件知道學生正在問哪一頁、那一頁有甚麼內容。**
+Repository documentation, code explanations, and presentation instructions must be in English. Chinese sample content remains appropriate for bilingual tests and demonstrations.
 
-- 載入 PDF，取得頁數和原始文件識別資訊。
-- 擷取指定頁文字，提供頁面預覽。
-- 管理固定的原始頁碼；插入筆記後仍能回查原講義。
-- 處理不存在的檔案、頁碼越界及無法擷取文字的情況。
-- 提供指定頁及鄰近頁內容，供組員 2 選取上下文。
+## Member 1: PDF reading and page identification
 
-建議負責：`src/noteweaver/pdf_reader.py`、`tests/test_pdf_reader.py`、自製 PDF 測試素材及讀取文件。
+**Responsibility: identify the student's original page and provide its content.**
 
-第一個任務：自製三頁 PDF，取得第 2 頁文字和預覽，並測試頁碼 0、4 的錯誤提示。
+- Load PDFs, retrieve page counts, and identify source documents.
+- Extract text from a selected page and provide a page preview.
+- Preserve original-page identity so notes remain traceable after insertion.
+- Handle missing files, out-of-range pages, and text extraction failures.
+- Supply selected and neighboring page content for member 2's context selection.
 
-完成標準：正確回傳指定原始頁內容；空白／掃描頁會回報擷取狀態；不會修改原始檔案。
+Suggested files: `src/noteweaver/pdf_reader.py`, `tests/test_pdf_reader.py`, original PDF fixtures, and reader documentation.
 
-## 組員 2：解說生成與來源處理
+First task: create a three-page text PDF, extract page 2 and its preview, and test invalid page numbers 0 and 4.
 
-**主要責任：把頁面內容和學生疑問，轉成可編輯的結構化筆記。**
+Acceptance: return the correct original-page content or explicit extraction status for empty/scanned pages, without changing the source file.
 
-- 根據指定頁、選取文字及問題，選擇要提供給模型的講義上下文。
-- 實作一個模型服務介面，以及不連網的假資料提供者供測試。
-- 支援語言、程度和解說模式，例如概念比較、簡單解釋、分步說明。
-- 回傳標題、解說、例子、自我檢查及來源頁碼，區分講義內容和補充內容。
-- 檢查輸出格式及來源頁碼範圍；不能把此檢查描述成事實正確性保證。
-- 處理無金鑰、逾時及無效回應；講義文字作為參考資料，不作為系統指令。
+## Member 2: Explanation generation and source handling
 
-建議負責：`src/noteweaver/generation.py`、`src/noteweaver/providers/`、`tests/test_generation.py`、生成設定文件。
+**Responsibility: turn page content and a student's question into editable structured notes.**
 
-第一個任務：用固定文字和固定問題，產生一則假資料筆記；與組員 3、4 確認可以直接使用，再接真實模型。
+- Select lecture context using the target page, selected text, and question.
+- Implement a provider interface and a deterministic offline fake provider.
+- Support language, learning level, and explanation styles such as comparison, simple explanation, or step-by-step guidance.
+- Return a title, explanation, examples, self-check material, and source pages, distinguishing lecture-based content from supplemental content.
+- Validate response shape and reference bounds without claiming this proves factual accuracy.
+- Handle missing credentials, timeouts, and malformed responses. Treat lecture text as reference data, not system instructions.
 
-完成標準：在不修改 PDF 的前提下輸出結構化筆記；失敗可重試；金鑰不進入專案儲存檔或 Git。
+Suggested files: `src/noteweaver/generation.py`, `src/noteweaver/providers/`, `tests/test_generation.py`, and provider configuration documentation.
 
-## 組員 3：補充頁排版與 PDF 匯出
+First task: use fixed context and a fixed question to produce a fake note. Verify that members 3 and 4 can consume it before adding a real provider.
 
-**主要責任：把筆記變成可讀的補充頁，插在正確位置。**
+Acceptance: return structured notes without modifying PDFs; failures allow retry; credentials never enter project files or Git.
 
-- 將筆記的標題、段落、例子及來源排成補充頁。
-- 支援中文及英文，處理換行、長內容和分頁。
-- 在指定原始頁後插入一則或多則筆記，保持原頁內容和順序。
-- 標示補充頁與原頁的關係，例如「原始第 7 頁補充 1」。
-- 建立原頁對照及書籤，輸出至新檔案。
-- 檢查輸出版面；自動文字檢查以外，必須實際查看代表性 PDF 頁面。
+## Member 3: Supplementary-page layout and PDF export
 
-建議負責：`src/noteweaver/rendering.py`、`src/noteweaver/export.py`、對應測試及匯出說明。
+**Responsibility: render readable notes and insert them in the correct positions.**
 
-第一個任務：使用假資料筆記，在三頁 PDF 的第 2 頁後插入補充頁，得到四頁輸出。
+- Lay out titles, sections, examples, and source references.
+- Support Chinese and English, wrapping, long content, and pagination.
+- Insert one or more notes after their original page while preserving original content and page order.
+- Label note pages with their original-page association, such as “Original page 7, supplementary note 1”.
+- Build page maps and bookmarks, exporting to a new file.
+- Inspect representative rendered PDF pages as well as running structural/text checks.
 
-完成標準：短筆記、長筆記及多則筆記都能輸出；中文不缺字；內容不裁切、重疊；原始三頁順序不變。
+Suggested files: `src/noteweaver/rendering.py`, `src/noteweaver/export.py`, related tests, and export documentation.
 
-## 組員 4：Python API、編輯儲存與整合
+First task: insert a short fake note after page 2 of an original three-page PDF, producing four output pages.
 
-**主要責任：把各模組接成學生可以實際操作的套件。**
+Acceptance: short, long, and multiple notes export correctly; Chinese glyphs render; content is not clipped or overlapping; original pages retain their order.
 
-- 協調共同資料模型，提供載入、提問、手寫筆記、修改、插入及匯出操作。
-- 管理筆記 ID、草稿／確認狀態、順序、刪除與重新生成。
-- 儲存並重新載入專案；驗證使用的來源 PDF 是否仍為原文件。
-- 建立 Jupyter 使用範例；互動控制項可在基本 API 完成後加入。
-- 建立 `pyproject.toml`、套件入口及整合測試，協調建置和發布驗證。
+## Member 4: Public API, editing, persistence, and integration
 
-建議負責：`src/noteweaver/models.py`、`src/noteweaver/project.py`、`src/noteweaver/__init__.py`、`examples/`、整合測試及套件設定。
+**Responsibility: connect the modules into a package students can operate.**
 
-第一個任務：沿用現有 `models.py` 和 ProjectState，接通「手寫筆記 → 修改 → 儲存／載入」；可以先用假 PDF／匯出介面，不另建共同模型。
+- Coordinate shared models and public operations for loading, questions, manual notes, editing, insertion, and export.
+- Manage note IDs, draft/approved state, order, deletion, and regeneration.
+- Save and reload projects while verifying that the original PDF is unchanged.
+- Provide Jupyter examples; interactive controls may follow the basic API.
+- Maintain package entry points and integration tests, and coordinate dependencies, builds, and release checks.
 
-完成標準：使用者透過公開 API 完成完整流程；保存和重新開啟後，筆記內容及定位一致；手寫模式不需要 AI 金鑰。
+Suggested files: `src/noteweaver/project.py`, `src/noteweaver/__init__.py`, project and integration tests, and `examples/`. Coordinate shared changes to `models.py` and `pyproject.toml` rather than replacing them.
 
-組員 4 負責整合協調，不負責代替其他人完成模組、測試和文件。
+Current progress: in-memory manual-note creation, editing, approval, deletion, and filtering are implemented. Next, add file save/load and source verification, then integrate the other modules. Reuse ProjectState and the existing model definitions.
 
-## 第一天共同確認的介面
+Acceptance: the public API supports the complete workflow; content and anchors survive save/reload; manual mode works without AI credentials.
 
-以下是概覽，精確欄位、預設值、限制和序列化以 [共用資料格式 v1](docs/DATA_CONTRACTS.md) 及已實作的 `models.py` 為準。新增 DocumentInfo、NoteSection、ProjectState 及頁碼對照子模型，四人直接沿用。
+Member 4 coordinates integration, not the completion of everyone else's modules, tests, or documentation.
 
-| 資料 | 最少欄位 | 產生／使用 |
+## Shared interfaces
+
+This table is an overview. Exact fields, defaults, constraints, and serialization are defined in the [data contract](docs/DATA_CONTRACTS.md) and `models.py`. All four members reuse DocumentInfo, NoteSection, ProjectState, and the page-map models.
+
+| Data | Main fields | Producer and consumers |
 | --- | --- | --- |
-| PageContent | document_id、original_page、text、extraction_status；preview 可選 | 組員 1 產生，2 和 4 使用 |
-| NoteRequest | document_id、original_page、question、selected_text、language、level、style | 組員 4 建立，2 使用 |
-| GeneratedNote | note_id、document_id、original_page、title、sections、source_pages、status | 組員 2 或手寫流程產生，3 和 4 使用 |
-| ExportResult | output_path、original_to_output_pages、note_to_output_pages | 組員 3 產生，4 展示 |
+| PageContent | document_id, original_page, text, extraction_status; optional preview_path | Member 1 produces; members 2 and 4 consume |
+| NoteRequest | document_id, original_page, question, context_pages, selected_text, language, level, style | Member 4 creates; member 2 consumes |
+| GeneratedNote | note_id, original_page, title, sections, source_pages, status | Member 2 or manual workflow produces; members 3 and 4 consume |
+| ExportResult | output_path, original_to_output_pages, note_to_output_pages | Member 3 produces; member 4 displays |
 
-- 公開 API 頁碼由 1 開始，始終指向原始 PDF；內部函式若從 0 開始，要在邊界轉換。
-- `document_id` 應能偵測來源檔案變更，不能只用檔名識別。
-- 同頁多則筆記使用明確且可保存的順序，並保持每則筆記的段落相連。
-- `sections` 使用可序列化的結構，例如段落種類和文字；生成模組不直接回傳 PDF。
-- 先確定一個固定的筆記範例，讓 2、3、4 可以獨立開發。
-- 更改共同資料格式須通知相關組員，不能各自另開不相容版本。
+- Public page numbers are 1-based and always refer to the original PDF. Convert library-specific indexing at module boundaries.
+- Document identity must detect changed source bytes; filenames alone are insufficient.
+- Persist the order of multiple notes on the same page and keep each note's rendered pages together.
+- Note sections are serializable data, not rendered PDF output from the generator.
+- Use common fixtures so members 2, 3, and 4 can develop independently.
+- Coordinate shared format changes with affected members instead of creating incompatible alternatives.
 
-## 合作與階段交付
+## Collaboration and delivery stages
 
-| 階段 | 組員 1 | 組員 2 | 組員 3 | 組員 4 | 全組驗收 |
+| Stage | Member 1 | Member 2 | Member 3 | Member 4 | Team acceptance |
 | --- | --- | --- | --- | --- | --- |
-| 第一輪 | 讀取與預覽 | 假資料生成 | 假筆記排版 | 共同模型與手寫 API | 手寫筆記能插入並匯出 |
-| 第二輪 | 真實講義及錯誤處理 | 真實模型與模式 | 長文、中文、多筆記 | 編輯、儲存、整合 | 疑問到輸出完整接通 |
-| 第三輪 | 讀取測試及文件 | 生成測試及文件 | 視覺驗證及匯出文件 | 安裝、JupyterHub 驗證 | 發布前檢查及示範 |
+| First | Reading and previews | Fake generation | Fake-note rendering | Shared models and manual API | Manual note can be inserted and exported |
+| Second | Real lectures and error handling | Real provider and explanation styles | Long, Chinese, and multiple notes | Editing, persistence, integration | Complete question-to-export workflow |
+| Third | Reader tests and documentation | Generation tests and documentation | Visual validation and export documentation | Installation and JupyterHub verification | Release checks and demonstration |
 
-每人使用自己的 GitHub 帳戶和功能分支。定期提交真正完成的小修改，開 PR 請另一位組員檢查；不用等整個模組完成才整合。
+Use individual GitHub accounts and feature branches. Submit meaningful increments regularly and request teammate review; do not wait for an entire module before integrating.
 
-建議審查配對：1 與 3 互查原頁保留與頁碼；2 與 4 互查筆記格式、錯誤處理與編輯狀態。涉及共同模型時請受影響成員一起審查。
+Suggested review pairs: members 1 and 3 check page references and source preservation; members 2 and 4 check formats, editing state, and error handling. Shared-model changes involve all affected members.
 
-README 各部分由對應功能負責人補寫；組員 4 協調安裝說明和發布，但測試、文件和簡報由全組共同完成。
+Each feature owner maintains the relevant README sections. Member 4 coordinates installation and release work, while tests, documentation, and presentation remain shared responsibilities.
 
-## 一分鐘共同展示
+## One-minute team demonstration
 
-- 組員 1：約 10 秒，展示講義及選頁。
-- 組員 2：約 15 秒，輸入疑問、展示結構化解說；生成期間接續講解。
-- 組員 4：約 15 秒，預覽、修改並確認筆記。
-- 組員 3：約 20 秒，匯出並展示原頁、補充頁和頁碼對照。
+- Member 1: about 10 seconds to show the lecture and page selection.
+- Member 2: about 15 seconds to ask a question and show structured notes; continue explaining while generation runs.
+- Member 4: about 15 seconds to preview, edit, and confirm the note.
+- Member 3: about 20 seconds to export and show original pages, supplementary pages, and the page map.
 
-事先排練，準備明確標示為預先生成的備用筆記；不要把備用結果描述成即時生成。安裝驗證提前完成，展示保留可查閱的安裝與版本資訊。
+Rehearse and prepare clearly labeled pre-generated backup notes. Do not describe backup output as live generation. Verify installation in advance and keep installation/version evidence available.

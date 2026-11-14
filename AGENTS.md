@@ -6,7 +6,7 @@ Read `README.md`, `TEAM_PLAN.md`, `ROADMAP.md`, `CONTRIBUTING.md`, `docs/DATA_CO
 
 ## Current status and scope
 
-Shared data contracts, validation, JSON fixtures, module Protocol signatures, minimal packaging, and a runnable offline example are now implemented. PDF reading, model calls, PDF rendering, and end-user project orchestration are not implemented. There is no PyPI release. Re-check the current tree for teammate additions. Do not mistake illustrative product APIs for existing code.
+Shared data contracts, validation, JSON fixtures, module Protocol signatures, minimal packaging, and in-memory note management are implemented. Read `docs/PROJECT_WORKFLOW.md` before extending `project.py`; run `python examples/manual_notes_demo.py` for its offline example. PDF reading, model calls, PDF rendering, file save/load, and full end-user orchestration are not implemented. There is no PyPI release. Re-check the current tree for teammate additions. Do not mistake illustrative product APIs for existing code.
 
 Use the existing `noteweaver.models` types and `docs/DATA_CONTRACTS.md`; do not create parallel definitions. Run `python -m unittest discover -s tests -v` for the shared contracts and `python examples/contract_demo.py` for the offline example after installing the checkout. The fixture document hash is synthetic, not a real PDF fingerprint.
 
@@ -41,6 +41,8 @@ Inspect `git status` and existing changes first. Preserve teammate/user edits. U
 Use the actual contributor's configured identity. Do not copy another member's email, invent authors, backdate commits, or create empty commits to manufacture activity. Never overwrite global Git identity automatically. Explain changes so the student can understand and demonstrate their contribution.
 
 ## Validation and delivery
+
+Write repository documentation, code comments, docstrings, demo explanations, and PR descriptions in English for the university assignment. Chinese text may be used as clearly identified sample data or test input to demonstrate bilingual support. This documentation convention does not change the package's supported content languages or shared data contracts.
 
 Run the checks appropriate to the implemented behavior. If packaging/tests do not exist yet, state that and add only the relevant infrastructure for your assigned task. Do not claim an unrun test passed. Generation tests should use a deterministic fake provider; distinguish those checks from any real-provider test. For PDF layout changes, inspect representative rendered output as well as structural checks.
 
