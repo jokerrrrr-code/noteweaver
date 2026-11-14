@@ -13,7 +13,9 @@ The project is planned for four members: member 1 owns A, member 2 owns B, membe
 
 Every contributor should document and test their own module and review another contributor's changes.
 
-## Shared data contracts to agree before implementation
+## Shared data contracts v1
+
+Implemented in `src/noteweaver/models.py`, with signatures in `interfaces.py`, synthetic JSON fixtures, and offline tests. Read [the full contract](docs/DATA_CONTRACTS.md) for exact fields, provenance, draft/approval handling, persistence, and export mappings. Feature modules remain unimplemented.
 
 - `PageContent`: original page number, extracted text, preview, extraction status.
 - `NoteRequest`: target original page number, selected text, question, language, level, style.

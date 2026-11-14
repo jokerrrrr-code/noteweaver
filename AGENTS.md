@@ -2,11 +2,13 @@
 
 ## Read first
 
-Read `README.md`, `TEAM_PLAN.md`, `ROADMAP.md`, `CONTRIBUTING.md`, and the relevant sections of `TEAMMATE_GUIDE.md`. Inspect the current code and Git state before changing anything. This file supplies repository guidance; explicit user instructions and higher-priority system/developer instructions take precedence.
+Read `README.md`, `TEAM_PLAN.md`, `ROADMAP.md`, `CONTRIBUTING.md`, `docs/DATA_CONTRACTS.md`, and the relevant sections of `TEAMMATE_GUIDE.md`. Inspect the current code and Git state before changing anything. This file supplies repository guidance; explicit user instructions and higher-priority system/developer instructions take precedence.
 
 ## Current status and scope
 
-At the time this guide was introduced, this repository contained planning documents only: no implemented Python package, dependency configuration, runnable example, or PyPI release. Re-check the current tree because teammates may have added them since. Do not mistake illustrative APIs or planned paths for existing code.
+Shared data contracts, validation, JSON fixtures, module Protocol signatures, minimal packaging, and a runnable offline example are now implemented. PDF reading, model calls, PDF rendering, and end-user project orchestration are not implemented. There is no PyPI release. Re-check the current tree for teammate additions. Do not mistake illustrative product APIs for existing code.
+
+Use the existing `noteweaver.models` types and `docs/DATA_CONTRACTS.md`; do not create parallel definitions. Run `python -m unittest discover -s tests -v` for the shared contracts and `python examples/contract_demo.py` for the offline example after installing the checkout. The fixture document hash is synthetic, not a real PDF fingerprint.
 
 Build the agreed first-release workflow: text-based lecture PDF → original page and question → generated or manual editable note → review → insert supplementary pages → export a study PDF. Support Chinese and English text. AI explanation is optional; manual-note mode must not require credentials or make model requests. OCR, handwriting recognition, image interpretation, and automatic multi-document topic search are later work.
 

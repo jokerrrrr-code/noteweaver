@@ -1,0 +1,77 @@
+{
+  "document": {
+    "document_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "filename": "demo.pdf",
+    "page_count": 3
+  },
+  "source_path": "local_data/demo.pdf",
+  "requests": [
+    {
+      "request_id": "request-001",
+      "document_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "original_page": 2,
+      "question": "機會成本是否只是實際花掉的金錢？",
+      "context_pages": [
+        2
+      ],
+      "selected_text": "機會成本",
+      "language": "zh-Hant",
+      "level": "first-year",
+      "style": "example"
+    }
+  ],
+  "notes": [
+    {
+      "note_id": "note-001",
+      "document_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "original_page": 2,
+      "title": "機會成本：不只有金錢",
+      "sections": [
+        {
+          "kind": "explanation",
+          "content": "機會成本是放棄的最佳替代方案價值，不只限於金錢支出。",
+          "origin": "lecture"
+        },
+        {
+          "kind": "example",
+          "content": "假設你用一小時參加活動，而最佳替代選擇是溫習，放棄的溫習價值也屬於機會成本。",
+          "origin": "ai"
+        },
+        {
+          "kind": "quiz",
+          "content": "免費活動會不會有機會成本？",
+          "origin": "ai"
+        },
+        {
+          "kind": "answer",
+          "content": "會，仍可能放棄其他有價值的時間用途。",
+          "origin": "ai"
+        }
+      ],
+      "source_pages": [
+        2
+      ],
+      "request_id": "request-001",
+      "language": "zh-Hant",
+      "status": "approved"
+    },
+    {
+      "note_id": "note-002",
+      "document_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "original_page": 3,
+      "title": "我想問的問題",
+      "sections": [
+        {
+          "kind": "personal",
+          "content": "下次課堂問老師一個自己的例子。",
+          "origin": "user"
+        }
+      ],
+      "source_pages": [],
+      "request_id": null,
+      "language": "zh-Hant",
+      "status": "draft"
+    }
+  ],
+  "schema_version": 1
+}

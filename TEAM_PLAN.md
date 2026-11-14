@@ -1,6 +1,6 @@
 # NoteWeaver 四人小組分工草案
 
-目前只建立了規劃文件，以下模組與 API 尚未實作。組員 1–4 是責任代稱，未指定真人或 GitHub 帳戶。
+共用資料模型、驗證、JSON 範例與測試已建立，詳見 [共用資料格式 v1](docs/DATA_CONTRACTS.md)。以下功能模組仍待實作。組員 1–4 是責任代稱，未指定真人或 GitHub 帳戶。
 
 ## 共同目標
 
@@ -70,7 +70,7 @@
 
 建議負責：`src/noteweaver/models.py`、`src/noteweaver/project.py`、`src/noteweaver/__init__.py`、`examples/`、整合測試及套件設定。
 
-第一個任務：與大家確認資料格式，接通「手寫筆記 → 修改 → 儲存／載入」；可以先用假 PDF／匯出介面。
+第一個任務：沿用現有 `models.py` 和 ProjectState，接通「手寫筆記 → 修改 → 儲存／載入」；可以先用假 PDF／匯出介面，不另建共同模型。
 
 完成標準：使用者透過公開 API 完成完整流程；保存和重新開啟後，筆記內容及定位一致；手寫模式不需要 AI 金鑰。
 
@@ -78,7 +78,7 @@
 
 ## 第一天共同確認的介面
 
-以下為設計草案；在開始各自實作前共同確認，再由組員 4 落實到 `models.py`。
+以下是概覽，精確欄位、預設值、限制和序列化以 [共用資料格式 v1](docs/DATA_CONTRACTS.md) 及已實作的 `models.py` 為準。新增 DocumentInfo、NoteSection、ProjectState 及頁碼對照子模型，四人直接沿用。
 
 | 資料 | 最少欄位 | 產生／使用 |
 | --- | --- | --- |

@@ -1,0 +1,27 @@
+{
+  "document_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "output_path": "generated/demo_with_notes.pdf",
+  "output_page_count": 4,
+  "original_to_output_pages": [
+    {
+      "original_page": 1,
+      "output_page": 1
+    },
+    {
+      "original_page": 2,
+      "output_page": 2
+    },
+    {
+      "original_page": 3,
+      "output_page": 4
+    }
+  ],
+  "note_to_output_pages": [
+    {
+      "note_id": "note-001",
+      "output_pages": [
+        3
+      ]
+    }
+  ]
+}
