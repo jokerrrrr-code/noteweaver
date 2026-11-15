@@ -11,7 +11,7 @@ Shared data contracts v1, in-memory note management, and verified project save/l
 From this checkout in a Python 3.10+ virtual environment:
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[preview]"
 python examples/contract_demo.py
 python examples/manual_notes_demo.py
 python examples/persistence_demo.py
@@ -21,6 +21,14 @@ python -m unittest discover -s tests -v
 The demos are offline and use synthetic document metadata; they do not create a PDF or call an AI model. The persistence demo writes real JSON and source-byte fixtures in a temporary directory and removes them afterward. See the [manual note workflow guide](docs/PROJECT_WORKFLOW.md) for the new API and its return values. Install this checkout, not an unrelated package with the same name on PyPI. Read the [shared data contracts v1](docs/DATA_CONTRACTS.md) before implementing any module.
 
 Repository documentation and code explanations are written in English. Chinese sample text in the shared fixtures and tests demonstrates bilingual content support.
+
+## Try the English notebook demo
+
+Open [the manual workflow notebook](examples/manual_workflow_demo.ipynb) using
+[the notebook setup guide](docs/NOTEBOOK_DEMO.md). It connects the real PDF reader
+to manual note editing, approval, and verified save/reload. Run it to see the
+page preview and results; committed outputs are cleared. No AI key is required.
+AI generation and study-PDF export are not part of this demo.
 
 ## Planned workflow
 
@@ -49,6 +57,7 @@ Source references indicate where context came from; they do not guarantee that a
 
 ## Project documents
 
+- [Member 4: English notebook demo and setup](docs/NOTEBOOK_DEMO.md)
 - [Member 4: project saving, loading, and source verification](docs/PERSISTENCE.md)
 - [Member 4: manual note workflow and examples](docs/PROJECT_WORKFLOW.md)
 - [Shared data contracts v1: fields, rules, and interfaces](docs/DATA_CONTRACTS.md)
