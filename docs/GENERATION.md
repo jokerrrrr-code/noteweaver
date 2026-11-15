@@ -11,6 +11,9 @@ Turn lecture page text and a student question into an editable structured draft 
 - Run `validate_generation` before returning so other members can trust the shape.
 - Isolate any live AI service behind a replaceable `NoteProvider`; never write API keys into project files or Git.
 
+For a complete PDF-to-draft workflow, use `generate_note()` and `GroqProvider`
+as documented in [Groq setup](GROQ_SETUP.md).
+
 ## Quick start (offline)
 
 ```python
@@ -66,7 +69,8 @@ class NoteProvider(Protocol):
   - `NOTEWEAVER_BASE_URL` (default `https://api.openai.com/v1`)
   - `NOTEWEAVER_MODEL` (default `gpt-4o-mini`)
 
-Keys stay in the process environment; they are never written to disk by this package.
+Keys are read from the environment or explicit constructor arguments and held
+in memory; they are never written to disk by the providers.
 
 ## Error behaviour
 
@@ -96,8 +100,9 @@ validates identity and structure, not the factual accuracy of generated content.
 `tests/test_generation_validation.py` adds offline regressions for preflight
 rejection without provider calls, strict mocked HTTP responses, bilingual
 success cases, and integration with editing and verified persistence. These
-checks never contact a real service. The existing live test runs only when an
-API key is present; unset both key variables when running an offline full suite.
+checks never contact a real service. The existing live test requires both an API key and explicit
+`NOTEWEAVER_RUN_OPENAI_TESTS=1`. Ordinary test runs remain offline even when
+credentials are configured.
 
 ```bash
 python -m unittest discover -s tests -p 'test_generation_validation.py' -v
@@ -105,7 +110,7 @@ python -m unittest discover -s tests -p 'test_generation_validation.py' -v
 # Offline suite (always runs)
 python -m unittest tests.test_generation.FakeProviderTests -v
 
-# Full generation tests (live tests skip without a key)
+# Full generation tests (live tests skip without explicit opt-in and a key)
 python -m unittest tests.test_generation -v
 ```
 
@@ -113,6 +118,6 @@ python -m unittest tests.test_generation -v
 
 - **Member 1**: supply `PageContent` with `extraction_status="ok"` via `read_page` / `read_neighboring_pages`. The generator never opens the PDF itself.
 - **Member 3**: consume the returned `GeneratedNote` (still `draft` until Member 4 approves it). Layout should respect `origin` if you want visual distinction between lecture and AI material.
-- **Member 4**: call `generator.generate(...)`, then attach the note (and the original `NoteRequest`) to the `ProjectState`. Keep the request history for later regeneration.
+- **Member 4**: the public `generate_note()` operation now creates the request, calls the generator, and attaches both to a new `ProjectState` only on success. The lower-level generator remains available for custom context handling.
 
 Do not implement PDF loading, note rendering, or the full Jupyter workflow inside this module.

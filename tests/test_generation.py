@@ -1,7 +1,7 @@
 """Tests for Member 2 NoteGenerator and providers.
 
 Fake-provider tests always run (offline). Live-provider tests are skipped
-unless NOTEWEAVER_API_KEY or OPENAI_API_KEY is set in the environment.
+unless NOTEWEAVER_RUN_OPENAI_TESTS=1 and an API key are explicitly configured.
 """
 
 from __future__ import annotations
@@ -194,8 +194,9 @@ class FakeProviderTests(unittest.TestCase):
 
 
 @unittest.skipUnless(
-    os.environ.get("NOTEWEAVER_API_KEY") or os.environ.get("OPENAI_API_KEY"),
-    "live provider tests require NOTEWEAVER_API_KEY or OPENAI_API_KEY",
+    os.environ.get("NOTEWEAVER_RUN_OPENAI_TESTS") == "1"
+    and (os.environ.get("NOTEWEAVER_API_KEY") or os.environ.get("OPENAI_API_KEY")),
+    "live provider tests require explicit NOTEWEAVER_RUN_OPENAI_TESTS=1 and an API key",
 )
 class LiveProviderTests(unittest.TestCase):
     """Optional live-service tests; skipped when no API key is present."""
