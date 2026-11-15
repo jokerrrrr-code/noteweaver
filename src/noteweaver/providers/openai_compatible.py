@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import ssl
 import urllib.error
 import urllib.request
 from uuid import uuid4
@@ -128,6 +129,7 @@ class OpenAICompatibleProvider:
             data=data,
             headers={
                 "Content-Type": "application/json",
+                "User-Agent": "NoteWeaver/0.0.1",
                 "Authorization": f"Bearer {key}",
             },
             method="POST",
@@ -145,7 +147,12 @@ class OpenAICompatibleProvider:
                 429: "Provider rate limit reached; wait and retry. Your notes are unchanged.",
             }
             raise GenerationError(messages.get(exc.code, f"Provider HTTP error: {exc.code}")) from None
-        except urllib.error.URLError:
+        except urllib.error.URLError as error:
+            if isinstance(error.reason, ssl.SSLCertVerificationError):
+                raise GenerationError(
+                    "HTTPS certificate verification failed; configure a trusted CA bundle "
+                    "for Python (for example with SSL_CERT_FILE). Do not disable verification."
+                ) from None
             raise GenerationError("Provider connection failed; check your connection and endpoint.") from None
         except TimeoutError:
             raise GenerationError("provider request timed out") from None

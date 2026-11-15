@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import ssl
 import tempfile
 import unittest
 from unittest.mock import Mock, patch
@@ -59,6 +60,7 @@ class GroqWorkflowTests(unittest.TestCase):
         body = json.loads(request.data)
         self.assertEqual(request.full_url, "https://api.groq.com/openai/v1/chat/completions")
         self.assertEqual(request.get_header("Authorization"), f"Bearer {DUMMY_KEY}")
+        self.assertEqual(request.get_header("User-agent"), "NoteWeaver/0.0.1")
         self.assertEqual(body["model"], "openai/gpt-oss-20b")
         self.assertEqual(body["response_format"], {"type": "json_object"})
         self.assertEqual(body["max_completion_tokens"], 4096)
@@ -102,6 +104,7 @@ class GroqWorkflowTests(unittest.TestCase):
             (HTTPError("https://example.invalid", 429, DUMMY_KEY, None, None), "rate limit"),
             (TimeoutError(DUMMY_KEY), "timed out"),
             (URLError(DUMMY_KEY), "connection failed"),
+            (URLError(ssl.SSLCertVerificationError(1, DUMMY_KEY)), "certificate verification failed"),
         ]
         for error, message in errors:
             with self.subTest(error=type(error).__name__):

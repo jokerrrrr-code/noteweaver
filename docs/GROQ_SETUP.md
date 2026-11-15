@@ -134,6 +134,12 @@ models and persisted JSON schemas have not changed.
 - Missing/rejected key: configure a valid Groq key and rerun deliberately.
 - HTTP 429: wait for the applicable quota window, then retry; no paid fallback.
 - Timeout/network failure: check the connection before retrying.
+- HTTPS certificate verification failure: configure Python's trusted CA bundle.
+  On macOS, if `/etc/ssl/cert.pem` exists, you can run the demo with
+  `SSL_CERT_FILE=/etc/ssl/cert.pem python examples/groq_notes_demo.py`.
+  Use your platform's maintained CA bundle; never disable certificate checks.
+  The provider identifies itself with a NoteWeaver User-Agent header because
+  API gateways may reject Python urllib's default client header.
 - Malformed response: no draft is attached; previous notes remain available.
 - Invalid page/context or changed source: rejected before sending where possible;
   a source change during generation also prevents attachment.
