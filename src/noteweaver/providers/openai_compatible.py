@@ -117,40 +117,46 @@ class OpenAICompatibleProvider:
 
         try:
             content = payload["choices"][0]["message"]["content"]
+            if type(content) is not str:
+                raise ValueError("message content must be a JSON string")
             parsed = json.loads(content)
-            title = str(parsed["title"]).strip()
+            if type(parsed) is not dict:
+                raise ValueError("note payload must be an object")
+            title = parsed["title"]
             raw_sections = parsed["sections"]
-        except (KeyError, TypeError, IndexError, json.JSONDecodeError) as exc:
-            raise GenerationError("provider returned malformed note payload") from None
+            if type(title) is not str or not title.strip():
+                raise ValueError("title must be nonblank text")
+            if type(raw_sections) is not list or not raw_sections:
+                raise ValueError("sections must be a nonempty array")
 
-        sections: list[NoteSection] = []
-        try:
+            sections: list[NoteSection] = []
             for item in raw_sections:
+                if type(item) is not dict or type(item.get("content")) is not str:
+                    raise ValueError("sections must contain objects with text content")
                 sections.append(
                     NoteSection(
                         kind=item["kind"],
-                        content=str(item["content"]).strip(),
+                        content=item["content"].strip(),
                         origin=item["origin"],
                     )
                 )
-        except (KeyError, TypeError, ValueError) as exc:
-            raise GenerationError("provider sections failed contract checks") from None
 
-        if not sections:
-            raise GenerationError("provider returned empty sections")
-
-        source_pages = tuple(sorted({p.original_page for p in context}))
-        return GeneratedNote(
-            note_id=str(uuid4()),
-            document_id=document.document_id,
-            original_page=request.original_page,
-            title=title,
-            sections=tuple(sections),
-            source_pages=source_pages,
-            request_id=request.request_id,
-            language=request.language,
-            status="draft",
-        )
+            source_pages = tuple(sorted({page.original_page for page in context}))
+            return GeneratedNote(
+                note_id=str(uuid4()),
+                document_id=document.document_id,
+                original_page=request.original_page,
+                title=title.strip(),
+                sections=tuple(sections),
+                source_pages=source_pages,
+                request_id=request.request_id,
+                language=request.language,
+                status="draft",
+            )
+        except (KeyError, TypeError, IndexError, ValueError):
+            # Reject malformed data instead of coercing it to plausible note text.
+            # Do not include raw response content in the public error message.
+            raise GenerationError("provider returned malformed note payload") from None
 
 
 _: NoteProvider = OpenAICompatibleProvider()

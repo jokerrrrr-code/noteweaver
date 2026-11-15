@@ -14,6 +14,8 @@ from noteweaver.models import (
     NoteRequest,
     PageContent,
     validate_generation,
+    validate_page,
+    validate_request,
 )
 from noteweaver.providers.base import GenerationError, NoteProvider
 from noteweaver.providers.fake import FakeNoteProvider
@@ -43,18 +45,21 @@ class NoteGenerator:
             GenerationError: the underlying provider failed (network, auth,
                 malformed reply, forced failure, etc.).
         """
-        # Early structural checks so we fail fast before calling the provider.
-        # validate_generation will re-check after the note is built.
-        if not isinstance(context, tuple):
+        # Validate the full input boundary before a provider can send any text.
+        if type(document) is not DocumentInfo or type(request) is not NoteRequest:
+            raise ContractError("document and request must use the shared model types")
+        validate_request(document, request)
+        if type(context) is not tuple or any(type(page) is not PageContent for page in context):
             raise ContractError("context must be a tuple of PageContent")
-        page_numbers = tuple(p.original_page for p in context)
-        if set(page_numbers) != set(request.context_pages):
-            raise ContractError(
-                "actual context must match request.context_pages exactly"
-            )
         for page in context:
+            validate_page(document, page)
             if page.extraction_status != "ok":
                 raise ContractError("generation needs successfully extracted text")
+        page_numbers = tuple(page.original_page for page in context)
+        if len(set(page_numbers)) != len(page_numbers):
+            raise ContractError("context must not contain duplicate pages")
+        if set(page_numbers) != set(request.context_pages):
+            raise ContractError("actual context must match request.context_pages exactly")
 
         try:
             note = self._provider.generate(document, request, context)
@@ -64,6 +69,8 @@ class NoteGenerator:
             raise GenerationError(f"provider failed unexpectedly: {type(exc).__name__}") from None
 
         # Enforce draft status and full shared validation before returning.
+        if type(note) is not GeneratedNote:
+            raise GenerationError("provider must return a GeneratedNote")
         if note.status != "draft":
             # Providers should already return draft; defend the contract.
             raise ContractError("new generated notes must be drafts")
