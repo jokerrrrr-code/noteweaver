@@ -7,8 +7,7 @@ This module implements `PDFReader` (from `src/noteweaver/interfaces.py`) in `src
 Install the local checkout and PDF dependencies (`pypdf` for text extraction; `pypdfium2` and `pillow` for high-resolution page preview rendering):
 
 ```bash
-python -m pip install -e .
-python -m pip install pypdf pypdfium2 pillow
+python -m pip install -e ".[preview]"
 python examples/pdf_reader_demo.py
 python -m unittest discover -s tests -v
 ```
@@ -48,5 +47,49 @@ Import `PDFReader`, `PagePreview`, and convenience functions from `noteweaver.pd
 
    reader = PDFReader(preview_dir="generated/previews")
    page2 = reader.read_page("examples/data/sample_lecture_3p.pdf", 2)
-   display(Image(filename=page2.preview_path))
+   if page2.preview_path is not None:
+       display(Image(filename=page2.preview_path))
+   else:
+       print("Preview unavailable; extracted text is still accessible.")
    ```
+
+
+## Preview failures and source safety
+
+Previews render the actual PDF page using PDFium and Pillow. The reader never
+substitutes extracted text or a blank placeholder for a failed rendering.
+
+- `read_page()` treats a preview as optional. Missing rendering dependencies,
+  rendering failures, or write failures emit `PreviewWarning` and return
+  `preview_path=None`. Extracted text, `extraction_status`, and `error_message`
+  retain their text-extraction meaning. A stale cached image is not returned.
+- `preview_page()` explicitly requests an image. Missing dependencies or failed
+  rendering raise `PreviewError`; file-write failures raise `OSError` subclasses.
+  Import these exception classes from `noteweaver.pdf_reader`.
+- For text only, use `PDFReader(render_preview=False)` or pass
+  `render_preview=False` to `read_page()`. Only the base installation is needed.
+- Output paths referring to the source PDF, including normalized paths and hard
+  links, raise `ContractError`. Symbolic-link destinations are also rejected.
+  These checks apply to explicit output paths and generated cache paths. Invalid
+  destinations are errors even when previews are optional.
+- Preview files are written to a temporary file and atomically replaced, so a
+  failed write does not truncate an existing preview. Rendering scales must be
+  positive and finite.
+
+## Bilingual fixture and verification
+
+The three-page sample embeds a licensed Chinese font subset. Its original
+English and Chinese lecture text and 1-based page order are preserved. See the
+[font provenance and rebuild instructions](../examples/data/fonts/README.md).
+The subset is fixture-specific; it must not be used to render arbitrary notes.
+This fixture fix does not repair missing or incorrect fonts in user-supplied PDFs.
+
+Regenerating the sample changes its document fingerprint. Recreate projects tied
+to the previous sample instead of bypassing source verification. Shared models,
+persisted JSON schemas, and page-anchor semantics remain unchanged.
+
+`tests/test_pdf_preview_safety.py` checks source aliases, cache aliases, absent
+rendering dependencies, rendering and write failures, preservation of extraction
+errors, invalid scales, and embedded font resources. Also visually inspect all
+three pages after changing the fixture: successful text extraction alone cannot
+prove that the displayed glyphs are correct.

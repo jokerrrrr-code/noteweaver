@@ -7,11 +7,12 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 import html
 import io
+import math
+import os
 from pathlib import Path
 import re
-import struct
 import tempfile
-import zlib
+import warnings
 
 import pypdf
 from pypdf.errors import PdfReadError, PdfStreamError
@@ -96,75 +97,92 @@ def _open_pdf_reader(path: Path) -> pypdf.PdfReader:
     return reader
 
 
-def _minimal_png_bytes(width: int = 320, height: int = 420) -> bytes:
-    """Create a valid minimal light-gray PNG using only the Python standard library."""
-    raw_rows = bytearray()
-    for y in range(height):
-        raw_rows.append(0)
-        border = y in (0, height - 1)
-        for x in range(width):
-            if border or x in (0, width - 1):
-                raw_rows.extend((30, 58, 95))
-            else:
-                raw_rows.extend((248, 250, 252))
-
-    def _chunk(tag: bytes, payload: bytes) -> bytes:
-        crc = zlib.crc32(tag + payload) & 0xFFFFFFFF
-        return struct.pack(">I", len(payload)) + tag + payload + struct.pack(">I", crc)
-
-    ihdr = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
-    idat = zlib.compress(bytes(raw_rows), level=6)
-    return b"\x89PNG\r\n\x1a\n" + _chunk(b"IHDR", ihdr) + _chunk(b"IDAT", idat) + _chunk(b"IEND", b"")
+class PreviewError(RuntimeError):
+    """A real PDF page preview could not be rendered; no substitute image is returned."""
 
 
-def _render_page_png_bytes(
-    source_path: Path,
-    original_page: int,
-    *,
-    scale: float = 2.0,
-    fallback_text: str = "",
-) -> bytes:
-    """Render a 1-based PDF page to PNG bytes for preview files and notebooks."""
-    if type(scale) not in (int, float) or scale <= 0:
-        raise ContractError("preview_scale must be a positive number")
+class PreviewWarning(RuntimeWarning):
+    """Text extraction completed, but its optional page preview is unavailable."""
 
-    page_index = original_page - 1
 
+def _validate_scale(scale: float) -> None:
+    if type(scale) not in (int, float) or not math.isfinite(scale) or scale <= 0:
+        raise ContractError("preview scale must be a positive finite number")
+
+
+def _preview_destination(source: Path, destination: Path) -> Path:
+    """Reject source aliases before creating directories or writing preview bytes."""
+    if "\0" in str(destination):
+        raise ContractError("preview destination must not contain null characters")
+    if destination.is_symlink():
+        raise ContractError("preview destination must not be a symbolic link")
+    resolved = destination.resolve()
+    if resolved == source.resolve() or (resolved.exists() and resolved.samefile(source)):
+        raise ContractError("preview destination must not be the source PDF or its alias")
+    if resolved.is_dir():
+        raise IsADirectoryError(f"preview destination is a directory: {resolved}")
+    return resolved
+
+
+def _write_preview(destination: Path, png_bytes: bytes) -> None:
+    """Publish a complete preview without truncating an existing file on failure."""
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="wb", dir=destination.parent, prefix=".noteweaver-preview-",
+            suffix=".tmp", delete=False,
+        ) as stream:
+            temporary = Path(stream.name)
+            stream.write(png_bytes)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, destination)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def _render_page_png_bytes(source_path: Path, original_page: int, *, scale: float = 2.0) -> bytes:
+    """Render the actual PDF page, or raise PreviewError. Never fabricate a preview."""
+    _validate_scale(scale)
+    dependency_message = (
+        "PDF preview dependencies are unavailable. From the repository, run "
+        "python -m pip install -e '.[preview]', or use render_preview=False for text only."
+    )
     try:
         import pypdfium2 as pdfium  # type: ignore[import-not-found]
+    except ImportError as error:
+        raise PreviewError(dependency_message) from error
 
+    try:
         pdf_doc = pdfium.PdfDocument(str(source_path))
         try:
-            pdf_page = pdf_doc[page_index]
+            pdf_page = pdf_doc[original_page - 1]
             try:
                 bitmap = pdf_page.render(scale=float(scale))
-                pil_image = bitmap.to_pil()
-                buffer = io.BytesIO()
-                pil_image.save(buffer, format="PNG")
-                return buffer.getvalue()
+                try:
+                    pil_image = bitmap.to_pil()
+                    try:
+                        with io.BytesIO() as buffer:
+                            pil_image.save(buffer, format="PNG")
+                            return buffer.getvalue()
+                    finally:
+                        pil_image.close()
+                finally:
+                    bitmap.close()
             finally:
                 pdf_page.close()
         finally:
             pdf_doc.close()
-    except Exception:
-        pass
-
-    try:
-        from PIL import Image, ImageDraw  # type: ignore[import-not-found]
-
-        image = Image.new("RGB", (600, 840), color=(255, 255, 255))
-        draw = ImageDraw.Draw(image)
-        draw.rectangle([20, 20, 580, 72], fill=(30, 58, 95))
-        draw.text((36, 38), f"{source_path.name} - Original Page {original_page}", fill=(255, 255, 255))
-        y = 96
-        for line in (fallback_text or "[No extractable text on this page]").splitlines()[:28]:
-            draw.text((36, y), line[:72], fill=(31, 41, 55))
-            y += 24
-        buffer = io.BytesIO()
-        image.save(buffer, format="PNG")
-        return buffer.getvalue()
-    except Exception:
-        return _minimal_png_bytes()
+    except ImportError as error:
+        raise PreviewError(dependency_message) from error
+    except Exception as error:
+        # Do not expose arbitrary renderer exception text in user-facing messages.
+        raise PreviewError(
+            f"Could not render original page {original_page} ({type(error).__name__}). "
+            "No preview image was created."
+        ) from error
 
 
 @dataclass(frozen=True)
@@ -234,8 +252,7 @@ class PDFReader:
     ) -> None:
         if type(render_preview) is not bool:
             raise ContractError("render_preview must be a boolean")
-        if type(preview_scale) not in (int, float) or preview_scale <= 0:
-            raise ContractError("preview_scale must be a positive number")
+        _validate_scale(preview_scale)
         if preview_dir is not None:
             if not isinstance(preview_dir, (str, Path)) or (
                 isinstance(preview_dir, str) and not preview_dir.strip()
@@ -266,9 +283,8 @@ class PDFReader:
         else:
             target_dir = Path(tempfile.gettempdir()) / "noteweaver_previews"
 
-        target_dir.mkdir(parents=True, exist_ok=True)
         short_hash = document.document_id.removeprefix("sha256:")[:16]
-        return (target_dir / f"{short_hash}_page_{original_page}.png").resolve()
+        return target_dir / f"{short_hash}_page_{original_page}.png"
 
     def inspect(self, source: str | Path) -> DocumentInfo:
         """Read page count and compute SHA-256 document identity without modifying source."""
@@ -335,15 +351,21 @@ class PDFReader:
         should_render = self.render_preview if render_preview is None else render_preview
         preview_path_str: str | None = None
         if should_render:
-            preview_file = self._resolve_preview_file(document, original_page, preview_dir)
-            png_bytes = _render_page_png_bytes(
-                path,
-                original_page,
-                scale=self.preview_scale,
-                fallback_text=text,
+            # Invalid destinations are programmer errors, not rendering warnings.
+            preview_file = _preview_destination(
+                path, self._resolve_preview_file(document, original_page, preview_dir)
             )
-            preview_file.write_bytes(png_bytes)
-            preview_path_str = str(preview_file)
+            try:
+                png_bytes = _render_page_png_bytes(path, original_page, scale=self.preview_scale)
+                _write_preview(preview_file, png_bytes)
+            except (PreviewError, OSError) as error:
+                reason = str(error) if isinstance(error, PreviewError) else type(error).__name__
+                warnings.warn(
+                    f"Preview unavailable for original page {original_page}: {reason}",
+                    PreviewWarning, stacklevel=2,
+                )
+            else:
+                preview_path_str = str(preview_file)
 
         page_content = PageContent(
             document_id=document.document_id,
@@ -425,8 +447,7 @@ class PDFReader:
         """Render a notebook-displayable PagePreview (supports _repr_png_ and _repr_html_)."""
         _validate_page_number(original_page, "original_page")
         effective_scale = self.preview_scale if scale is None else scale
-        if type(effective_scale) not in (int, float) or effective_scale <= 0:
-            raise ContractError("scale must be a positive number")
+        _validate_scale(effective_scale)
 
         path = _validate_source_path(source)
         document = self.inspect(path)
@@ -439,18 +460,13 @@ class PDFReader:
                 raise ContractError("output_path must be a nonblank string or Path")
             if "\0" in str(output_path):
                 raise ContractError("output_path must not contain null characters")
-            preview_file = Path(output_path).resolve()
-            preview_file.parent.mkdir(parents=True, exist_ok=True)
+            preview_file = Path(output_path)
         else:
             preview_file = self._resolve_preview_file(document, original_page)
 
-        png_bytes = _render_page_png_bytes(
-            path,
-            original_page,
-            scale=float(effective_scale),
-            fallback_text=page_content.text,
-        )
-        preview_file.write_bytes(png_bytes)
+        preview_file = _preview_destination(path, preview_file)
+        png_bytes = _render_page_png_bytes(path, original_page, scale=float(effective_scale))
+        _write_preview(preview_file, png_bytes)
 
         updated_page = PageContent(
             document_id=page_content.document_id,
@@ -497,4 +513,4 @@ def preview_pdf_page(
     """Convenience function to produce a Jupyter-displayable PagePreview for a 1-based page."""
     return PDFReader(preview_scale=scale).preview_page(
         source, original_page, output_path=output_path, scale=scale
-      )
+    )
