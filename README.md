@@ -4,7 +4,7 @@ Turn questions about lecture slides into editable supplementary notes inserted a
 
 ## Status
 
-Shared data contracts v1, in-memory note management, and verified project save/load are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, filter the note list, and save/reopen JSON files while checking source fingerprints. PDF inspection, bilingual text extraction, and page previews are also implemented; see [PDF reader setup and behavior](docs/PDF_READER.md). AI generation, supplementary-note rendering, PDF export, and the complete end-user workflow are not implemented yet. Nothing has been published on PyPI; the distribution name remains provisional.
+Shared data contracts v1, in-memory note management, and verified project save/load are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, filter the note list, and save/reopen JSON files while checking source fingerprints. PDF inspection, bilingual text extraction, and page previews are also implemented; see [PDF reader setup and behavior](docs/PDF_READER.md). Structured note generation and a Groq-backed question-to-draft workflow are implemented. Supplementary-note rendering, PDF export, and the complete question-to-export workflow remain pending. Nothing has been published on PyPI; the distribution name remains provisional.
 
 ## Try the shared contracts locally
 
@@ -29,6 +29,18 @@ Open [the manual workflow notebook](examples/manual_workflow_demo.ipynb) using
 to manual note editing, approval, and verified save/reload. Run it to see the
 page preview and results; committed outputs are cleared. No AI key is required.
 AI generation and study-PDF export are not part of this demo.
+
+## Generate notes with Groq
+
+Follow [Groq setup and the public generation API](docs/GROQ_SETUP.md), or open
+[the English generation notebook](examples/generation_workflow_demo.ipynb).
+Use `GroqProvider` with your own Groq key for live generation; the notebook
+starts in explicitly labeled offline mode. There is no automatic paid fallback.
+
+```bash
+python examples/groq_notes_demo.py --offline  # Fixed test content; no API call.
+python examples/groq_notes_demo.py            # Real Groq request; hidden key prompt.
+```
 
 ## Planned workflow
 

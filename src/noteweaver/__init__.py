@@ -24,7 +24,8 @@ from .project import (
 )
 from .persistence import load_project, save_project
 from .generation import NoteGenerator, default_generator
-from .providers import GenerationError, FakeNoteProvider, NoteProvider, OpenAICompatibleProvider
+from .workflow import generate_note
+from .providers import GenerationError, FakeNoteProvider, NoteProvider, OpenAICompatibleProvider, GroqProvider
 
 __all__ = [
     "SCHEMA_VERSION", "ContractError", "DocumentInfo", "ExportResult",
@@ -35,6 +36,6 @@ __all__ = [
     "add_manual_note", "approve_note", "create_project", "delete_note", "list_notes",
     "update_note",
     "load_project", "save_project",
-    "NoteGenerator", "default_generator",
+    "NoteGenerator", "default_generator", "generate_note", "GroqProvider",
     "GenerationError", "FakeNoteProvider", "NoteProvider", "OpenAICompatibleProvider",
 ]

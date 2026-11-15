@@ -74,7 +74,7 @@ Acceptance: short, long, and multiple notes export correctly; Chinese glyphs ren
 
 Suggested files: `src/noteweaver/project.py`, `src/noteweaver/__init__.py`, project and integration tests, and `examples/`. Coordinate shared changes to `models.py` and `pyproject.toml` rather than replacing them.
 
-Current progress: in-memory manual-note creation, editing, approval, deletion, filtering, and JSON file save/load with source verification are implemented. The [English notebook demo](docs/NOTEBOOK_DEMO.md) now integrates the real PDF reader with editing, approval, and verified save/load. Next, integrate generation and export when those implementations are available. Reuse ProjectState and the existing model definitions.
+Current progress: in-memory manual-note creation, editing, approval, deletion, filtering, and JSON file save/load with source verification are implemented. The [English notebook demo](docs/NOTEBOOK_DEMO.md) now integrates the real PDF reader with editing, approval, and verified save/load. The [Groq generation workflow](docs/GROQ_SETUP.md) also connects the reader and generator to editable drafts and request history. Next, integrate PDF export when its implementation is available. Reuse ProjectState and the existing model definitions.
 
 Acceptance: the public API supports the complete workflow; content and anchors survive save/reload; manual mode works without AI credentials.
 

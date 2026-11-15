@@ -4,6 +4,9 @@ Open [`examples/manual_workflow_demo.ipynb`](../examples/manual_workflow_demo.ip
 for a guided demonstration of the implemented manual workflow with a real PDF.
 No AI provider, credentials, or model request is involved.
 
+For optional real AI generation, see the separate [Groq generation notebook
+and setup guide](GROQ_SETUP.md). This manual notebook remains API-free.
+
 ## Setup and launch
 
 From the repository root, activate a Python 3.10+ virtual environment, then run:

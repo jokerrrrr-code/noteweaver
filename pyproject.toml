@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "noteweaver"
 version = "0.0.1.dev0"
-description = "Shared data contracts for lecture-linked supplementary notes"
+description = "Lecture-linked notes with PDF reading, AI drafts, editing, and project persistence"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
