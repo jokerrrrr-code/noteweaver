@@ -7,6 +7,7 @@ Turn lecture page text and a student question into an editable structured draft 
 - Accept a `DocumentInfo`, a `NoteRequest`, and the exact `tuple[PageContent, ...]` that matches `request.context_pages`.
 - Return a `GeneratedNote` with `status="draft"`.
 - Distinguish lecture-derived sections (`origin="lecture"`) from model-added material (`origin="ai"`).
+- Validate shared input types, document identity, page bounds, unique context pages, and extraction status before invoking a provider.
 - Run `validate_generation` before returning so other members can trust the shape.
 - Isolate any live AI service behind a replaceable `NoteProvider`; never write API keys into project files or Git.
 
@@ -71,14 +72,36 @@ Keys stay in the process environment; they are never written to disk by this pac
 
 | Situation | Exception | Notes |
 | --- | --- | --- |
-| Context pages ≠ `request.context_pages` | `ContractError` | Fail before calling the provider |
+| Invalid input types, wrong document, out-of-range/duplicate pages, or context pages ≠ `request.context_pages` | `ContractError` | Fail before calling the provider; no lecture text is sent |
 | Any context page not `extraction_status="ok"` | `ContractError` | Generation needs selectable text |
 | Provider network / auth / timeout / malformed reply | `GenerationError` | Safe to retry; no key material in the message |
 | Result has `status != "draft"` or cites pages outside context | `ContractError` | After the provider returns |
 
+## Strict response handling
+
+The live provider requires a JSON object with a nonblank string `title` and a
+nonempty `sections` array. Each section must be an object with valid shared
+`kind`/`origin` values and nonblank string `content`. Numbers, booleans, nulls,
+arrays, and objects are not converted into note text. Invalid response shapes
+raise `GenerationError` with a generic message that excludes the raw payload.
+Valid English/Chinese text and internal line breaks are preserved; surrounding
+whitespace is trimmed. The returned note remains a draft.
+
+Input validation runs before the provider call, while output validation still
+runs afterward. A rejected request does not consume a provider call. This
+validates identity and structure, not the factual accuracy of generated content.
+
 ## Tests
 
+`tests/test_generation_validation.py` adds offline regressions for preflight
+rejection without provider calls, strict mocked HTTP responses, bilingual
+success cases, and integration with editing and verified persistence. These
+checks never contact a real service. The existing live test runs only when an
+API key is present; unset both key variables when running an offline full suite.
+
 ```bash
+python -m unittest discover -s tests -p 'test_generation_validation.py' -v
+
 # Offline suite (always runs)
 python -m unittest tests.test_generation.FakeProviderTests -v
 
