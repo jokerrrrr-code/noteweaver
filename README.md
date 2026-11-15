@@ -4,7 +4,7 @@ Turn questions about lecture slides into editable supplementary notes inserted a
 
 ## Status
 
-Shared data contracts v1, in-memory note management, and verified project save/load are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, filter the note list, and save/reopen JSON files while checking source fingerprints. PDF reading, AI generation, rendering, and the complete end-user workflow are not implemented yet. Nothing has been published on PyPI; the distribution name remains provisional.
+Shared data contracts v1, in-memory note management, and verified project save/load are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, filter the note list, and save/reopen JSON files while checking source fingerprints. PDF inspection, bilingual text extraction, and page previews are also implemented; see [PDF reader setup and behavior](docs/PDF_READER.md). AI generation, supplementary-note rendering, PDF export, and the complete end-user workflow are not implemented yet. Nothing has been published on PyPI; the distribution name remains provisional.
 
 ## Try the shared contracts locally
 
