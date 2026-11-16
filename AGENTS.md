@@ -2,6 +2,7 @@
 
 ## Read first
 
+
 Read `README.md`, `TEAM_PLAN.md`, `ROADMAP.md`, `CONTRIBUTING.md`, `docs/DATA_CONTRACTS.md`, and the relevant sections of `TEAMMATE_GUIDE.md`. Inspect the current code and Git state before changing anything. This file supplies repository guidance; explicit user instructions and higher-priority system/developer instructions take precedence.
 
 For repository navigation, use `docs/README.md` and `examples/README.md`. Keep the user-facing status in README.md, the roadmap, and evaluation evidence consistent with the implemented behavior.
