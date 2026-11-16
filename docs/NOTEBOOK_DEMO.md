@@ -1,4 +1,6 @@
-# Member 4: English Notebook Demo
+# Manual Notebook Demo
+
+[Repository home](../README.md) · [Documentation index](README.md)
 
 Open [`examples/manual_workflow_demo.ipynb`](../examples/manual_workflow_demo.ipynb)
 for a guided demonstration of the implemented manual workflow with a real PDF.

@@ -1,4 +1,6 @@
-# Member 1: PDF Loading, Text Extraction, and Page Previews
+# PDF Loading, Text Extraction, and Page Previews
+
+[Repository home](../README.md) · [Documentation index](README.md)
 
 This module implements `PDFReader` (from `src/noteweaver/interfaces.py`) in `src/noteweaver/pdf_reader.py`. It loads text-based lecture PDFs, computes stable SHA-256 document identities via `document_id_for_file()`, extracts 1-based page text while distinguishing `ok`, `empty`, and `error` states, validates page bounds with `validate_page()`, and generates page previews ready for Jupyter Notebooks.
 

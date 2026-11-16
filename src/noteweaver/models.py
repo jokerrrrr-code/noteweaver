@@ -1,4 +1,4 @@
-"""Version-1 shared contracts. No PDF reader, renderer, or AI provider is included."""
+"""Version-1 shared data contracts; PDF and provider operations live in other modules."""
 
 from __future__ import annotations
 

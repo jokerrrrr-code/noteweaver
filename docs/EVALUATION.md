@@ -1,0 +1,141 @@
+# Evaluator Guide
+
+[Repository home](../README.md) · [Quick start](QUICKSTART.md) · [Repository map](README.md)
+
+This guide identifies what can be run today, what the checks demonstrate, and
+where to inspect individual contributions. It is not a claim that every
+assignment requirement is already complete.
+
+## Current deliverable
+
+NoteWeaver is an installable development Python package with English Jupyter
+walkthroughs. It connects a real lecture PDF to original-page-anchored manual or
+AI-generated drafts, explicit review/editing, and source-verified JSON save/load.
+Supplementary-page layout and study-PDF export remain pending.
+
+The workflow preserves a note's ID and original page when edited, invalidates
+old approval after edits, records generation requests, and rejects changed
+source PDFs on reopening. These reusable operations are implemented separately
+from the replaceable AI provider. They also work with manually written notes.
+
+## Reproduce the offline checks
+
+First follow [Quick start](QUICKSTART.md) to install the checkout with
+`.[preview]`. Then run from the repository root:
+
+```bash
+python examples/pdf_reader_demo.py
+python examples/groq_notes_demo.py --offline
+python -m unittest discover -s tests -v
+python -m pip check
+```
+
+| Check | Expected result |
+| --- | --- |
+| Reader demo | Three pages; English and Chinese text from page 2; real PNG previews; invalid pages and missing files rejected |
+| Offline workflow | Clearly labeled fixed provider content; a draft attached to page 2; JSON saved and successfully reopened |
+| Test suite | All ordinary tests pass; the explicitly opt-in live test is skipped |
+| Dependency check | No broken installed requirements |
+
+The offline provider returns fixed demonstration content. It validates the
+integration path, not the quality of an AI answer. The contract demo's export
+page map is synthetic and does not demonstrate a working PDF exporter.
+
+## Inspect the notebook workflows
+
+Use [Notebook setup](NOTEBOOK_DEMO.md) to open the notebooks and select the
+correct kernel. Outputs are cleared in Git so reviewers can reproduce them.
+
+| Notebook | What to inspect |
+| --- | --- |
+| [Manual workflow](../examples/manual_workflow_demo.ipynb) | Actual page preview; manual draft; editing/approval; save/reload; edit returns to draft; source unchanged |
+| [Generation workflow](../examples/generation_workflow_demo.ipynb) | Offline or explicit Groq mode; generated sections and source labels; error handling; optional editing; review confirmation; JSON persistence |
+
+The manual notebook's Run All replays review of the supplied sample note.
+The generation notebook defaults to offline mode and does not approve generated
+content automatically. The two notebooks intentionally demonstrate different
+review behavior; read their instructions before running them on personal notes.
+
+## Optional real AI verification
+
+With your own Groq key, run:
+
+```bash
+python examples/groq_notes_demo.py
+```
+
+An interactive terminal prompts for the key without displaying it, unless
+`GROQ_API_KEY` is already configured. This sends selected lecture text and the
+question to Groq. Account quotas apply. See [Groq setup](GROQ_SETUP.md) for
+certificate configuration, response errors, and using your own lecture.
+
+A key is not required for the offline checks. Ordinary test runs do not make
+real AI calls merely because a key exists. The legacy generic-provider live
+test requires explicit `NOTEWEAVER_RUN_OPENAI_TESTS=1` as well as credentials.
+
+## Recorded evidence
+
+Baseline reviewed for this documentation: `main` commit `b39aafd`, incorporating
+PRs #1 through #9. The following evidence was recorded during development:
+
+| Evidence | Result and limitation |
+| --- | --- |
+| Full suite | 112 tests: 111 passed, 1 opt-in live test skipped; this is a recorded snapshot, not a permanent count |
+| Reader + generator + project integration | English and Traditional Chinese offline scenarios passed with rendered, disabled, and unavailable previews |
+| Notebook execution | Manual notebook executed; generation notebook executed from root/examples directories, plus mocked Groq success and HTTP 429 cases |
+| Real Groq request, 2026-11-15 | `openai/gpt-oss-20b` returned an English explanation, student example, quiz, and answer for sample page 2; draft linkage, editing, save/reload, unchanged PDF, and no persisted key verified |
+| Packaging | A wheel was built and installed into an isolated target; imports and offline generation/save/reload passed using existing environment dependencies |
+| Fresh installation, 2026-11-16 | New Python 3.14 virtual environment; editable install with preview dependencies; six offline scripts, full suite, and pip dependency check passed |
+| Runtime | Local verification used Python 3.14; this is not certification of every Python version or the university JupyterHub |
+
+The live request is one successful English example. It does not establish
+broad model quality, reliability, or live Chinese generation. Detailed feature
+validation is recorded in the linked PRs below. Personal keys and locally
+generated artifacts are not published as evidence.
+
+## Inspect contributions
+
+Review the [commit history](https://github.com/jokerrrrr-code/noteweaver/commits/main/)
+and [pull requests](https://github.com/jokerrrrr-code/noteweaver/pulls?q=is%3Apr).
+PR authorship and commit authorship can differ; inspect both for work added
+during integration. Merging a PR does not mean its merger authored every change.
+
+| Contribution area | PRs |
+| --- | --- |
+| Member 4: team onboarding and shared contracts | [#1](https://github.com/jokerrrrr-code/noteweaver/pull/1), [#2](https://github.com/jokerrrrr-code/noteweaver/pull/2) |
+| Member 4: manual-note operations and persistence | [#3](https://github.com/jokerrrrr-code/noteweaver/pull/3), [#4](https://github.com/jokerrrrr-code/noteweaver/pull/4) |
+| Member 1: PDF reader, bilingual fixture, tests, and docs | [#5](https://github.com/jokerrrrr-code/noteweaver/pull/5) |
+| Member 4: preview integration fixes and notebook | [#6](https://github.com/jokerrrrr-code/noteweaver/pull/6), [#7](https://github.com/jokerrrrr-code/noteweaver/pull/7) |
+| Member 2: generator/providers, with Member 4 validation fixes | [#8](https://github.com/jokerrrrr-code/noteweaver/pull/8) |
+| Member 4: Groq configuration and runnable generation integration | [#9](https://github.com/jokerrrrr-code/noteweaver/pull/9) |
+| Member 3: layout and PDF export | Pending in the reviewed main branch |
+
+AI-assisted development is permitted by the team's contribution guide. Each
+contributor remains responsible for understanding and demonstrating the work.
+
+## One-minute demonstration of the current version
+
+Install dependencies and open the notebook before the presentation.
+
+| Time | Demonstration |
+| --- | --- |
+| 0-15 seconds | Show the original lecture's page 2 and its preview |
+| 15-30 seconds | Show a draft and its question; identify whether it was manually written, generated live, previously generated, or produced by the fake provider |
+| 30-45 seconds | Edit the note and show its draft/review state |
+| 45-60 seconds | Save/reopen the JSON and show the unchanged original-page anchor |
+
+Label prepared backup results honestly. Add the exported-PDF step only after
+Member 3's implementation has passed visual and integration checks.
+
+## Remaining assignment work
+
+- Integrate supplementary-page rendering, Chinese/English pagination, page maps,
+  and study-PDF export; visually inspect the resulting pages.
+- Run installation and the demonstration in the actual course JupyterHub.
+- Agree on the package-wide license and available PyPI distribution name, then
+  complete packaging/release checks and publication. Metadata currently retains
+  `Private :: Do Not Upload`.
+- Rehearse the final joint presentation and update this evidence when behavior changes.
+
+The [roadmap](../ROADMAP.md) tracks these remaining tasks. The repository is
+public; that alone does not mean the package is published on PyPI.

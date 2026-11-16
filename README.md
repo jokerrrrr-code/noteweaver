@@ -1,84 +1,112 @@
 # NoteWeaver
 
-Turn questions about lecture slides into editable supplementary notes inserted after the relevant PDF pages.
+A Python package for turning lecture questions into editable notes linked to
+original PDF pages. Use it in a Python script or a Jupyter notebook.
 
-## Status
+**Available now:** read and preview text-based PDFs, write manual notes or
+request AI drafts, review/edit notes, and save/reopen verified project JSON.
+**Still planned:** supplementary-page layout and study-PDF export.
 
-Shared data contracts v1, in-memory note management, and verified project save/load are implemented. You can create a project from document metadata, add/edit/delete manual notes, confirm them, filter the note list, and save/reopen JSON files while checking source fingerprints. PDF inspection, bilingual text extraction, and page previews are also implemented; see [PDF reader setup and behavior](docs/PDF_READER.md). Structured note generation and a Groq-backed question-to-draft workflow are implemented. Supplementary-note rendering, PDF export, and the complete question-to-export workflow remain pending. Nothing has been published on PyPI; the distribution name remains provisional.
+## Start here
 
-## Try the shared contracts locally
+| I want to... | Open |
+| --- | --- |
+| Install and try the package | [Quick start](docs/QUICKSTART.md) |
+| Review the university assignment | [Evaluator guide](docs/EVALUATION.md) |
+| Choose a runnable demonstration | [Examples index](examples/README.md) |
+| Find an API or file's purpose | [Documentation and repository map](docs/README.md) |
+| Contribute as a teammate | [Contributing](CONTRIBUTING.md) and [team guide](TEAMMATE_GUIDE.md) |
 
-From this checkout in a Python 3.10+ virtual environment:
+## Install and try without an API key
+
+Requires Python 3.10+ and Git. In a macOS/Linux terminal:
 
 ```bash
+git clone https://github.com/jokerrrrr-code/noteweaver.git
+cd noteweaver
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -e ".[preview]"
-python examples/contract_demo.py
-python examples/manual_notes_demo.py
-python examples/persistence_demo.py
+python examples/groq_notes_demo.py --offline
+```
+
+For Windows activation and JupyterHub setup, follow the [quick start](docs/QUICKSTART.md).
+If you already have a checkout, use it instead of cloning over existing work.
+Install this repository; PyPI publication is still a release milestone.
+
+The offline command reads the bundled three-page PDF, creates a **fixed test
+draft**, and saves/reopens `study.json` in a new `generated/groq-demo/run-*`
+folder. It makes no model request and does not answer arbitrary questions.
+
+## Choose your workflow
+
+| Workflow | Entry point | API key | Output |
+| --- | --- | --- | --- |
+| Write and review your own notes | [Manual notebook](examples/manual_workflow_demo.ipynb) | None | Editable project JSON |
+| Test the connected generation workflow | `python examples/groq_notes_demo.py --offline` | None | Fixed test draft and JSON |
+| Generate a real AI explanation | `python examples/groq_notes_demo.py` | Your Groq key | AI draft and JSON |
+| Generate, edit, and review interactively | [Generation notebook](examples/generation_workflow_demo.ipynb) | Needed only in Groq mode | Editable project JSON |
+
+Use the [notebook setup guide](docs/NOTEBOOK_DEMO.md) to select the correct Python
+kernel. Notebooks are committed with outputs cleared; run them to see results.
+The generation notebook starts in `MODE = "offline"`; set it to `"groq"` for a
+real request. See [Groq setup](docs/GROQ_SETUP.md) for hidden key input, quotas,
+certificate troubleshooting, and the public `generate_note()` API.
+
+## How the package fits together
+
+```text
+Original PDF -> original page + question -> manual note or AI draft
+             -> review/edit -> confirm -> save/reopen project JSON
+
+Planned next: approved notes -> supplementary pages -> new study PDF
+```
+
+Notes keep their original page anchors and stable IDs. Editing returns a note
+to draft; approval is an explicit review action. Saving and reopening verify
+that the source PDF's bytes have not changed. JSON stores note data and the
+source reference, not a copy of the PDF or API credentials.
+
+## Current scope
+
+| Capability | Status |
+| --- | --- |
+| PDF metadata, selectable text, and original-page previews | Implemented |
+| Manual notes, editing, approval, filtering, and deletion | Implemented |
+| Structured generation, fake test provider, and Groq provider | Implemented; one live English Groq example verified |
+| Source verification and project save/reload | Implemented |
+| English instructions and bilingual lecture/note content | Supported; see examples and tests |
+| Supplementary PDF pages, pagination, bookmarks, and export | Pending Member 3 integration |
+| OCR, handwriting recognition, and automatic topic search | Outside the first-release scope |
+| Course JupyterHub acceptance and PyPI publication | Pending |
+
+AI output needs review. Source labels and schema checks do not prove factual
+accuracy. Free API allowances depend on the user's provider account and quotas.
+
+## Verify and contribute
+
+After installing with the preview extra:
+
+```bash
 python -m unittest discover -s tests -v
 ```
 
-The demos are offline and use synthetic document metadata; they do not create a PDF or call an AI model. The persistence demo writes real JSON and source-byte fixtures in a temporary directory and removes them afterward. See the [manual note workflow guide](docs/PROJECT_WORKFLOW.md) for the new API and its return values. Install this checkout, not an unrelated package with the same name on PyPI. Read the [shared data contracts v1](docs/DATA_CONTRACTS.md) before implementing any module.
+Ordinary test runs are offline. Live provider testing requires explicit opt-in;
+see the [evaluator guide](docs/EVALUATION.md) for commands, expected results,
+verification evidence, and contribution history.
 
-Repository documentation and code explanations are written in English. Chinese sample text in the shared fixtures and tests demonstrates bilingual content support.
+Code is in [`src/noteweaver/`](src/noteweaver/), tests in [`tests/`](tests/),
+guides in [`docs/`](docs/README.md), and demonstrations in
+[`examples/`](examples/README.md). Keep personal inputs in ignored `local_data/`
+and generated results in ignored `generated/`.
 
-## Try the English notebook demo
+## Project and licensing
 
-Open [the manual workflow notebook](examples/manual_workflow_demo.ipynb) using
-[the notebook setup guide](docs/NOTEBOOK_DEMO.md). It connects the real PDF reader
-to manual note editing, approval, and verified save/reload. Run it to see the
-page preview and results; committed outputs are cleared. No AI key is required.
-AI generation and study-PDF export are not part of this demo.
+This is a four-member university assignment. Documentation, comments, and demo
+instructions are in English. Chinese text appears in bilingual fixtures and
+content examples. See the [team plan](TEAM_PLAN.md) and [roadmap](ROADMAP.md).
 
-## Generate notes with Groq
-
-Follow [Groq setup and the public generation API](docs/GROQ_SETUP.md), or open
-[the English generation notebook](examples/generation_workflow_demo.ipynb).
-Use `GroqProvider` with your own Groq key for live generation; the notebook
-starts in explicitly labeled offline mode. There is no automatic paid fallback.
-
-```bash
-python examples/groq_notes_demo.py --offline  # Fixed test content; no API call.
-python examples/groq_notes_demo.py            # Real Groq request; hidden key prompt.
-```
-
-## Planned workflow
-
-1. Open a text-based lecture PDF and preview an original page.
-2. Select a passage or provide a question, explanation language, and style.
-3. Generate a draft explanation using relevant lecture context, or write a note manually.
-4. Review and edit the draft.
-5. Insert supplementary pages after the selected original page.
-6. Export a study PDF with original-page references and navigation.
-
-## What makes NoteWeaver useful
-
-Questions, editable explanations, and source pages stay connected. The package handles note organization, pagination, original-page tracking, and PDF export. AI-assisted explanation is optional; manual notes should work without an API key.
-
-## First release scope
-
-- Text-based PDFs, page previews, and extraction status.
-- Original page numbers are always 1-based and remain stable after insertion.
-- Questions with selected text, language, level, and explanation style.
-- Structured notes, including explanations, examples, and source-page references.
-- Review, edit, save, reload, and insert notes.
-- Readable Chinese and English output, long-note pagination, and bookmarks.
-- Clear errors and manual fallback when extraction or generation fails.
-
-Source references indicate where context came from; they do not guarantee that an AI explanation is correct. Generated examples should be distinguished from lecture content.
-
-## Project documents
-
-- [Member 4: English notebook demo and setup](docs/NOTEBOOK_DEMO.md)
-- [Member 4: project saving, loading, and source verification](docs/PERSISTENCE.md)
-- [Member 4: manual note workflow and examples](docs/PROJECT_WORKFLOW.md)
-- [Shared data contracts v1: fields, rules, and interfaces](docs/DATA_CONTRACTS.md)
-- [Teammate and AI-agent guide, including task prompts](TEAMMATE_GUIDE.md)
-- [Repository instructions for coding agents](AGENTS.md)
-- [Four-member responsibilities and acceptance criteria](TEAM_PLAN.md)
-- [Development roadmap and suggested workstreams](ROADMAP.md)
-- [Contribution workflow](CONTRIBUTING.md)
-
-## Development and licensing
-
-The runnable examples cover contracts, in-memory note management, and verified file persistence. Team members should implement the agreed interfaces using the same models. The project is marked `Private :: Do Not Upload` in package metadata until distribution name and licensing are decided. The repository itself remains public. Use original or appropriately licensed sample material.
+The repository is public, but a package-wide distribution license and final
+PyPI name still need to be agreed. Metadata retains `Private :: Do Not Upload`
+until release readiness is confirmed. The sample font has its own
+[documented OFL license and provenance](examples/data/fonts/README.md).

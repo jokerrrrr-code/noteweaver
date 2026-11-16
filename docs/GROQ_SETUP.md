@@ -1,5 +1,7 @@
 # Generate Real Notes with Groq
 
+[Repository home](../README.md) · [Documentation index](README.md)
+
 NoteWeaver can send selected lecture text and a question to Groq, validate the
 returned structured draft, and attach the draft and request to an editable
 project. Manual notes still work without any API key. No web server is required.
