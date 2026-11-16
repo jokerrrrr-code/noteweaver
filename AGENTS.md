@@ -4,6 +4,8 @@
 
 Read `README.md`, `TEAM_PLAN.md`, `ROADMAP.md`, `CONTRIBUTING.md`, `docs/DATA_CONTRACTS.md`, and the relevant sections of `TEAMMATE_GUIDE.md`. Inspect the current code and Git state before changing anything. This file supplies repository guidance; explicit user instructions and higher-priority system/developer instructions take precedence.
 
+For repository navigation, use `docs/README.md` and `examples/README.md`. Keep the user-facing status in README.md, the roadmap, and evaluation evidence consistent with the implemented behavior.
+
 ## Current status and scope
 
 Shared data contracts, validation, JSON fixtures, module Protocol signatures, minimal packaging, in-memory note management, and verified JSON file save/load are implemented. Read `docs/PROJECT_WORKFLOW.md` before extending `project.py`, and `docs/PERSISTENCE.md` before changing persistence. Run `python examples/manual_notes_demo.py` and `python examples/persistence_demo.py` for offline examples. PDF reading, text extraction, and original-page previews are implemented; read `docs/PDF_READER.md` for setup and failure behavior. Note generation, Groq configuration, and question-to-draft orchestration are implemented; read `docs/GENERATION.md` and `docs/GROQ_SETUP.md`. Supplementary-note rendering and PDF export remain pending. Ordinary tests must remain offline; live verification is an explicit separate action. There is no PyPI release. Re-check the current tree for teammate additions. Do not mistake illustrative product APIs for existing code.

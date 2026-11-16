@@ -1,6 +1,8 @@
-# Member 4: Manual Note Management (Step 2)
+# Manual Note Operations
 
-This version provides in-memory project and note operations. It requires no network connection, AI credentials, or other members' modules. A manual note is text entered by the user, not handwriting recognition. PDF reading, generation, and export are not integrated yet. Separate [save/load functions](PERSISTENCE.md) are now available for this project state.
+[Repository home](../README.md) · [Documentation index](README.md)
+
+This version provides in-memory project and note operations. It requires no network connection, AI credentials, or other members' modules. A manual note is text entered by the user, not handwriting recognition. The higher-level [generation workflow](GROQ_SETUP.md) connects PDF reading and generated drafts to these operations; PDF export is still pending. Separate [save/load functions](PERSISTENCE.md) are now available for this project state.
 
 ## Quick start
 
@@ -78,6 +80,6 @@ The new tests cover Chinese and English text, unique IDs, note order, approval i
 
 ## Next steps and handoff
 
-Member 4's step 3 is implemented in the [persistence module](PERSISTENCE.md): actual file saving/loading, path resolution, and source verification. Use save_project/load_project for file operations. The in-memory editing functions above continue to return standard ProjectState objects without performing file I/O.
+The [persistence module](PERSISTENCE.md) provides actual file saving/loading, path resolution, and source verification. Use save_project/load_project for file operations. The in-memory editing functions above continue to return standard ProjectState objects without performing file I/O.
 
-Member 1 will supply real DocumentInfo values. Member 2 returns GeneratedNote objects using the same structure. Member 3 accepts the same ProjectState and exports approved notes according to the common contract. This implementation does not replace those members' modules.
+Member 1's reader supplies real DocumentInfo values. Member 2 returns GeneratedNote objects using the same structure, and workflow.generate_note attaches them with their request history. Member 3's planned exporter will accept the same ProjectState and export approved notes according to the common contract. This implementation does not replace those members' modules.

@@ -1,6 +1,10 @@
 # NoteWeaver Four-Member Team Plan
 
-Shared models, validation, JSON fixtures, and tests are implemented; see the [shared data contracts v1](docs/DATA_CONTRACTS.md). Member 4's in-memory note operations and verified save/load are available in the [workflow guide](docs/PROJECT_WORKFLOW.md) and [persistence guide](docs/PERSISTENCE.md). Other features and full integration remain pending. Member numbers identify responsibilities.
+The reader, structured generation, Groq integration, manual-note operations, and
+verified save/load are implemented. Supplementary-page rendering/export and
+course/release acceptance remain pending. See [current scope](README.md#current-scope),
+[the roadmap](ROADMAP.md), and [recorded contribution evidence](docs/EVALUATION.md).
+Member numbers identify responsibilities, not a claim that all listed work is complete.
 
 ## Shared objective
 
@@ -24,7 +28,7 @@ Repository documentation, code explanations, and presentation instructions must 
 
 Suggested files: `src/noteweaver/pdf_reader.py`, `tests/test_pdf_reader.py`, original PDF fixtures, and reader documentation.
 
-First task: create a three-page text PDF, extract page 2 and its preview, and test invalid page numbers 0 and 4.
+Initial milestone completed: the bilingual three-page fixture, page 2 extraction/preview, and invalid-input checks are implemented. Maintain the reader and its failure behavior as integration evolves.
 
 Acceptance: return the correct original-page content or explicit extraction status for empty/scanned pages, without changing the source file.
 
@@ -41,7 +45,7 @@ Acceptance: return the correct original-page content or explicit extraction stat
 
 Suggested files: `src/noteweaver/generation.py`, `src/noteweaver/providers/`, `tests/test_generation.py`, and provider configuration documentation.
 
-First task: use fixed context and a fixed question to produce a fake note. Verify that members 3 and 4 can consume it before adding a real provider.
+Initial milestone completed: the fake provider, structured drafts, validation, and live-provider transport are implemented. Reader/project integration and one real English Groq request have been verified. Broader quality and bilingual live evaluation remain ongoing.
 
 Acceptance: return structured notes without modifying PDFs; failures allow retry; credentials never enter project files or Git.
 
@@ -112,11 +116,13 @@ Suggested review pairs: members 1 and 3 check page references and source preserv
 
 Each feature owner maintains the relevant README sections. Member 4 coordinates installation and release work, while tests, documentation, and presentation remain shared responsibilities.
 
-## One-minute team demonstration
+## Planned final team demonstration
 
 - Member 1: about 10 seconds to show the lecture and page selection.
 - Member 2: about 15 seconds to ask a question and show structured notes; continue explaining while generation runs.
 - Member 4: about 15 seconds to preview, edit, and confirm the note.
 - Member 3: about 20 seconds to export and show original pages, supplementary pages, and the page map.
+
+The export segment depends on Member 3 delivery. For a runnable demonstration of the current version, use [the evaluator guide](docs/EVALUATION.md).
 
 Rehearse and prepare clearly labeled pre-generated backup notes. Do not describe backup output as live generation. Verify installation in advance and keep installation/version evidence available.

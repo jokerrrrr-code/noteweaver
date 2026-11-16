@@ -1,49 +1,60 @@
-# Development roadmap
+# Development Roadmap
 
-## Workstreams
+[Repository home](README.md) · [Team responsibilities](TEAM_PLAN.md) · [Evaluation evidence](docs/EVALUATION.md)
 
-The project is planned for four members: member 1 owns A, member 2 owns B, member 3 owns C, and member 4 owns D. Names have not been assigned. See [the detailed team plan](TEAM_PLAN.md) for deliverables, interfaces, review responsibilities, and first tasks.
+## Implemented foundation
 
-| Workstream | Responsibility | Acceptance criterion |
-| --- | --- | --- |
-| A: PDF input and anchoring | Read PDFs, preview pages, extract text, retain original-page identity | Return the correct page content or an explicit extraction failure |
-| B: Explanation generation | Select context, implement a provider interface and structured note output | Return editable notes with valid supplied source-page references and clear failure handling |
-| C: Layout and export | Render notes, paginate, insert pages, maintain references and bookmarks | Export readable notes without cropping or reordering original lecture pages |
-| D: Public API and integration | Editing, persistence, notebook interaction, packaging | Run the complete workflow and reload an existing project successfully |
+- Shared version-1 models, strict validation, source fingerprints, and module protocols.
+- Real PDF inspection, selectable-text extraction, original-page previews, and clear failure states.
+- Manual-note creation, editing, approval invalidation, filtering, and deletion.
+- Verified JSON save/load with stable IDs, original-page anchors, and note order.
+- Structured generation with an offline fake provider and configurable live providers.
+- Groq-backed `generate_note()` orchestration, CLI example, and English notebooks.
+- Offline integration tests and one recorded real English Groq generation.
 
-Every contributor should document and test their own module and review another contributor's changes.
+See [current scope](README.md#current-scope) for the user-facing summary and
+[evaluation](docs/EVALUATION.md) for the limits of the recorded verification.
 
-## Shared data contracts v1
+## Next: supplementary pages and export
 
-Implemented in `src/noteweaver/models.py`, with signatures in `interfaces.py`, synthetic JSON fixtures, and offline tests. Read [the full contract](docs/DATA_CONTRACTS.md) for exact fields, provenance, draft/approval handling, persistence, and export mappings. Member 4's [in-memory note management](docs/PROJECT_WORKFLOW.md) and [verified save/load](docs/PERSISTENCE.md) are implemented; reader, generator, and exporter integration remain pending.
+Member 3 implements layout/export; Member 4 integrates it into the existing workflow.
 
-- `PageContent`: original page number, extracted text, preview, extraction status.
-- `NoteRequest`: target original page number, selected text, question, language, level, style.
-- `GeneratedNote`: note ID, original page anchor, title, sections, supplied source-page references, draft/approved state.
+- [ ] Render an approved short note after original page 2 of the three-page fixture.
+- [ ] Preserve original lecture content and ordering; export to a new destination.
+- [ ] Support Chinese/English fonts, wrapping, long notes, and multiple notes per page.
+- [ ] Return valid original/note page maps and implement the agreed bookmarks.
+- [ ] Reject source aliases and verify the source immediately before export.
+- [ ] Inspect rendered output for glyph problems, overlap, and clipping.
+- [ ] Connect export to the manual and generation notebooks.
 
-All public page numbers are 1-based. Insertions never change an existing original-page anchor. Define ordering for multiple notes attached to the same page.
+`ExportResult`, `validate_export`, and `PDFExporter` already define the shared
+contract. They do not themselves render or write a PDF. Reuse the approved-note
+state produced by the existing project API; no AI service is needed for manual export.
 
-## Milestones
+## Then: release and course acceptance
 
-1. **Manual end-to-end path:** load a PDF, add a handwritten-text note, export it after the right page.
-2. **Generation:** create a draft from a page and question, preview and edit it, then export.
-3. **Reliability:** multiple notes, long notes, Chinese text, save/reload, extraction/provider errors.
-4. **Release:** documentation, package build, clean-environment installation, JupyterHub check, PyPI publication, one-minute demo.
+- [ ] Verify installation and notebook execution in the actual course JupyterHub.
+- [ ] Validate the final built distribution in a clean supported environment.
+- [ ] Agree on the package-wide license and available PyPI distribution name.
+- [ ] Review dependencies, public metadata, and documentation; remove the upload
+      blocker only when the team is ready to publish.
+- [ ] Publish a versioned package with the repository as its project homepage.
+- [ ] Rehearse the one-minute joint demonstration and prepare labeled backup results.
 
-## Verification
+Current metadata retains `Private :: Do Not Upload`. A local wheel build and a
+public GitHub repository are not PyPI publication or course-environment acceptance.
 
-- Original content and ordering survive multiple note insertions.
-- Notes stay attached to the intended original pages after save/reload.
-- Long Chinese/English notes do not overlap or clip.
-- Invalid source-page references are rejected or surfaced.
-- Failed generation does not erase existing notes.
-- Manual-note mode works without a model account.
-- A built distribution installs and runs in the target notebook environment.
+## Ongoing verification
+
+- Preserve existing notes when generation or saving fails.
+- Verify IDs, review state, note order, and original-page anchors after save/reload.
+- Keep ordinary tests offline and live-service checks explicitly opt-in.
+- Expand live model-quality and bilingual evaluation beyond the recorded English example.
+- Keep English guides, examples, and the status table synchronized with merged code.
 
 ## Later versions
 
-OCR and handwriting, image interpretation, topic-wide anchoring, multiple lecture sources, generated diagrams, and migration to revised lecture PDFs.
-
-## One-minute demo
-
-Show a lecture page, ask a question, preview and edit the explanation, export, and show the supplementary page immediately after the original page. Demonstrate with original sample material and explain which features are AI-assisted.
+OCR and handwriting recognition, image interpretation, automatic multi-document
+topic search, generated diagrams, and migration to revised lecture PDFs are
+outside the first release. Preserve unsupported formulas as source text or
+report the limitation explicitly.

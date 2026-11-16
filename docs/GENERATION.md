@@ -1,4 +1,6 @@
-# Note Generation (Member 2)
+# Note Generation
+
+[Repository home](../README.md) · [Documentation index](README.md)
 
 Turn lecture page text and a student question into an editable structured draft note.
 
@@ -108,10 +110,10 @@ credentials are configured.
 python -m unittest discover -s tests -p 'test_generation_validation.py' -v
 
 # Offline suite (always runs)
-python -m unittest tests.test_generation.FakeProviderTests -v
+python -m unittest discover -s tests -p 'test_generation.py' -k FakeProviderTests -v
 
 # Full generation tests (live tests skip without explicit opt-in and a key)
-python -m unittest tests.test_generation -v
+python -m unittest discover -s tests -p 'test_generation.py' -v
 ```
 
 ## Hand-off notes
