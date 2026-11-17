@@ -11,6 +11,7 @@ import unittest
 from unittest.mock import Mock, patch
 from urllib.error import HTTPError, URLError
 
+from noteweaver import __version__
 from noteweaver import (
     ContractError, FakeNoteProvider, GenerationError, GroqProvider,
     approve_note, create_project, generate_note, load_project, save_project,
@@ -60,7 +61,7 @@ class GroqWorkflowTests(unittest.TestCase):
         body = json.loads(request.data)
         self.assertEqual(request.full_url, "https://api.groq.com/openai/v1/chat/completions")
         self.assertEqual(request.get_header("Authorization"), f"Bearer {DUMMY_KEY}")
-        self.assertEqual(request.get_header("User-agent"), "NoteWeaver/0.0.1")
+        self.assertEqual(request.get_header("User-agent"), f"NoteWeaver/{__version__}")
         self.assertEqual(body["model"], "openai/gpt-oss-20b")
         self.assertEqual(body["response_format"], {"type": "json_object"})
         self.assertEqual(body["max_completion_tokens"], 4096)

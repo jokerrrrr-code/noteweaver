@@ -53,3 +53,6 @@ to demonstrate their changes. Label fake, mocked, and live results accurately.
   font for arbitrary Chinese note rendering.
 - Do not remove `Private :: Do Not Upload` or publish a release until license,
   distribution name, and release readiness are agreed.
+
+For a release, follow [the release checklist](docs/RELEASING.md). The single
+version source is `src/noteweaver/_version.py`; keep the changelog synchronized.

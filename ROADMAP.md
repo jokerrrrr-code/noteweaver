@@ -34,10 +34,14 @@ state produced by the existing project API; no AI service is needed for manual e
 
 ## Then: release and course acceptance
 
+See the [0.1.0 release checklist](docs/RELEASING.md).
+
 - [x] Verify checkout installation and sample notebook workflows in course JupyterHub;
   see [school evidence and limitations](docs/SCHOOL_TEST_RECORD.md).
-- [ ] Rerun the newly integrated OpenRouter notebook on school JupyterHub after updating.
-- [ ] Validate the final built distribution in a clean supported environment.
+- [x] Rerun the integrated OpenRouter notebook on school JupyterHub at merged PR #13.
+- [x] Validate the preparation wheel/source archive in clean Python 3.14 environments;
+  see [artifact validation](docs/RELEASE_VALIDATION.md).
+- [ ] Rebuild and validate the final upload artifacts after license/release approval.
 - [ ] Agree on the package-wide license and available PyPI distribution name.
 - [ ] Review dependencies, public metadata, and documentation; remove the upload
       blocker only when the team is ready to publish.

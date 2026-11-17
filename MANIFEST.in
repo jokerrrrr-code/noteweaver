@@ -1,0 +1,12 @@
+include README.md pyproject.toml CHANGELOG.md THIRD_PARTY_NOTICES.md
+include AGENTS.md CONTRIBUTING.md ROADMAP.md TEAM_PLAN.md TEAMMATE_GUIDE.md
+recursive-include docs *.md
+recursive-include tests *.py
+include examples/*.py examples/*.ipynb examples/README.md
+include examples/data/*.json examples/data/sample_lecture_3p.pdf
+include examples/data/fonts/NoteWeaverDemo-Regular.ttf
+include examples/data/fonts/OFL.txt examples/data/fonts/README.md
+global-exclude __pycache__ *.py[cod] .DS_Store
+prune generated
+prune local_data
+prune .ipynb_checkpoints
