@@ -28,9 +28,9 @@ python examples/export_demo.py --project generated/your-run/study.json
 
 Replace the path with your project. Drafts are excluded. A project containing no
 approved notes produces the original pages plus navigation, with no note pages.
-The existing manual and generation notebooks still stop at project JSON; their
-export cells are a separate integration task. This script and the public API
-provide the working PDF export path now.
+Both [notebooks](NOTEBOOK_DEMO.md) also export approved notes, display a real
+output-page preview, and offer PDF/JSON downloads. The generation notebook
+requires explicit confirmation; its default Run All keeps drafts and skips export.
 
 ## Public API
 

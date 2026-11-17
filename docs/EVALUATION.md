@@ -11,7 +11,7 @@ assignment requirement is already complete.
 NoteWeaver is an installable development Python package with English Jupyter
 walkthroughs. It connects a real lecture PDF to original-page-anchored manual or
 AI-generated drafts, explicit review/editing, and source-verified JSON save/load.
-Approved-note supplementary pages and study-PDF export are implemented through the API and export script. Notebook export cells remain pending.
+Approved-note supplementary pages and study-PDF export are implemented through the API and export script. Both notebooks now include PDF export, output-page previews, and download links.
 
 The workflow preserves a note's ID and original page when edited, invalidates
 old approval after edits, records generation requests, and rejects changed
@@ -50,8 +50,8 @@ correct kernel. Outputs are cleared in Git so reviewers can reproduce them.
 
 | Notebook | What to inspect |
 | --- | --- |
-| [Manual workflow](../examples/manual_workflow_demo.ipynb) | Actual page preview; manual draft; editing/approval; save/reload; edit returns to draft; source unchanged |
-| [Generation workflow](../examples/generation_workflow_demo.ipynb) | Offline or explicit Groq mode; generated sections and source labels; error handling; optional editing; review confirmation; JSON persistence |
+| [Manual workflow](../examples/manual_workflow_demo.ipynb) | Actual page preview; manual draft; editing/approval; save/reload; re-review; four-page study PDF and downloads; source unchanged |
+| [Generation workflow](../examples/generation_workflow_demo.ipynb) | Offline or explicit Groq mode; editable draft; explicit review confirmation; JSON persistence; approved-note PDF export, preview and downloads |
 
 The manual notebook's Run All replays review of the supplied sample note.
 The generation notebook defaults to offline mode and does not approve generated
@@ -115,6 +115,26 @@ preservation, text coverage, page maps, source/destination protection, and
 remapped internal links/bookmarks. Actual JupyterHub, Windows, and other Python
 versions remain unverified.
 
+## Notebook export verification, 2026-11-17
+
+Both notebooks now connect review to PDF export, actual output-page previews,
+and PDF/JSON download links. The updated full suite contains 127 tests: 126
+passed and the opt-in live-provider test was skipped. Three notebook-cell tests
+cover draft gating, current snapshots (including equivalent source paths),
+repeat exports, and failure behavior without requiring Jupyter tooling.
+
+Seven real-kernel executions passed: the manual notebook from root and examples,
+generation with default draft behavior, confirmed generation from root and
+examples, an injected export failure, and an injected preview failure. Successful
+download link bytes matched the PDF/JSON files exactly; actual supplementary-page
+previews were rendered and inspected. The original lecture remained unchanged.
+All generation checks used the fixed offline provider; no live request was made.
+Source notebooks retain cleared outputs and English instructions/comments.
+
+Execution used local Python 3.14 and PyMuPDF 2.1. Browser download policies and
+actual course JupyterHub behavior still need acceptance testing; the notebooks
+provide a file-browser download fallback.
+
 ## Inspect contributions
 
 Review the [commit history](https://github.com/jokerrrrr-code/noteweaver/commits/main/)
@@ -144,14 +164,12 @@ Install dependencies and open the notebook before the presentation.
 | 0-15 seconds | Show the original lecture's page 2 and its preview |
 | 15-30 seconds | Show a draft and its question; identify whether it was manually written, generated live, previously generated, or produced by the fake provider |
 | 30-45 seconds | Edit the note and show its draft/review state |
-| 45-60 seconds | Save/reopen the JSON and show the unchanged original-page anchor |
+| 45-60 seconds | Export, preview the supplementary page, and show PDF/JSON downloads and page maps |
 
 Label prepared backup results honestly. The export demo can now show the final PDF and original/note page maps.
 
 ## Remaining assignment work
 
-- Add export cells to the interactive notebooks; the API and script already export
-  approved notes with bilingual pagination and page maps.
 - Run installation and the demonstration in the actual course JupyterHub.
 - Agree on the package-wide license and available PyPI distribution name, then
   complete packaging/release checks and publication. Metadata currently retains

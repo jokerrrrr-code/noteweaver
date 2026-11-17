@@ -68,6 +68,7 @@ page maps; the fixtures themselves do not create a PDF.
 
 | Test file | What it checks |
 | --- | --- |
+| [`test_notebook_export.py`](../tests/test_notebook_export.py) | Actual notebook export cells: draft gate, current snapshot, repeat runs, and failures |
 | [`test_pdf_exporter.py`](../tests/test_pdf_exporter.py) | Real shared-model export, pagination, Chinese, source/destination safety, links and bookmarks |
 | [`test_contracts.py`](../tests/test_contracts.py) | Strict types, JSON, source identity, and page-map contracts |
 | [`test_project.py`](../tests/test_project.py) | Note operations, stable identity/order, and approval invalidation |

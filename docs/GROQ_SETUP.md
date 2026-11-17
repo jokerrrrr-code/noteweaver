@@ -11,7 +11,7 @@ project. Manual notes still work without any API key. No web server is required.
 Use Python 3.10+ and install this repository, not an unrelated PyPI distribution:
 
 ```bash
-python -m pip install -e ".[preview]"
+python -m pip install -e ".[preview,export]"
 ```
 
 Create an API key at https://console.groq.com/keys. Keep your account on Groq's
@@ -70,6 +70,10 @@ using the kernel setup in [NOTEBOOK_DEMO.md](NOTEBOOK_DEMO.md).
 5. Review the text, optionally edit it, and set `CONFIRM_REVIEW = True` only
    after review. This defaults to False, including when running all cells.
 6. Save and reopen the project. Drafts can be saved without approval.
+7. Run the export cell to create a new study PDF from all approved notes. Without
+   approved notes, it skips export; it never calls AI or changes approval states.
+8. Run the preview/download cell to inspect a supplementary page and download
+   the PDF and matching JSON. See [replay and download behavior](NOTEBOOK_DEMO.md).
 
 A generation failure prints a clear message and leaves existing project notes
 unchanged. Rerunning the generation cell deliberately makes another request.
@@ -153,5 +157,5 @@ call during the ordinary test suite. Groq transport tests mock HTTP responses;
 a successful real CLI/notebook call is a separate live verification.
 
 Source labels and structural validation do not establish factual correctness.
-Always review generated explanations. PDF layout and supplementary-page export
-remain separate Member 3 functionality.
+Always review generated explanations. The notebook connects the reviewed
+project to the PDF exporter; layout itself remains in the separate exporter module.

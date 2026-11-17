@@ -90,10 +90,13 @@ python -m jupyterlab examples/manual_workflow_demo.ipynb
 
 Select **Python (NoteWeaver)** as the kernel. Start with the manual notebook:
 it reads a real PDF, creates and edits a sample note, demonstrates review,
-and saves/reopens the project without a key.
+saves/reopens the project, and exports a study PDF with preview/download links
+without a key.
 
 For generation, open `examples/generation_workflow_demo.ipynb` in the same
-JupyterLab window. Its default offline mode runs without credentials. Change
+JupyterLab window. Its default offline mode runs without credentials and keeps the generated note
+as a draft. Review it, set `CONFIRM_REVIEW = True`, and run the save/export/preview
+cells to obtain a PDF. Change
 `MODE` to `"groq"` and follow the hidden key prompt for a real AI request.
 
 On JupyterHub, open the notebook in the existing browser interface; do not
@@ -149,7 +152,7 @@ test is expected during ordinary verification. See [evaluation instructions](EVA
 | Certificate verification failure | Follow the trusted CA instructions in [Groq setup](GROQ_SETUP.md); keep HTTPS verification enabled. |
 | `FileExistsError` when saving | Choose a new project filename, or use `overwrite=True` when replacing that project is intended. |
 | Source fingerprint mismatch | Reopen with the original unchanged PDF; revised PDFs need a new project. |
-| Cannot find the exported study PDF | The generation/manual notebooks save JSON. Run the separate export API or `export_demo.py` with approved notes; see [PDF export](EXPORT.md). |
+| Cannot find the exported study PDF | Run the notebook export cell after approving a note. Default generation Run All keeps drafts and skips PDF export; see [notebook instructions](NOTEBOOK_DEMO.md). |
 
 ## Where to go next
 
