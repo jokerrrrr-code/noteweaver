@@ -85,7 +85,7 @@ personal file paths, lecture content, or note text from later experiments.
 This demo integrates Member 1's reader with Member 4's existing project and
 persistence functions. It does not add a second data model or a new public API.
 Member 2's generation and Member 3's supplementary-page rendering/export are
-not invoked or simulated. An approved note is ready for a future exporter;
+not invoked or simulated. An approved note can be passed to the separate [PDF exporter](EXPORT.md);
 no study PDF is produced by this notebook.
 
 Notebook prose, comments, and personal-note examples are in English. Chinese

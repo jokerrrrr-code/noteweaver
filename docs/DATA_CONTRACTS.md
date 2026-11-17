@@ -2,7 +2,7 @@
 
 [Repository home](../README.md) · [Documentation index](README.md)
 
-This document, `src/noteweaver/models.py`, `interfaces.py`, and `examples/data/` define the common agreement between the four modules. Models, validators, JSON conversion, [in-memory note operations](PROJECT_WORKFLOW.md), and [verified file save/load](PERSISTENCE.md) are implemented. PDF reading, structured generation, Groq calls, and the question-to-draft workflow are implemented. Supplementary-page rendering and PDF export remain pending. See [the repository map](README.md) for implementations.
+This document, `src/noteweaver/models.py`, `interfaces.py`, and `examples/data/` define the common agreement between the four modules. Models, validators, JSON conversion, [in-memory note operations](PROJECT_WORKFLOW.md), and [verified file save/load](PERSISTENCE.md) are implemented. PDF reading, structured generation, Groq calls, and the question-to-draft workflow are implemented. Approved-note rendering and PDF export are implemented; see [PDF export](EXPORT.md). See [the repository map](README.md) for implementations.
 
 ## 1. Data flow
 
@@ -195,7 +195,7 @@ export(source: Path, project: ProjectState, output: Path) -> ExportResult
 
 # Member 4: editing is in project.py; save/load is in persistence.py.
 # workflow.generate_note connects the reader/generator to project state.
-# Export orchestration remains pending.
+# PyMuPDFPDFExporter consumes the reviewed ProjectState.
 ```
 
 The block above illustrates signatures, not executable Python. Type/field mismatches, unsupported versions, and inconsistent associations use ContractError. File I/O failures retain OSError subclasses. Member 2 defines provider connection/authentication errors; do not return an empty successful note to represent failure. Integrate error presentation as modules become available.
@@ -212,12 +212,12 @@ These original synthetic fixtures make **no real model calls and create no PDF**
 From the repository root with Python 3.10+ (validated locally on Python 3.14):
 
 ```bash
-python -m pip install -e ".[preview]"
+python -m pip install -e ".[preview,export]"
 python examples/contract_demo.py
 python -m unittest discover -s tests -v
 ```
 
-Use a virtual environment. These commands install the local checkout, not a PyPI release. The contract models use the standard library; installing the package also installs its PDF-reading dependency. Preview tests require the preview extra. Builds require setuptools. Package metadata currently prevents upload; confirm distribution naming, licensing, and feature readiness before release.
+Use a virtual environment. These commands install the local checkout, not a PyPI release. The contract models use the standard library; installing the package also installs its PDF-reading dependency. Full reader/export tests require the preview and export extras. Builds require setuptools. Package metadata currently prevents upload; confirm distribution naming, licensing, and feature readiness before release.
 
 ## 11. Changing the format
 

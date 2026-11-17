@@ -15,20 +15,20 @@
 See [current scope](README.md#current-scope) for the user-facing summary and
 [evaluation](docs/EVALUATION.md) for the limits of the recorded verification.
 
-## Next: supplementary pages and export
+## Implemented: supplementary pages and export
 
-Member 3 implements layout/export; Member 4 integrates it into the existing workflow.
+Member 3 supplied the initial exporter; Member 4 added shared-contract integration and validation fixes. See [PDF export](docs/EXPORT.md).
 
-- [ ] Render an approved short note after original page 2 of the three-page fixture.
-- [ ] Preserve original lecture content and ordering; export to a new destination.
-- [ ] Support Chinese/English fonts, wrapping, long notes, and multiple notes per page.
-- [ ] Return valid original/note page maps and implement the agreed bookmarks.
-- [ ] Reject source aliases and verify the source immediately before export.
-- [ ] Inspect rendered output for glyph problems, overlap, and clipping.
+- [x] Render an approved short note after original page 2 of the three-page fixture.
+- [x] Preserve original lecture content and ordering; export to a new destination.
+- [x] Support Chinese/English fonts, wrapping, long notes, and multiple notes per page.
+- [x] Return valid original/note page maps and implement the agreed bookmarks.
+- [x] Reject source aliases and verify the source immediately before export.
+- [x] Inspect rendered output for glyph problems, overlap, and clipping.
 - [ ] Connect export to the manual and generation notebooks.
 
 `ExportResult`, `validate_export`, and `PDFExporter` already define the shared
-contract. They do not themselves render or write a PDF. Reuse the approved-note
+contract. The concrete PyMuPDFPDFExporter implements rendering and file publication. Reuse the approved-note
 state produced by the existing project API; no AI service is needed for manual export.
 
 ## Then: release and course acceptance

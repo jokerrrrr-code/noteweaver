@@ -14,6 +14,9 @@ dependencies = [
 classifiers = ["Development Status :: 2 - Pre-Alpha", "Private :: Do Not Upload"]
 
 [project.optional-dependencies]
+export = [
+    "PyMuPDF>=1.26.7,<3",
+]
 preview = [
     "pypdfium2>=4.0",
     "pillow>=10.0",

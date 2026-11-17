@@ -5,7 +5,8 @@ original PDF pages. Use it in a Python script or a Jupyter notebook.
 
 **Available now:** read and preview text-based PDFs, write manual notes or
 request AI drafts, review/edit notes, and save/reopen verified project JSON.
-**Still planned:** supplementary-page layout and study-PDF export.
+**Also available:** approved-note PDF export with Chinese/English pagination and bookmarks.
+Notebook export cells and course/release acceptance remain pending.
 
 ## Start here
 
@@ -13,6 +14,7 @@ request AI drafts, review/edit notes, and save/reopen verified project JSON.
 | --- | --- |
 | Install and try the package | [Quick start](docs/QUICKSTART.md) |
 | Review the university assignment | [Evaluator guide](docs/EVALUATION.md) |
+| Export approved notes to PDF | [PDF export guide](docs/EXPORT.md) |
 | Choose a runnable demonstration | [Examples index](examples/README.md) |
 | Find an API or file's purpose | [Documentation and repository map](docs/README.md) |
 | Contribute as a teammate | [Contributing](CONTRIBUTING.md) and [team guide](TEAMMATE_GUIDE.md) |
@@ -26,7 +28,7 @@ git clone https://github.com/jokerrrrr-code/noteweaver.git
 cd noteweaver
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e ".[preview]"
+python -m pip install -e ".[preview,export]"
 python examples/groq_notes_demo.py --offline
 ```
 
@@ -59,7 +61,7 @@ certificate troubleshooting, and the public `generate_note()` API.
 Original PDF -> original page + question -> manual note or AI draft
              -> review/edit -> confirm -> save/reopen project JSON
 
-Planned next: approved notes -> supplementary pages -> new study PDF
+Approved notes -> supplementary pages -> new study PDF (export extra)
 ```
 
 Notes keep their original page anchors and stable IDs. Editing returns a note
@@ -76,7 +78,7 @@ source reference, not a copy of the PDF or API credentials.
 | Structured generation, fake test provider, and Groq provider | Implemented; one live English Groq example verified |
 | Source verification and project save/reload | Implemented |
 | English instructions and bilingual lecture/note content | Supported; see examples and tests |
-| Supplementary PDF pages, pagination, bookmarks, and export | Pending Member 3 integration |
+| Supplementary PDF pages, pagination, bookmarks, and export | Implemented through the export API and script; notebook export cells pending |
 | OCR, handwriting recognition, and automatic topic search | Outside the first-release scope |
 | Course JupyterHub acceptance and PyPI publication | Pending |
 
@@ -85,7 +87,7 @@ accuracy. Free API allowances depend on the user's provider account and quotas.
 
 ## Verify and contribute
 
-After installing with the preview extra:
+After installing with the preview and export extras:
 
 ```bash
 python -m unittest discover -s tests -v
@@ -94,6 +96,9 @@ python -m unittest discover -s tests -v
 Ordinary test runs are offline. Live provider testing requires explicit opt-in;
 see the [evaluator guide](docs/EVALUATION.md) for commands, expected results,
 verification evidence, and contribution history.
+
+For an offline PDF demonstration, run `python examples/export_demo.py`. See the
+[export guide](docs/EXPORT.md) for font coverage and dependency licensing.
 
 Code is in [`src/noteweaver/`](src/noteweaver/), tests in [`tests/`](tests/),
 guides in [`docs/`](docs/README.md), and demonstrations in

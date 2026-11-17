@@ -9,8 +9,8 @@ This guide is for contributors. New users should start with
 
 Start from the latest merged `main`. PDF reading, manual-note operations,
 verified save/load, structured generation, Groq configuration, and the
-question-to-draft workflow are implemented. Supplementary-page rendering and
-PDF export remain pending. See [current scope](README.md#current-scope) and
+question-to-draft workflow are implemented. Approved-note rendering and PDF
+export are available; notebook export cells remain pending. See [current scope](README.md#current-scope) and
 [the roadmap](ROADMAP.md) before planning work.
 
 Use [the repository map](docs/README.md) for every module/test file and
@@ -117,10 +117,10 @@ generate_note workflow already exist; coordinate changes with Member 4.
 Keep credentials out of files and do not approve or export generated notes.
 ```
 
-### Member 3: Implement supplementary pages and export
+### Member 3: Maintain supplementary pages and export
 
 ```text
-Implement the PDFExporter protocol using source Path, ProjectState, and output Path.
+Read docs/EXPORT.md and maintain the existing PyMuPDFPDFExporter using shared models.
 Verify the source fingerprint and export approved notes only. Start with one note
 after original page 2 of the three-page fixture. Preserve lecture content/order
 and same-page note order. Return ExportResult and pass validate_export.
@@ -135,7 +135,7 @@ Manual notes provide a real input; there is no need to wait for or call AI.
 ```text
 Reuse workflow.generate_note, project operations, and verified persistence.
 Reader/generator integration and both English notebooks already exist.
-Next integrate the exporter when available, maintaining source verification,
+The exporter API and script are available. Next add notebook export cells, maintaining source verification,
 review state, stable IDs, original-page anchors, and note order.
 Coordinate packaging and JupyterHub checks. Do not implement every member's module.
 Keep the manual workflow API-free and live generation explicitly selected.

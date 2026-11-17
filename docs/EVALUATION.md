@@ -11,7 +11,7 @@ assignment requirement is already complete.
 NoteWeaver is an installable development Python package with English Jupyter
 walkthroughs. It connects a real lecture PDF to original-page-anchored manual or
 AI-generated drafts, explicit review/editing, and source-verified JSON save/load.
-Supplementary-page layout and study-PDF export remain pending.
+Approved-note supplementary pages and study-PDF export are implemented through the API and export script. Notebook export cells remain pending.
 
 The workflow preserves a note's ID and original page when edited, invalidates
 old approval after edits, records generation requests, and rejects changed
@@ -21,9 +21,10 @@ from the replaceable AI provider. They also work with manually written notes.
 ## Reproduce the offline checks
 
 First follow [Quick start](QUICKSTART.md) to install the checkout with
-`.[preview]`. Then run from the repository root:
+`.[preview,export]`. Then run from the repository root:
 
 ```bash
+python examples/export_demo.py
 python examples/pdf_reader_demo.py
 python examples/groq_notes_demo.py --offline
 python -m unittest discover -s tests -v
@@ -32,6 +33,7 @@ python -m pip check
 
 | Check | Expected result |
 | --- | --- |
+| Export demo | Five pages: originals 1, 2, English note, Chinese note, original 3; valid maps and bookmarks |
 | Reader demo | Three pages; English and Chinese text from page 2; real PNG previews; invalid pages and missing files rejected |
 | Offline workflow | Clearly labeled fixed provider content; a draft attached to page 2; JSON saved and successfully reopened |
 | Test suite | All ordinary tests pass; the explicitly opt-in live test is skipped |
@@ -75,8 +77,8 @@ test requires explicit `NOTEWEAVER_RUN_OPENAI_TESTS=1` as well as credentials.
 
 ## Recorded evidence
 
-Baseline reviewed for this documentation: `main` commit `b39aafd`, incorporating
-PRs #1 through #9. The following evidence was recorded during development:
+Historical baseline: `main` commit `b39aafd`, incorporating PRs #1 through #9.
+PR #11 adds the exporter and integration fixes; its verification is recorded below. The following evidence was recorded during development:
 
 | Evidence | Result and limitation |
 | --- | --- |
@@ -93,6 +95,26 @@ broad model quality, reliability, or live Chinese generation. Detailed feature
 validation is recorded in the linked PRs below. Personal keys and locally
 generated artifacts are not published as evidence.
 
+## Exporter verification, 2026-11-17
+
+PR #11 retains Member 3's initial exporter commit and adds Member 4's integration
+repairs. The updated suite contains 124 tests: 123 passed and the opt-in live
+provider test was skipped. This includes 12 exporter tests using real shared
+models, not alternate fallback classes.
+
+The same full suite passed with PyMuPDF 2.1 in the development environment and
+PyMuPDF 1.26.7 after installing a built wheel with `preview,export` extras into
+a new Python 3.14 environment. Short, long, and saved-project export demos,
+offline generation, and `pip check` passed in the wheel environment. Importing
+the base package without PyMuPDF still works and exporter creation provides an
+installation message. No live AI request was made for this verification.
+
+English and Traditional Chinese note pages, including continuation pages, were
+rendered with Poppler and visually inspected. Tests verify original-page pixel
+preservation, text coverage, page maps, source/destination protection, and
+remapped internal links/bookmarks. Actual JupyterHub, Windows, and other Python
+versions remain unverified.
+
 ## Inspect contributions
 
 Review the [commit history](https://github.com/jokerrrrr-code/noteweaver/commits/main/)
@@ -108,7 +130,7 @@ during integration. Merging a PR does not mean its merger authored every change.
 | Member 4: preview integration fixes and notebook | [#6](https://github.com/jokerrrrr-code/noteweaver/pull/6), [#7](https://github.com/jokerrrrr-code/noteweaver/pull/7) |
 | Member 2: generator/providers, with Member 4 validation fixes | [#8](https://github.com/jokerrrrr-code/noteweaver/pull/8) |
 | Member 4: Groq configuration and runnable generation integration | [#9](https://github.com/jokerrrrr-code/noteweaver/pull/9) |
-| Member 3: layout and PDF export | Pending in the reviewed main branch |
+| Member 3: initial PDF exporter; Member 4: shared-contract and validation fixes | [#11](https://github.com/jokerrrrr-code/noteweaver/pull/11) |
 
 AI-assisted development is permitted by the team's contribution guide. Each
 contributor remains responsible for understanding and demonstrating the work.
@@ -124,13 +146,12 @@ Install dependencies and open the notebook before the presentation.
 | 30-45 seconds | Edit the note and show its draft/review state |
 | 45-60 seconds | Save/reopen the JSON and show the unchanged original-page anchor |
 
-Label prepared backup results honestly. Add the exported-PDF step only after
-Member 3's implementation has passed visual and integration checks.
+Label prepared backup results honestly. The export demo can now show the final PDF and original/note page maps.
 
 ## Remaining assignment work
 
-- Integrate supplementary-page rendering, Chinese/English pagination, page maps,
-  and study-PDF export; visually inspect the resulting pages.
+- Add export cells to the interactive notebooks; the API and script already export
+  approved notes with bilingual pagination and page maps.
 - Run installation and the demonstration in the actual course JupyterHub.
 - Agree on the package-wide license and available PyPI distribution name, then
   complete packaging/release checks and publication. Metadata currently retains

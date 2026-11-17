@@ -10,6 +10,7 @@
 | Lecturer or reviewer | [Evaluator guide](EVALUATION.md) |
 | Choose an example | [Examples index](../examples/README.md) |
 | Run the manual notebook | [Notebook setup](NOTEBOOK_DEMO.md) |
+| Export approved notes to PDF | [PDF export](EXPORT.md) |
 | Generate notes through Groq | [Groq setup and public workflow](GROQ_SETUP.md) |
 | Read or preview PDFs | [PDF reader](PDF_READER.md) |
 | Create, edit, approve, or delete notes | [Manual note operations](PROJECT_WORKFLOW.md) |
@@ -49,6 +50,7 @@ contents. `.git/` stores version history and is managed by Git.
 | [`project.py`](../src/noteweaver/project.py) | In-memory manual notes, editing, review state, and deletion | `create_project`, `add_manual_note`, `update_note`, `approve_note`, `delete_note`, `list_notes` |
 | [`persistence.py`](../src/noteweaver/persistence.py) | Source-verified JSON save/load and safe file publication | `save_project`, `load_project` |
 | [`generation.py`](../src/noteweaver/generation.py) | Validate generation inputs/outputs around a provider | Concrete `NoteGenerator`, `default_generator` |
+| [`exporters.py`](../src/noteweaver/exporters.py) | Bilingual approved-note layout, safe PDF publication, maps and navigation | `PyMuPDFPDFExporter` |
 | [`workflow.py`](../src/noteweaver/workflow.py) | Connect real PDF reading, generation, and project history | `generate_note` |
 | [`providers/base.py`](../src/noteweaver/providers/base.py) | Provider contract and failure type | `NoteProvider`, `GenerationError` |
 | [`providers/fake.py`](../src/noteweaver/providers/fake.py) | Fixed offline content for integration testing | `FakeNoteProvider` |
@@ -58,14 +60,15 @@ contents. `.git/` stores version history and is managed by Git.
 | [`providers/__init__.py`](../src/noteweaver/providers/__init__.py) | Provider exports | `from noteweaver.providers import ...` |
 | [`py.typed`](../src/noteweaver/py.typed) | Marker for consumers of the package's type annotations | No executable code |
 
-`PDFExporter` is currently a protocol, not a working exporter. ExportResult and
-its validation fixtures describe the future export contract; they do not render
-or insert PDF pages.
+`interfaces.PDFExporter` is the protocol; `exporters.PyMuPDFPDFExporter` is the
+working implementation. ExportResult and its synthetic JSON fixtures define
+page maps; the fixtures themselves do not create a PDF.
 
 ## Test map
 
 | Test file | What it checks |
 | --- | --- |
+| [`test_pdf_exporter.py`](../tests/test_pdf_exporter.py) | Real shared-model export, pagination, Chinese, source/destination safety, links and bookmarks |
 | [`test_contracts.py`](../tests/test_contracts.py) | Strict types, JSON, source identity, and page-map contracts |
 | [`test_project.py`](../tests/test_project.py) | Note operations, stable identity/order, and approval invalidation |
 | [`test_persistence.py`](../tests/test_persistence.py) | Save/load, path handling, source changes, and safe writes |

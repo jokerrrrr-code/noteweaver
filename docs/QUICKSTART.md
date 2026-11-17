@@ -3,7 +3,7 @@
 [Repository home](../README.md) · [All documentation](README.md)
 
 Use this guide to install NoteWeaver and try a real lecture PDF. The package
-currently produces editable project JSON; study-PDF export is still pending.
+produces editable project JSON and, with the export extra, study PDFs.
 
 ## 1. Get the repository
 
@@ -26,14 +26,14 @@ macOS/Linux:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e ".[preview]"
+python -m pip install -e ".[preview,export]"
 ```
 
 Windows PowerShell:
 
 ```powershell
 py -3 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e ".[preview]"
+.\.venv\Scripts\python.exe -m pip install -e ".[preview,export]"
 ```
 
 In PowerShell, you can run the later commands with
@@ -42,7 +42,8 @@ For a Python kernel already supplied by JupyterHub, install the checkout in
 that kernel's environment rather than creating an unrelated interpreter.
 
 The base package installs `pypdf`. The `preview` extra adds `pypdfium2` and
-Pillow for page images and the full test suite. Text reading, manual notes,
+Pillow for page images. The `export` extra adds PyMuPDF for PDF output.
+Install both extras for the full test suite. Text reading, manual notes,
 and generation without previews can use `python -m pip install -e .`.
 
 ## 3. Try the complete offline example
@@ -70,6 +71,14 @@ python examples/pdf_reader_demo.py
 
 That script uses temporary preview files, which it removes when finished. Use
 a notebook below if you want to see the page image inline.
+
+To export reviewed bilingual sample notes to PDF, run:
+
+```bash
+python examples/export_demo.py
+```
+
+See [PDF export](EXPORT.md) for saved projects and long-note pagination.
 
 ## 4. Use a notebook
 
@@ -140,7 +149,7 @@ test is expected during ordinary verification. See [evaluation instructions](EVA
 | Certificate verification failure | Follow the trusted CA instructions in [Groq setup](GROQ_SETUP.md); keep HTTPS verification enabled. |
 | `FileExistsError` when saving | Choose a new project filename, or use `overwrite=True` when replacing that project is intended. |
 | Source fingerprint mismatch | Reopen with the original unchanged PDF; revised PDFs need a new project. |
-| Cannot find the exported study PDF | This version saves project JSON. Supplementary PDF export is not implemented yet. |
+| Cannot find the exported study PDF | The generation/manual notebooks save JSON. Run the separate export API or `export_demo.py` with approved notes; see [PDF export](EXPORT.md). |
 
 ## Where to go next
 
