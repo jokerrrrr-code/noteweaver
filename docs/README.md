@@ -11,6 +11,8 @@
 | Choose an example | [Examples index](../examples/README.md) |
 | Run the manual notebook | [Notebook setup](NOTEBOOK_DEMO.md) |
 | Export approved notes to PDF | [PDF export](EXPORT.md) |
+| Generate notes through OpenRouter | [OpenRouter setup](OPENROUTER_SETUP.md) |
+| Inspect school validation | [School test record](SCHOOL_TEST_RECORD.md) |
 | Generate notes through Groq | [Groq setup and public workflow](GROQ_SETUP.md) |
 | Read or preview PDFs | [PDF reader](PDF_READER.md) |
 | Create, edit, approve, or delete notes | [Manual note operations](PROJECT_WORKFLOW.md) |
@@ -68,6 +70,7 @@ page maps; the fixtures themselves do not create a PDF.
 
 | Test file | What it checks |
 | --- | --- |
+| [`test_notebook_providers.py`](../tests/test_notebook_providers.py) | Actual provider cell: offline default, isolated credentials, OpenRouter transport, and error preservation |
 | [`test_notebook_export.py`](../tests/test_notebook_export.py) | Actual notebook export cells: draft gate, current snapshot, repeat runs, and failures |
 | [`test_pdf_exporter.py`](../tests/test_pdf_exporter.py) | Real shared-model export, pagination, Chinese, source/destination safety, links and bookmarks |
 | [`test_contracts.py`](../tests/test_contracts.py) | Strict types, JSON, source identity, and page-map contracts |

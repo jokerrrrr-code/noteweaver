@@ -135,6 +135,13 @@ The generic `OpenAICompatibleProvider` remains available with its original
 environment configuration, plus explicit constructor settings. Shared data
 models and persisted JSON schemas have not changed.
 
+## School access note
+
+On 2026-11-17, the school server returned HTTP 403 for Groq, while a later
+OpenRouter request succeeded. The exact Groq rejection cause was not determined.
+See [school evidence](SCHOOL_TEST_RECORD.md) and [OpenRouter setup](OPENROUTER_SETUP.md)
+for an explicitly selected alternative; the package never switches services automatically.
+
 ## Failures and validation
 
 - Missing/rejected key: configure a valid Groq key and rerun deliberately.

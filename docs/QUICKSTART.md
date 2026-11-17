@@ -97,11 +97,13 @@ For generation, open `examples/generation_workflow_demo.ipynb` in the same
 JupyterLab window. Its default offline mode runs without credentials and keeps the generated note
 as a draft. Review it, set `CONFIRM_REVIEW = True`, and run the save/export/preview
 cells to obtain a PDF. Change
-`MODE` to `"groq"` and follow the hidden key prompt for a real AI request.
+`MODE` to `"openrouter"` or `"groq"` and follow the selected service's hidden key
+prompt for a real AI request. See [OpenRouter setup](OPENROUTER_SETUP.md).
 
 On JupyterHub, open the notebook in the existing browser interface; do not
 start a second JupyterLab server. Follow your university's kernel permissions.
-The actual course JupyterHub environment still needs team acceptance testing.
+The [school test record](SCHOOL_TEST_RECORD.md) records completed sample checks
+and their limits; recheck your own environment.
 
 Read [Notebook setup and replay behavior](NOTEBOOK_DEMO.md) for details.
 
@@ -146,8 +148,8 @@ test is expected during ordinary verification. See [evaluation instructions](EVA
 | `ModuleNotFoundError: noteweaver` | Install this checkout into the Python environment used by your terminal or notebook kernel. |
 | Notebook imports an older version | Update the checkout, reinstall into that kernel if needed, then restart the kernel. |
 | No preview image | Install `.[preview]` into the active environment; check the emitted preview warning. |
-| Output looks like a fixed opportunity-cost example | You are using the fake provider. Choose Groq mode for a real answer. |
-| Missing or rejected key | Use your own valid Groq key through the hidden prompt or `GROQ_API_KEY`. |
+| Output looks like a fixed opportunity-cost example | You are using the fake provider. Choose OpenRouter or Groq mode for a real answer. |
+| Missing or rejected key | Use the selected service's key: `OPENROUTER_API_KEY`, `GROQ_API_KEY`, or its hidden prompt. |
 | HTTP 429 | Wait for the applicable quota window before deliberately retrying. |
 | Certificate verification failure | Follow the trusted CA instructions in [Groq setup](GROQ_SETUP.md); keep HTTPS verification enabled. |
 | `FileExistsError` when saving | Choose a new project filename, or use `overwrite=True` when replacing that project is intended. |
@@ -159,5 +161,6 @@ test is expected during ordinary verification. See [evaluation instructions](EVA
 - [All runnable examples](../examples/README.md)
 - [Manual note API](PROJECT_WORKFLOW.md)
 - [Project saving, loading, and path rules](PERSISTENCE.md)
+- [OpenRouter setup](OPENROUTER_SETUP.md)
 - [Generation and Groq API](GROQ_SETUP.md)
 - [Repository and API map](README.md)

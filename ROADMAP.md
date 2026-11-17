@@ -10,7 +10,8 @@
 - Verified JSON save/load with stable IDs, original-page anchors, and note order.
 - Structured generation with an offline fake provider and configurable live providers.
 - Groq-backed `generate_note()` orchestration, CLI example, and English notebooks.
-- Offline integration tests and one recorded real English Groq generation.
+- Offline integration tests and recorded English Groq and OpenRouter generation.
+- Explicit OpenRouter notebook mode using the existing generic provider.
 
 See [current scope](README.md#current-scope) for the user-facing summary and
 [evaluation](docs/EVALUATION.md) for the limits of the recorded verification.
@@ -33,7 +34,9 @@ state produced by the existing project API; no AI service is needed for manual e
 
 ## Then: release and course acceptance
 
-- [ ] Verify installation and notebook execution in the actual course JupyterHub.
+- [x] Verify checkout installation and sample notebook workflows in course JupyterHub;
+  see [school evidence and limitations](docs/SCHOOL_TEST_RECORD.md).
+- [ ] Rerun the newly integrated OpenRouter notebook on school JupyterHub after updating.
 - [ ] Validate the final built distribution in a clean supported environment.
 - [ ] Agree on the package-wide license and available PyPI distribution name.
 - [ ] Review dependencies, public metadata, and documentation; remove the upload
@@ -42,7 +45,8 @@ state produced by the existing project API; no AI service is needed for manual e
 - [ ] Rehearse the one-minute joint demonstration and prepare labeled backup results.
 
 Current metadata retains `Private :: Do Not Upload`. A local wheel build and a
-public GitHub repository are not PyPI publication or course-environment acceptance.
+public GitHub repository are not PyPI publication. The school record covers
+checkout-based tests, not installation of a published release.
 
 ## Ongoing verification
 

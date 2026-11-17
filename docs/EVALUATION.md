@@ -51,7 +51,7 @@ correct kernel. Outputs are cleared in Git so reviewers can reproduce them.
 | Notebook | What to inspect |
 | --- | --- |
 | [Manual workflow](../examples/manual_workflow_demo.ipynb) | Actual page preview; manual draft; editing/approval; save/reload; re-review; four-page study PDF and downloads; source unchanged |
-| [Generation workflow](../examples/generation_workflow_demo.ipynb) | Offline or explicit Groq mode; editable draft; explicit review confirmation; JSON persistence; approved-note PDF export, preview and downloads |
+| [Generation workflow](../examples/generation_workflow_demo.ipynb) | Offline or explicit OpenRouter/Groq mode; editable draft; explicit review confirmation; JSON persistence; approved-note PDF export, preview and downloads |
 
 The manual notebook's Run All replays review of the supplied sample note.
 The generation notebook defaults to offline mode and does not approve generated
@@ -59,6 +59,12 @@ content automatically. The two notebooks intentionally demonstrate different
 review behavior; read their instructions before running them on personal notes.
 
 ## Optional real AI verification
+
+For the school-tested OpenRouter configuration, use `MODE = "openrouter"` in the
+[generation notebook](../examples/generation_workflow_demo.ipynb). Follow
+[OpenRouter setup](OPENROUTER_SETUP.md); its free router can choose different models.
+The [school record](SCHOOL_TEST_RECORD.md) distinguishes observed evidence from
+operator reports and documents the Groq access issue.
 
 With your own Groq key, run:
 
@@ -112,8 +118,8 @@ installation message. No live AI request was made for this verification.
 English and Traditional Chinese note pages, including continuation pages, were
 rendered with Poppler and visually inspected. Tests verify original-page pixel
 preservation, text coverage, page maps, source/destination protection, and
-remapped internal links/bookmarks. Actual JupyterHub, Windows, and other Python
-versions remain unverified.
+remapped internal links/bookmarks. At this historical checkpoint, JupyterHub, Windows, and other Python
+versions were unverified; the later school record updates JupyterHub evidence.
 
 ## Notebook export verification, 2026-11-17
 
@@ -132,8 +138,34 @@ All generation checks used the fixed offline provider; no live request was made.
 Source notebooks retain cleared outputs and English instructions/comments.
 
 Execution used local Python 3.14 and PyMuPDF 2.1. Browser download policies and
-actual course JupyterHub behavior still need acceptance testing; the notebooks
-provide a file-browser download fallback.
+actual course JupyterHub behavior were still pending at this checkpoint; see
+the later [school test record](SCHOOL_TEST_RECORD.md). The notebooks provide
+a file-browser download fallback.
+
+## School JupyterHub verification, 2026-11-17
+
+See [School JupyterHub Test Record](SCHOOL_TEST_RECORD.md) for school installation,
+127-test baseline, the separate clean-environment checks, manual/offline/live
+OpenRouter PDF exports, and the limits of the evidence. The live school notebook
+used a locally replaced provider cell; this PR integrates that configuration as
+an explicit mode. Publishing to PyPI and testing the final release remain pending.
+
+## OpenRouter setup integration verification, 2026-11-17
+
+Local verification of the integrated notebook passed 133 tests: 132 passed and
+one explicitly opt-in live-provider test was skipped. Six new tests execute the
+actual provider-selection cell and check offline defaults, prompted/environment
+credentials, explicit OpenRouter routing, the retained Groq path, disabled
+generation for a blank key, invalid modes, and preservation on HTTP errors.
+HTTP responses are mocked; these tests make no live model requests.
+
+Three real-kernel executions passed: default offline draft, mocked OpenRouter
+draft, and mocked OpenRouter approval/export from the examples directory. The
+last run produced four pages, rendered a preview, and exposed PDF/JSON download
+links whose decoded bytes matched the saved files. Source identity remained
+unchanged. Local `pip check` also reported no broken requirements. The earlier
+school live request is recorded separately; no real key was used for this local
+integration verification. Committed notebooks have no outputs or execution counts.
 
 ## Inspect contributions
 
@@ -170,7 +202,8 @@ Label prepared backup results honestly. The export demo can now show the final P
 
 ## Remaining assignment work
 
-- Run installation and the demonstration in the actual course JupyterHub.
+- Rerun the integrated OpenRouter notebook after updating the school checkout,
+  then test installation of the eventual published PyPI version.
 - Agree on the package-wide license and available PyPI distribution name, then
   complete packaging/release checks and publication. Metadata currently retains
   `Private :: Do Not Upload`.
