@@ -1,6 +1,6 @@
 # Project Saving and Loading
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
 Projects can now be saved to UTF-8 JSON files and reopened with source verification. Notes retain their IDs, original pages, content, order, language, sections, source claims, request history, and draft/approved state. The implementation reuses schema v1 without adding fields or changing the shared models.
 
@@ -101,4 +101,4 @@ The persistence tests cover bilingual content, request/section preservation, rev
 
 Implementation is in `src/noteweaver/persistence.py`; tests are in `tests/test_persistence.py`. Both functions are exported from the package root. The in-memory functions stay in project.py; no dependency on reader, provider, or exporter implementations is introduced.
 
-Reader/generator integration is available through [generate_note](GROQ_SETUP.md); approved-note [PDF export](EXPORT.md) consumes the reopened project. Member 3 should still verify the source immediately before PDF export, because it may have changed since the project was loaded. JSON stores note/project data only, not the PDF, preview images, or provider configuration. Keep personal project files in ignored local directories.
+Reader/generator integration is available through [generate_note](../guides/GROQ_SETUP.md); approved-note [PDF export](EXPORT.md) consumes the reopened project. Member 3 should still verify the source immediately before PDF export, because it may have changed since the project was loaded. JSON stores note/project data only, not the PDF, preview images, or provider configuration. Keep personal project files in ignored local directories.

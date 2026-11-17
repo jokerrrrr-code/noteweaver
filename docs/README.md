@@ -1,93 +1,75 @@
-# Documentation and Repository Map
+# Documentation
 
-[Repository home](../README.md)
+[Repository home](../README.md) · [Examples](../examples/README.md) · [Contributing](../CONTRIBUTING.md)
 
-## Choose a guide
+## Use NoteWeaver
 
-| Audience / task | Guide |
+| Guide | What you will do |
 | --- | --- |
-| New user | [Quick start](QUICKSTART.md) |
-| Lecturer or reviewer | [Evaluator guide](EVALUATION.md) |
-| Choose an example | [Examples index](../examples/README.md) |
-| Run the manual notebook | [Notebook setup](NOTEBOOK_DEMO.md) |
-| Export approved notes to PDF | [PDF export](EXPORT.md) |
-| Generate notes through OpenRouter | [OpenRouter setup](OPENROUTER_SETUP.md) |
-| Inspect school validation | [School test record](SCHOOL_TEST_RECORD.md) |
-| Generate notes through Groq | [Groq setup and public workflow](GROQ_SETUP.md) |
-| Read or preview PDFs | [PDF reader](PDF_READER.md) |
-| Create, edit, approve, or delete notes | [Manual note operations](PROJECT_WORKFLOW.md) |
-| Save, reload, or relink a project | [Persistence](PERSISTENCE.md) |
-| Implement a generation provider | [Generation](GENERATION.md) |
-| Understand shared input/output types | [Data contracts](DATA_CONTRACTS.md) |
-| Work as a contributor | [Contributing](../CONTRIBUTING.md), [team plan](../TEAM_PLAN.md), [agent guide](../TEAMMATE_GUIDE.md) |
-| Prepare a PyPI release | [Release checklist](RELEASING.md) and [artifact validation](RELEASE_VALIDATION.md) |
-| Check unfinished work | [Roadmap](../ROADMAP.md) |
+| [Quick start](guides/QUICKSTART.md) | Install, export your first study PDF, and choose a script or notebook |
+| [Notebook workflows](guides/NOTEBOOK_DEMO.md) | Review/edit notes, save/reopen projects, export, preview, and download |
+| [OpenRouter setup](guides/OPENROUTER_SETUP.md) | Configure the OpenRouter notebook/API and diagnose service errors |
+| [Groq setup](guides/GROQ_SETUP.md) | Configure the Groq script/notebook/API and diagnose service errors |
 
-## Top-level files and folders
+Jupyter is an optional interface. The package also works in ordinary Python
+scripts. Manual notes and export need no AI credentials; fake-provider examples
+use fixed content rather than generating real answers.
 
-| Path | Purpose |
+## Python API and contracts
+
+| Reference | Implementation / entry points |
 | --- | --- |
-| `README.md` | Main entry point: what works, installation, and links |
-| `LICENSE` and `NOTICE` | AGPL v3 license text and project copyright/license grant |
-| `MANIFEST.in` | Source distribution contents, including examples, tests, and fixture license |
-| `CHANGELOG.md` | Versioned release notes |
-| `THIRD_PARTY_NOTICES.md` | Dependency and bundled-font license information |
-| `pyproject.toml` | Package metadata, Python requirement, dependencies, and build configuration |
-| `src/noteweaver/` | Installable Python package; module map below |
-| `tests/` | Behavior, failure-handling, and integration tests |
-| `examples/` | Runnable scripts, notebooks, and original/licensed fixtures |
-| `docs/` | User setup, evaluation, API behavior, and shared contracts |
-| `TEAM_PLAN.md` | Four roles, interfaces, acceptance criteria, and handoffs |
-| `TEAMMATE_GUIDE.md` | Contributor onboarding, Git workflow, and role-specific agent prompts |
-| `ROADMAP.md` | Completed milestones and remaining release work |
-| `CONTRIBUTING.md` | How to validate, commit, and submit changes |
-| `AGENTS.md` | Repository instructions for coding agents |
-| `.gitignore` | Excludes local credentials, environments, caches, and generated outputs |
+| [Read and preview PDFs](api/PDF_READER.md) | `pdf_reader.py`: concrete `PDFReader`, `PagePreview`, preview errors/warnings |
+| [Create and review notes](api/PROJECT_WORKFLOW.md) | `project.py`: create, add, edit, filter, delete, approve |
+| [Save, reload, and relink](api/PERSISTENCE.md) | `persistence.py`: `save_project`, `load_project` |
+| [Generate structured drafts](api/GENERATION.md) | `generation.py`, `workflow.py`, `providers/`: `NoteGenerator`, `generate_note`, fake and live providers |
+| [Export approved notes](api/EXPORT.md) | `exporters.py`: `PyMuPDFPDFExporter` |
+| [Shared data contracts](api/DATA_CONTRACTS.md) | `models.py`, `interfaces.py`: dataclasses, validation, JSON schemas, and protocols |
 
-`local_data/` and `generated/` are ignored working folders, not required download
-contents. `.git/` stores version history and is managed by Git.
+The package's public imports are in `src/noteweaver/__init__.py`. Its version is
+in `_version.py`, and `py.typed` marks its type annotations. Protocols describe
+interfaces; concrete reader/exporter implementations live in the modules above.
+Tests under `tests/` follow these responsibilities; notebook tests execute the
+actual provider/export cells. Run them using [the contributor guide](../CONTRIBUTING.md#set-up-and-verify).
 
-## Python module map
+## Evaluate the assignment
 
-| Module | Responsibility | Main public entry points |
-| --- | --- | --- |
-| [`_version.py`](../src/noteweaver/_version.py) | Single release version used by packaging and the HTTP client | `__version__` |
-| [`models.py`](../src/noteweaver/models.py) | Shared dataclasses, JSON validation, source identity, and page maps | `DocumentInfo`, `ProjectState`, `NoteRequest`, `GeneratedNote`, validators |
-| [`interfaces.py`](../src/noteweaver/interfaces.py) | Protocol signatures for module boundaries | `PDFReader`, `NoteGenerator`, `PDFExporter` protocols |
-| [`pdf_reader.py`](../src/noteweaver/pdf_reader.py) | PDF metadata, text extraction, neighboring pages, and actual page previews | Concrete `PDFReader`, `PagePreview`, `PreviewError`, `PreviewWarning` |
-| [`project.py`](../src/noteweaver/project.py) | In-memory manual notes, editing, review state, and deletion | `create_project`, `add_manual_note`, `update_note`, `approve_note`, `delete_note`, `list_notes` |
-| [`persistence.py`](../src/noteweaver/persistence.py) | Source-verified JSON save/load and safe file publication | `save_project`, `load_project` |
-| [`generation.py`](../src/noteweaver/generation.py) | Validate generation inputs/outputs around a provider | Concrete `NoteGenerator`, `default_generator` |
-| [`exporters.py`](../src/noteweaver/exporters.py) | Bilingual approved-note layout, safe PDF publication, maps and navigation | `PyMuPDFPDFExporter` |
-| [`workflow.py`](../src/noteweaver/workflow.py) | Connect real PDF reading, generation, and project history | `generate_note` |
-| [`providers/base.py`](../src/noteweaver/providers/base.py) | Provider contract and failure type | `NoteProvider`, `GenerationError` |
-| [`providers/fake.py`](../src/noteweaver/providers/fake.py) | Fixed offline content for integration testing | `FakeNoteProvider` |
-| [`providers/openai_compatible.py`](../src/noteweaver/providers/openai_compatible.py) | Configurable chat-completions transport and strict response parsing | `OpenAICompatibleProvider` |
-| [`providers/groq.py`](../src/noteweaver/providers/groq.py) | Groq-specific endpoint, credentials, and defaults | `GroqProvider` |
-| [`__init__.py`](../src/noteweaver/__init__.py) | Public package exports | `from noteweaver import ...` |
-| [`providers/__init__.py`](../src/noteweaver/providers/__init__.py) | Provider exports | `from noteweaver.providers import ...` |
-| [`py.typed`](../src/noteweaver/py.typed) | Marker for consumers of the package's type annotations | No executable code |
-
-`interfaces.PDFExporter` is the protocol; `exporters.PyMuPDFPDFExporter` is the
-working implementation. ExportResult and its synthetic JSON fixtures define
-page maps; the fixtures themselves do not create a PDF.
-
-## Test map
-
-| Test file | What it checks |
+| Record | Purpose |
 | --- | --- |
-| [`test_notebook_providers.py`](../tests/test_notebook_providers.py) | Actual provider cell: offline default, isolated credentials, OpenRouter transport, and error preservation |
-| [`test_notebook_export.py`](../tests/test_notebook_export.py) | Actual notebook export cells: draft gate, current snapshot, repeat runs, and failures |
-| [`test_pdf_exporter.py`](../tests/test_pdf_exporter.py) | Real shared-model export, pagination, Chinese, source/destination safety, links and bookmarks |
-| [`test_contracts.py`](../tests/test_contracts.py) | Strict types, JSON, source identity, and page-map contracts |
-| [`test_project.py`](../tests/test_project.py) | Note operations, stable identity/order, and approval invalidation |
-| [`test_persistence.py`](../tests/test_persistence.py) | Save/load, path handling, source changes, and safe writes |
-| [`test_pdf_reader.py`](../tests/test_pdf_reader.py) | Real PDF extraction, previews, bad inputs, and persistence integration |
-| [`test_pdf_preview_safety.py`](../tests/test_pdf_preview_safety.py) | Source aliases, preview failures, and embedded fixture fonts |
-| [`test_generation.py`](../tests/test_generation.py) | Fake generation, provider contracts, and opt-in live testing |
-| [`test_generation_validation.py`](../tests/test_generation_validation.py) | Preflight validation, malformed provider output, and integration |
-| [`test_groq_workflow.py`](../tests/test_groq_workflow.py) | Mocked Groq transport, credentials, errors, and PDF-to-project workflow |
+| [Evaluator guide](validation/EVALUATION.md) | Reproducible checks, contribution history, and the presentation walkthrough |
+| [School JupyterHub record](validation/SCHOOL_TEST_RECORD.md) | Dated school evidence, including real OpenRouter generation and PDF export |
+| [Release artifact validation](validation/RELEASE_VALIDATION.md) | Wheel/source installation checks and their tested-environment limits |
 
-Use the [evaluator guide](EVALUATION.md) for reproducible commands and the limits
-of the current evidence. See the [examples index](../examples/README.md) for
-script, notebook, fixture, and font-file purposes.
+These records distinguish historical runs, local mocks, and live requests.
+They do not imply that every platform or future provider response is verified.
+
+## Develop and release
+
+- [Contributor guide](../CONTRIBUTING.md): four-member roles, Git workflow, testing, and a coding-agent prompt.
+- [Roadmap](development/ROADMAP.md): completed milestones and remaining work.
+- [Release checklist](development/RELEASING.md): naming, licensing, packaging, and publication gates.
+- [Changelog](../CHANGELOG.md), [project license](../LICENSE), [notice](../NOTICE), and [dependency notices](../THIRD_PARTY_NOTICES.md).
+
+The former root-level `TEAM_PLAN.md` and `TEAMMATE_GUIDE.md` are consolidated into
+`CONTRIBUTING.md`. The roadmap now lives under `docs/development/`. Earlier versions
+remain available in Git history.
+
+## Repository layout
+
+```text
+README.md              Start here
+CONTRIBUTING.md        Team roles and development workflow
+AGENTS.md              Instructions for coding agents
+pyproject.toml         Package metadata and dependencies
+MANIFEST.in            Source archive contents
+src/noteweaver/        Python package
+examples/              Runnable scripts, two notebooks, and licensed fixtures
+tests/                 Offline unit and integration tests
+docs/guides/           Installation, notebooks, and AI setup
+docs/api/              Public operations and shared contracts
+docs/development/      Roadmap and release checklist
+docs/validation/       Evaluation and dated test evidence
+```
+
+`local_data/` and `generated/` are ignored working folders. They are not required
+repository contents and must not hold files intended for publication.

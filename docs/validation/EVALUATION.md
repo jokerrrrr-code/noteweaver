@@ -1,6 +1,6 @@
 # Evaluator Guide
 
-[Repository home](../README.md) · [Quick start](QUICKSTART.md) · [Repository map](README.md)
+[Repository home](../../README.md) · [Quick start](../guides/QUICKSTART.md) · [Repository map](../README.md)
 
 This guide identifies what can be run today, what the checks demonstrate, and
 where to inspect individual contributions. It is not a claim that every
@@ -20,7 +20,7 @@ from the replaceable AI provider. They also work with manually written notes.
 
 ## Reproduce the offline checks
 
-First follow [Quick start](QUICKSTART.md) to install the checkout with
+First follow [Quick start](../guides/QUICKSTART.md) to install the checkout with
 `.[preview,export]`. Then run from the repository root:
 
 ```bash
@@ -45,13 +45,13 @@ page map is synthetic and does not demonstrate a working PDF exporter.
 
 ## Inspect the notebook workflows
 
-Use [Notebook setup](NOTEBOOK_DEMO.md) to open the notebooks and select the
+Use [Notebook setup](../guides/NOTEBOOK_DEMO.md) to open the notebooks and select the
 correct kernel. Outputs are cleared in Git so reviewers can reproduce them.
 
 | Notebook | What to inspect |
 | --- | --- |
-| [Manual workflow](../examples/manual_workflow_demo.ipynb) | Actual page preview; manual draft; editing/approval; save/reload; re-review; four-page study PDF and downloads; source unchanged |
-| [Generation workflow](../examples/generation_workflow_demo.ipynb) | Offline or explicit OpenRouter/Groq mode; editable draft; explicit review confirmation; JSON persistence; approved-note PDF export, preview and downloads |
+| [Manual workflow](../../examples/manual_workflow_demo.ipynb) | Actual page preview; manual draft; editing/approval; save/reload; re-review; four-page study PDF and downloads; source unchanged |
+| [Generation workflow](../../examples/generation_workflow_demo.ipynb) | Offline or explicit OpenRouter/Groq mode; editable draft; explicit review confirmation; JSON persistence; approved-note PDF export, preview and downloads |
 
 The manual notebook's Run All replays review of the supplied sample note.
 The generation notebook defaults to offline mode and does not approve generated
@@ -61,8 +61,8 @@ review behavior; read their instructions before running them on personal notes.
 ## Optional real AI verification
 
 For the school-tested OpenRouter configuration, use `MODE = "openrouter"` in the
-[generation notebook](../examples/generation_workflow_demo.ipynb). Follow
-[OpenRouter setup](OPENROUTER_SETUP.md); its free router can choose different models.
+[generation notebook](../../examples/generation_workflow_demo.ipynb). Follow
+[OpenRouter setup](../guides/OPENROUTER_SETUP.md); its free router can choose different models.
 The [school record](SCHOOL_TEST_RECORD.md) distinguishes observed evidence from
 operator reports and documents the Groq access issue.
 
@@ -74,7 +74,7 @@ python examples/groq_notes_demo.py
 
 An interactive terminal prompts for the key without displaying it, unless
 `GROQ_API_KEY` is already configured. This sends selected lecture text and the
-question to Groq. Account quotas apply. See [Groq setup](GROQ_SETUP.md) for
+question to Groq. Account quotas apply. See [Groq setup](../guides/GROQ_SETUP.md) for
 certificate configuration, response errors, and using your own lecture.
 
 A key is not required for the offline checks. Ordinary test runs do not make
@@ -216,5 +216,5 @@ Label prepared backup results honestly. The export demo can now show the final P
   `Private :: Do Not Upload`.
 - Rehearse the final joint presentation and update this evidence when behavior changes.
 
-The [roadmap](../ROADMAP.md) tracks these remaining tasks. The repository is
+The [roadmap](../development/ROADMAP.md) tracks these remaining tasks. The repository is
 public; that alone does not mean the package is published on PyPI.

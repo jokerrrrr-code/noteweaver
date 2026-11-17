@@ -1,12 +1,12 @@
 # Manual Note Operations
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
-This version provides in-memory project and note operations. It requires no network connection, AI credentials, or other members' modules. A manual note is text entered by the user, not handwriting recognition. The higher-level [generation workflow](GROQ_SETUP.md) connects PDF reading and generated drafts to these operations; approved-note [PDF export](EXPORT.md) is available separately. Separate [save/load functions](PERSISTENCE.md) are now available for this project state.
+This version provides in-memory project and note operations. It requires no network connection, AI credentials, or other members' modules. A manual note is text entered by the user, not handwriting recognition. The higher-level [generation workflow](../guides/GROQ_SETUP.md) connects PDF reading and generated drafts to these operations; approved-note [PDF export](EXPORT.md) is available separately. Separate [save/load functions](PERSISTENCE.md) are now available for this project state.
 
 ## Quick start
 
-Install the local development package as described in the [README](../README.md), then run these commands from the repository root:
+Install the local development package as described in the [README](../../README.md), then run these commands from the repository root:
 
 ```bash
 python examples/manual_notes_demo.py

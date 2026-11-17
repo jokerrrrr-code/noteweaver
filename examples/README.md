@@ -1,6 +1,6 @@
 # Examples and Fixtures
 
-[Repository home](../README.md) · [Installation](../docs/QUICKSTART.md) · [All documentation](../docs/README.md)
+[Repository home](../README.md) · [Installation](../docs/guides/QUICKSTART.md) · [All documentation](../docs/README.md)
 
 Run scripts from the repository root after installing the checkout. The preview
 extra is required for preview demos; install `.[preview,export]` for the full suite. It is not needed
@@ -12,13 +12,13 @@ the sample PDF.
 | Goal | Entry point | Needs a key? | Result |
 | --- | --- | --- | --- |
 | Export approved notes | `python examples/export_demo.py` | No | Five-page study PDF and project JSON |
-| First offline run | `python examples/groq_notes_demo.py --offline` | No | Real PDF input, fixed draft, and saved project JSON |
+| Test offline generation | `python examples/groq_notes_demo.py --offline` | No | Real PDF input, fixed draft, and saved project JSON |
 | Manual notebook walkthrough | [manual_workflow_demo.ipynb](manual_workflow_demo.ipynb) | No | Page preview, personal note, editing/review, save/reload, PDF export and downloads |
 | AI notebook walkthrough | [generation_workflow_demo.ipynb](generation_workflow_demo.ipynb) | Only in OpenRouter/Groq mode | Generated draft, optional editing/review, save/reload; PDF export after confirmation |
 | Real AI command-line run | `python examples/groq_notes_demo.py` | Groq key | Live draft and verified project JSON |
 
-Follow [notebook setup](../docs/NOTEBOOK_DEMO.md) or
-[OpenRouter setup](../docs/OPENROUTER_SETUP.md) / [Groq setup](../docs/GROQ_SETUP.md) as appropriate. GitHub displays notebook
+Follow [notebook setup](../docs/guides/NOTEBOOK_DEMO.md) or
+[OpenRouter setup](../docs/guides/OPENROUTER_SETUP.md) / [Groq setup](../docs/guides/GROQ_SETUP.md) as appropriate. GitHub displays notebook
 source; execute it in Jupyter to see the cleared outputs.
 
 ## Every script

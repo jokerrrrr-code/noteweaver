@@ -1,6 +1,6 @@
 # Generate Real Notes with Groq
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
 NoteWeaver can send selected lecture text and a question to Groq, validate the
 returned structured draft, and attach the draft and request to an editable
@@ -59,7 +59,7 @@ answer arbitrary questions and is not proof of real AI quality.
 
 ## Run the English notebook
 
-Open [generation_workflow_demo.ipynb](../examples/generation_workflow_demo.ipynb)
+Open [generation_workflow_demo.ipynb](../../examples/generation_workflow_demo.ipynb)
 using the kernel setup in [NOTEBOOK_DEMO.md](NOTEBOOK_DEMO.md).
 
 1. Change `MODE = "offline"` to `MODE = "groq"`.
@@ -139,7 +139,7 @@ models and persisted JSON schemas have not changed.
 
 On 2026-11-17, the school server returned HTTP 403 for Groq, while a later
 OpenRouter request succeeded. The exact Groq rejection cause was not determined.
-See [school evidence](SCHOOL_TEST_RECORD.md) and [OpenRouter setup](OPENROUTER_SETUP.md)
+See [school evidence](../validation/SCHOOL_TEST_RECORD.md) and [OpenRouter setup](OPENROUTER_SETUP.md)
 for an explicitly selected alternative; the package never switches services automatically.
 
 ## Failures and validation

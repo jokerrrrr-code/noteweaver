@@ -1,6 +1,6 @@
 # PDF Loading, Text Extraction, and Page Previews
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
 This module implements `PDFReader` (from `src/noteweaver/interfaces.py`) in `src/noteweaver/pdf_reader.py`. It loads text-based lecture PDFs, computes stable SHA-256 document identities via `document_id_for_file()`, extracts 1-based page text while distinguishing `ok`, `empty`, and `error` states, validates page bounds with `validate_page()`, and generates page previews ready for Jupyter Notebooks.
 
@@ -82,7 +82,7 @@ substitutes extracted text or a blank placeholder for a failed rendering.
 
 The three-page sample embeds a licensed Chinese font subset. Its original
 English and Chinese lecture text and 1-based page order are preserved. See the
-[font provenance and rebuild instructions](../examples/data/fonts/README.md).
+[font provenance and rebuild instructions](../../examples/data/fonts/README.md).
 The subset is fixture-specific; it must not be used to render arbitrary notes.
 This fixture fix does not repair missing or incorrect fonts in user-supplied PDFs.
 

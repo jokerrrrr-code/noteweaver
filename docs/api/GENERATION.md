@@ -1,6 +1,6 @@
 # Note Generation
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
 Turn lecture page text and a student question into an editable structured draft note.
 
@@ -14,7 +14,7 @@ Turn lecture page text and a student question into an editable structured draft 
 - Isolate any live AI service behind a replaceable `NoteProvider`; never write API keys into project files or Git.
 
 For a complete PDF-to-draft workflow, use `generate_note()` and `GroqProvider`
-as documented in [Groq setup](GROQ_SETUP.md).
+as documented in [Groq setup](../guides/GROQ_SETUP.md).
 
 ## Quick start (offline)
 
