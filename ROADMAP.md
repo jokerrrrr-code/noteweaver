@@ -25,7 +25,7 @@ Member 3 supplied the initial exporter; Member 4 added shared-contract integrati
 - [x] Return valid original/note page maps and implement the agreed bookmarks.
 - [x] Reject source aliases and verify the source immediately before export.
 - [x] Inspect rendered output for glyph problems, overlap, and clipping.
-- [ ] Connect export to the manual and generation notebooks.
+- [x] Connect export to the manual and generation notebooks, with previews and downloads.
 
 `ExportResult`, `validate_export`, and `PDFExporter` already define the shared
 contract. The concrete PyMuPDFPDFExporter implements rendering and file publication. Reuse the approved-note

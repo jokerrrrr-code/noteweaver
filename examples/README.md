@@ -13,8 +13,8 @@ the sample PDF.
 | --- | --- | --- | --- |
 | Export approved notes | `python examples/export_demo.py` | No | Five-page study PDF and project JSON |
 | First offline run | `python examples/groq_notes_demo.py --offline` | No | Real PDF input, fixed draft, and saved project JSON |
-| Manual notebook walkthrough | [manual_workflow_demo.ipynb](manual_workflow_demo.ipynb) | No | Page preview, personal note, editing/review, save/reload |
-| AI notebook walkthrough | [generation_workflow_demo.ipynb](generation_workflow_demo.ipynb) | Only in Groq mode | Generated draft, optional editing/review, save/reload |
+| Manual notebook walkthrough | [manual_workflow_demo.ipynb](manual_workflow_demo.ipynb) | No | Page preview, personal note, editing/review, save/reload, PDF export and downloads |
+| AI notebook walkthrough | [generation_workflow_demo.ipynb](generation_workflow_demo.ipynb) | Only in Groq mode | Generated draft, optional editing/review, save/reload; PDF export after confirmation |
 | Real AI command-line run | `python examples/groq_notes_demo.py` | Groq key | Live draft and verified project JSON |
 
 Follow [notebook setup](../docs/NOTEBOOK_DEMO.md) or
@@ -55,6 +55,7 @@ project, use metadata from `PDFReader.inspect()` and retain the original PDF.
 
 ## Generated files and replay
 
+- Notebook export snapshots: each run contains new `export-*` folders with PDF/JSON and previews.
 - PDF export results: `generated/export-demo/run-*`.
 - Manual notebook results: `generated/notebook-demo/run-*`.
 - Generation notebook results: `generated/groq-notebook/run-*`.
@@ -67,4 +68,5 @@ Read the notebook instructions before rerunning individual save/approval cells.
 Clear outputs before committing notebook edits.
 
 All instructions and code comments are in English. Chinese appears as deliberate
-bilingual sample content. The export demo produces a study PDF; the existing notebooks still stop at project JSON.
+bilingual sample content. The export demo and both notebooks produce study PDFs from approved notes.
+The generation notebook defaults to a draft and skips export until review is confirmed.

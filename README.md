@@ -6,7 +6,8 @@ original PDF pages. Use it in a Python script or a Jupyter notebook.
 **Available now:** read and preview text-based PDFs, write manual notes or
 request AI drafts, review/edit notes, and save/reopen verified project JSON.
 **Also available:** approved-note PDF export with Chinese/English pagination and bookmarks.
-Notebook export cells and course/release acceptance remain pending.
+Both notebooks include export, page previews, and PDF/JSON download links.
+Course JupyterHub acceptance and publication remain pending.
 
 ## Start here
 
@@ -44,13 +45,15 @@ folder. It makes no model request and does not answer arbitrary questions.
 
 | Workflow | Entry point | API key | Output |
 | --- | --- | --- | --- |
-| Write and review your own notes | [Manual notebook](examples/manual_workflow_demo.ipynb) | None | Editable project JSON |
+| Write and review your own notes | [Manual notebook](examples/manual_workflow_demo.ipynb) | None | Editable project JSON and approved-note PDF |
 | Test the connected generation workflow | `python examples/groq_notes_demo.py --offline` | None | Fixed test draft and JSON |
 | Generate a real AI explanation | `python examples/groq_notes_demo.py` | Your Groq key | AI draft and JSON |
-| Generate, edit, and review interactively | [Generation notebook](examples/generation_workflow_demo.ipynb) | Needed only in Groq mode | Editable project JSON |
+| Generate, edit, and review interactively | [Generation notebook](examples/generation_workflow_demo.ipynb) | Needed only in Groq mode | Editable project JSON and approved-note PDF |
 
 Use the [notebook setup guide](docs/NOTEBOOK_DEMO.md) to select the correct Python
 kernel. Notebooks are committed with outputs cleared; run them to see results.
+The manual sample exports on Run All. The generation notebook requires explicit
+review confirmation before export; its default Run All keeps the draft.
 The generation notebook starts in `MODE = "offline"`; set it to `"groq"` for a
 real request. See [Groq setup](docs/GROQ_SETUP.md) for hidden key input, quotas,
 certificate troubleshooting, and the public `generate_note()` API.
@@ -78,7 +81,7 @@ source reference, not a copy of the PDF or API credentials.
 | Structured generation, fake test provider, and Groq provider | Implemented; one live English Groq example verified |
 | Source verification and project save/reload | Implemented |
 | English instructions and bilingual lecture/note content | Supported; see examples and tests |
-| Supplementary PDF pages, pagination, bookmarks, and export | Implemented through the export API and script; notebook export cells pending |
+| Supplementary PDF pages, pagination, bookmarks, and export | Implemented through the API, script, and both notebooks |
 | OCR, handwriting recognition, and automatic topic search | Outside the first-release scope |
 | Course JupyterHub acceptance and PyPI publication | Pending |
 

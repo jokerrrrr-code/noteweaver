@@ -10,7 +10,7 @@ This guide is for contributors. New users should start with
 Start from the latest merged `main`. PDF reading, manual-note operations,
 verified save/load, structured generation, Groq configuration, and the
 question-to-draft workflow are implemented. Approved-note rendering and PDF
-export are available; notebook export cells remain pending. See [current scope](README.md#current-scope) and
+export are available in the API, script, and both notebooks. See [current scope](README.md#current-scope) and
 [the roadmap](ROADMAP.md) before planning work.
 
 Use [the repository map](docs/README.md) for every module/test file and
@@ -135,7 +135,7 @@ Manual notes provide a real input; there is no need to wait for or call AI.
 ```text
 Reuse workflow.generate_note, project operations, and verified persistence.
 Reader/generator integration and both English notebooks already exist.
-The exporter API and script are available. Next add notebook export cells, maintaining source verification,
+The exporter API, script, and notebook cells are available. Maintain source verification,
 review state, stable IDs, original-page anchors, and note order.
 Coordinate packaging and JupyterHub checks. Do not implement every member's module.
 Keep the manual workflow API-free and live generation explicitly selected.

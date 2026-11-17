@@ -1,8 +1,8 @@
 # NoteWeaver Four-Member Team Plan
 
 The reader, structured generation, Groq integration, manual-note operations, and
-verified save/load are implemented. Supplementary-page rendering/export are also implemented; notebook export cells and
-course/release acceptance remain pending. See [current scope](README.md#current-scope),
+verified save/load are implemented. Supplementary-page rendering/export and both notebook export workflows are also implemented;
+course/release acceptance remains pending. See [current scope](README.md#current-scope),
 [the roadmap](ROADMAP.md), and [recorded contribution evidence](docs/EVALUATION.md).
 Member numbers identify responsibilities, not a claim that all listed work is complete.
 
@@ -78,7 +78,7 @@ Acceptance: short, long, and multiple notes export correctly; Chinese glyphs ren
 
 Suggested files: `src/noteweaver/project.py`, `src/noteweaver/__init__.py`, project and integration tests, and `examples/`. Coordinate shared changes to `models.py` and `pyproject.toml` rather than replacing them.
 
-Current progress: in-memory manual-note creation, editing, approval, deletion, filtering, and JSON file save/load with source verification are implemented. The [English notebook demo](docs/NOTEBOOK_DEMO.md) now integrates the real PDF reader with editing, approval, and verified save/load. The [Groq generation workflow](docs/GROQ_SETUP.md) also connects the reader and generator to editable drafts and request history. The export API and script are available; next add notebook export cells and complete course/release checks. Reuse ProjectState and the existing model definitions.
+Current progress: in-memory manual-note creation, editing, approval, deletion, filtering, and JSON file save/load with source verification are implemented. The [English notebook demo](docs/NOTEBOOK_DEMO.md) now integrates the real PDF reader with editing, approval, and verified save/load. The [Groq generation workflow](docs/GROQ_SETUP.md) also connects the reader and generator to editable drafts and request history. The export API, script, and both notebook export workflows are available; next complete course/release checks. Reuse ProjectState and the existing model definitions.
 
 Acceptance: the public API supports the complete workflow; content and anchors survive save/reload; manual mode works without AI credentials.
 
