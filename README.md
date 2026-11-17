@@ -8,20 +8,21 @@ request AI drafts, review/edit notes, and save/reopen verified project JSON.
 **Also available:** approved-note PDF export with Chinese/English pagination and bookmarks.
 Both notebooks include export, page previews, and PDF/JSON download links.
 School JupyterHub installation, notebooks, and one live OpenRouter-to-PDF workflow
-have been checked; see the [school test record](docs/SCHOOL_TEST_RECORD.md).
-PyPI publication remains pending.
+have been checked; see the [school test record](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/SCHOOL_TEST_RECORD.md).
+PyPI publication remains pending. Release candidate metadata targets **0.1.0**;
+see the [release checklist](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/RELEASING.md).
 
 ## Start here
 
 | I want to... | Open |
 | --- | --- |
-| Install and try the package | [Quick start](docs/QUICKSTART.md) |
-| Set up OpenRouter free-model generation | [OpenRouter setup](docs/OPENROUTER_SETUP.md) |
-| Review the university assignment | [Evaluator guide](docs/EVALUATION.md) |
-| Export approved notes to PDF | [PDF export guide](docs/EXPORT.md) |
-| Choose a runnable demonstration | [Examples index](examples/README.md) |
-| Find an API or file's purpose | [Documentation and repository map](docs/README.md) |
-| Contribute as a teammate | [Contributing](CONTRIBUTING.md) and [team guide](TEAMMATE_GUIDE.md) |
+| Install and try the package | [Quick start](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/QUICKSTART.md) |
+| Set up OpenRouter free-model generation | [OpenRouter setup](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/OPENROUTER_SETUP.md) |
+| Review the university assignment | [Evaluator guide](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/EVALUATION.md) |
+| Export approved notes to PDF | [PDF export guide](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/EXPORT.md) |
+| Choose a runnable demonstration | [Examples index](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/README.md) |
+| Find an API or file's purpose | [Documentation and repository map](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/README.md) |
+| Contribute as a teammate | [Contributing](https://github.com/jokerrrrr-code/noteweaver/blob/main/CONTRIBUTING.md) and [team guide](https://github.com/jokerrrrr-code/noteweaver/blob/main/TEAMMATE_GUIDE.md) |
 
 ## Install and try without an API key
 
@@ -36,7 +37,7 @@ python -m pip install -e ".[preview,export]"
 python examples/groq_notes_demo.py --offline
 ```
 
-For Windows activation and JupyterHub setup, follow the [quick start](docs/QUICKSTART.md).
+For Windows activation and JupyterHub setup, follow the [quick start](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/QUICKSTART.md).
 If you already have a checkout, use it instead of cloning over existing work.
 Install this repository; PyPI publication is still a release milestone.
 
@@ -48,19 +49,19 @@ folder. It makes no model request and does not answer arbitrary questions.
 
 | Workflow | Entry point | API key | Output |
 | --- | --- | --- | --- |
-| Write and review your own notes | [Manual notebook](examples/manual_workflow_demo.ipynb) | None | Editable project JSON and approved-note PDF |
+| Write and review your own notes | [Manual notebook](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/manual_workflow_demo.ipynb) | None | Editable project JSON and approved-note PDF |
 | Test the connected generation workflow | `python examples/groq_notes_demo.py --offline` | None | Fixed test draft and JSON |
 | Generate a real AI explanation | `python examples/groq_notes_demo.py` | Your Groq key | AI draft and JSON |
-| Generate, edit, and review interactively | [Generation notebook](examples/generation_workflow_demo.ipynb) | Your OpenRouter or Groq key in live mode | Editable project JSON and approved-note PDF |
+| Generate, edit, and review interactively | [Generation notebook](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/generation_workflow_demo.ipynb) | Your OpenRouter or Groq key in live mode | Editable project JSON and approved-note PDF |
 
-Use the [notebook setup guide](docs/NOTEBOOK_DEMO.md) to select the correct Python
+Use the [notebook setup guide](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/NOTEBOOK_DEMO.md) to select the correct Python
 kernel. Notebooks are committed with outputs cleared; run them to see results.
 The manual sample exports on Run All. The generation notebook requires explicit
 review confirmation before export; its default Run All keeps the draft.
 The generation notebook starts in `MODE = "offline"`; set the first code cell
 to `MODE = "openrouter"` or `MODE = "groq"` for a real request. Do not change
-the provider cell's conditional branches. See [OpenRouter setup](docs/OPENROUTER_SETUP.md)
-or [Groq setup](docs/GROQ_SETUP.md) for hidden key input, quotas, troubleshooting,
+the provider cell's conditional branches. See [OpenRouter setup](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/OPENROUTER_SETUP.md)
+or [Groq setup](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/GROQ_SETUP.md) for hidden key input, quotas, troubleshooting,
 and the public `generate_note()` API.
 
 ## How the package fits together
@@ -88,7 +89,7 @@ source reference, not a copy of the PDF or API credentials.
 | English instructions and bilingual lecture/note content | Supported; see examples and tests |
 | Supplementary PDF pages, pagination, bookmarks, and export | Implemented through the API, script, and both notebooks |
 | OCR, handwriting recognition, and automatic topic search | Outside the first-release scope |
-| Course JupyterHub validation | Sample workflows verified; evidence and limits in [school record](docs/SCHOOL_TEST_RECORD.md) |
+| Course JupyterHub validation | Sample workflows verified; evidence and limits in [school record](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/SCHOOL_TEST_RECORD.md) |
 | PyPI publication | Pending |
 
 AI output needs review. Source labels and schema checks do not prove factual
@@ -103,24 +104,28 @@ python -m unittest discover -s tests -v
 ```
 
 Ordinary test runs are offline. Live provider testing requires explicit opt-in;
-see the [evaluator guide](docs/EVALUATION.md) for commands, expected results,
+see the [evaluator guide](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/EVALUATION.md) for commands, expected results,
 verification evidence, and contribution history.
 
 For an offline PDF demonstration, run `python examples/export_demo.py`. See the
-[export guide](docs/EXPORT.md) for font coverage and dependency licensing.
+[export guide](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/EXPORT.md) for font coverage and dependency licensing.
 
-Code is in [`src/noteweaver/`](src/noteweaver/), tests in [`tests/`](tests/),
-guides in [`docs/`](docs/README.md), and demonstrations in
-[`examples/`](examples/README.md). Keep personal inputs in ignored `local_data/`
+Code is in [`src/noteweaver/`](https://github.com/jokerrrrr-code/noteweaver/blob/main/src/noteweaver/), tests in [`tests/`](https://github.com/jokerrrrr-code/noteweaver/blob/main/tests/),
+guides in [`docs/`](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/README.md), and demonstrations in
+[`examples/`](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/README.md). Keep personal inputs in ignored `local_data/`
 and generated results in ignored `generated/`.
 
 ## Project and licensing
 
 This is a four-member university assignment. Documentation, comments, and demo
 instructions are in English. Chinese text appears in bilingual fixtures and
-content examples. See the [team plan](TEAM_PLAN.md) and [roadmap](ROADMAP.md).
+content examples. See the [team plan](https://github.com/jokerrrrr-code/noteweaver/blob/main/TEAM_PLAN.md) and [roadmap](https://github.com/jokerrrrr-code/noteweaver/blob/main/ROADMAP.md).
 
-The repository is public, but a package-wide distribution license and final
-PyPI name still need to be agreed. Metadata retains `Private :: Do Not Upload`
-until release readiness is confirmed. The sample font has its own
-[documented OFL license and provenance](examples/data/fonts/README.md).
+The proposed first release is `noteweaver` version `0.1.0`. The name has no
+public PyPI project at the last check, but is not reserved. The team's original code and documentation are licensed under
+[AGPL-3.0-only](https://github.com/jokerrrrr-code/noteweaver/blob/main/LICENSE);
+see the [copyright and license notice](https://github.com/jokerrrrr-code/noteweaver/blob/main/NOTICE).
+PDF export uses PyMuPDF. See the [release decisions and checks](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/RELEASING.md).
+Metadata retains `Private :: Do Not Upload` until release readiness is confirmed.
+The sample font has its own
+[documented OFL license and provenance](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/data/fonts/README.md).

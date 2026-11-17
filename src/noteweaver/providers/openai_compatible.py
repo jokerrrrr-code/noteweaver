@@ -19,6 +19,7 @@ import urllib.error
 import urllib.request
 from uuid import uuid4
 
+from .._version import __version__
 from noteweaver.models import (
     ContractError,
     DocumentInfo,
@@ -129,7 +130,7 @@ class OpenAICompatibleProvider:
             data=data,
             headers={
                 "Content-Type": "application/json",
-                "User-Agent": "NoteWeaver/0.0.1",
+                "User-Agent": f"NoteWeaver/{__version__}",
                 "Authorization": f"Bearer {key}",
             },
             method="POST",

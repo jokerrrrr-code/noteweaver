@@ -146,9 +146,10 @@ a file-browser download fallback.
 
 See [School JupyterHub Test Record](SCHOOL_TEST_RECORD.md) for school installation,
 127-test baseline, the separate clean-environment checks, manual/offline/live
-OpenRouter PDF exports, and the limits of the evidence. The live school notebook
-used a locally replaced provider cell; this PR integrates that configuration as
-an explicit mode. Publishing to PyPI and testing the final release remain pending.
+OpenRouter PDF exports, and the limits of the evidence. The first live school notebook
+used a locally replaced provider cell. The student subsequently updated to
+merged PR #13 (`04a8d5c`) and successfully reran the integrated OpenRouter mode
+through approval and PDF export. Publishing to PyPI remains pending.
 
 ## OpenRouter setup integration verification, 2026-11-17
 
@@ -166,6 +167,13 @@ links whose decoded bytes matched the saved files. Source identity remained
 unchanged. Local `pip check` also reported no broken requirements. The earlier
 school live request is recorded separately; no real key was used for this local
 integration verification. Committed notebooks have no outputs or execution counts.
+
+## PyPI preparation verification, 2026-11-17
+
+See [release artifact validation](RELEASE_VALIDATION.md) for wheel/source builds,
+clean installation checks, and offline regression results for the 0.1.0 candidate.
+AGPL-3.0-only is approved and included in the artifacts. Final release
+authorization remains pending.
 
 ## Inspect contributions
 
@@ -202,9 +210,8 @@ Label prepared backup results honestly. The export demo can now show the final P
 
 ## Remaining assignment work
 
-- Rerun the integrated OpenRouter notebook after updating the school checkout,
-  then test installation of the eventual published PyPI version.
-- Agree on the package-wide license and available PyPI distribution name, then
+- Test installation of the eventual published PyPI version on school JupyterHub.
+- Confirm PyPI distribution-name acceptance, then
   complete packaging/release checks and publication. Metadata currently retains
   `Private :: Do Not Upload`.
 - Rehearse the final joint presentation and update this evidence when behavior changes.

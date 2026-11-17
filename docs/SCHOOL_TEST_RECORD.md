@@ -6,7 +6,7 @@ Date: **2026-11-17 (Asia/Hong_Kong)**. Operator: **Member 4**.
 
 This record distinguishes student-run school checks from local inspection.
 Evidence was supplied as terminal/notebook screenshots, pasted test output,
-reported results, and three downloaded study PDFs. The coding assistant did not
+reported results, and four downloaded study PDFs. The coding assistant did not
 execute commands on the school server. Credentials, session cookies, personal
 server identifiers, notebook outputs, and generated PDFs are not committed.
 
@@ -14,8 +14,9 @@ server identifiers, notebook outputs, and generated PDFs are not committed.
 
 - Checkout: the repository cloned after PR #12 was merged. The corresponding
   main baseline is `9cf77c8e56435860e2415862cb2f0ec307e66f91`.
-  No school-side `git rev-parse HEAD` output was captured, so this is the expected
-  baseline from the session, not an independently verified checkout hash.
+  A later terminal screenshot confirmed `git log -1 --oneline` at `9cf77c8`.
+- Updated checkout: a subsequent screenshot confirmed a fast-forward to
+  `04a8d5c` (merged PR #13) before the integrated OpenRouter notebook rerun.
 - School kernel: Python **3.14.9**, conda-forge, Linux, Python 3 (ipykernel).
 - Initial kernel install: editable checkout with `preview,export` extras.
   Installation output showed PyMuPDF 2.1, pypdf 5.9.0, pypdfium2 5.15.2,
@@ -28,8 +29,9 @@ server identifiers, notebook outputs, and generated PDFs are not committed.
 The student modified the school generation notebook's provider cell to instantiate
 `OpenAICompatibleProvider` with the OpenRouter endpoint, `openrouter/free`, a hidden
 key prompt, and a 120-second timeout. That local configuration produced the live
-result. This change packages the same configuration as `MODE = "openrouter"`;
-it must not be represented as a school rerun of the newly committed notebook.
+result. After updating to merged PR #13, the student also ran the integrated
+`MODE = "openrouter"` workflow successfully. These are two separate live runs;
+the earlier 127-test result belongs to the earlier checkout.
 
 ## Results and evidence strength
 
@@ -47,6 +49,7 @@ it must not be represented as a school rerun of the newly committed notebook.
 | Groq comparison from student's Mac | Unauthenticated catalog request returned 401 | Screenshot; demonstrates different access behavior, not valid-key authentication |
 | OpenRouter catalog from school | HTTP 200 | Student report; this alone was not counted as live-generation success |
 | OpenRouter live generation from school | `Draft created: Why a Free Choice Can Still Have an Opportunity Cost` | Provider configuration and generated-draft screenshots, followed by supplied exported PDF |
+| Merged PR #13 notebook rerun | Generated a new English draft, approved it, and exported a four-page PDF | Updated Git hash screenshot, review output, and fourth supplied PDF; all four pages extracted and visually inspected locally |
 | Real AI note export | Four-page PDF with the generated note after original page 2 | All pages extracted, rendered with Poppler, and visually inspected locally |
 
 The skipped automated test is explicitly opt-in live-provider testing; the
@@ -69,8 +72,12 @@ check according to the operator's report. Groq's exact 403 cause was not establi
 - Visual review: complete title, readable English note, readable Chinese/English
   source pages, and no observed clipping or overlapping text.
 
-This verifies one real English question-to-PDF workflow on the school server.
-It does not establish general answer accuracy, live Chinese generation quality,
+The merged-notebook rerun used a campus-concert versus a $15 hourly job example.
+Its exported note retained the complete title and source labels without observed
+clipping or overlap.
+
+These two runs verify the English question-to-PDF workflow on the school server.
+They do not establish general answer accuracy, live Chinese generation quality,
 future free-model availability, unlimited requests, or universal network access.
 Source labels identify claims and do not establish factual correctness.
 
@@ -104,8 +111,6 @@ the final PDF privately for the class demonstration.
 
 ## Remaining release checks
 
-- Rerun the integrated notebook from this PR on school JupyterHub after updating,
-  preserving any existing school notebook edits first.
 - Confirm package license, available distribution name, and release metadata.
 - Build and validate the final release, publish it to PyPI, then verify installation
   of that published version on JupyterHub. GitHub installation is not PyPI publication.

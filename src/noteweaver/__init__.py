@@ -1,5 +1,7 @@
 """Shared contracts, note management, generation, and verified project persistence."""
 
+from ._version import __version__
+
 from .models import (
     SCHEMA_VERSION,
     ContractError,
@@ -29,6 +31,7 @@ from .exporters import PyMuPDFPDFExporter
 from .providers import GenerationError, FakeNoteProvider, NoteProvider, OpenAICompatibleProvider, GroqProvider
 
 __all__ = [
+    "__version__",
     "PyMuPDFPDFExporter", "SCHEMA_VERSION", "ContractError", "DocumentInfo", "ExportResult",
     "GeneratedNote", "NotePageLocation", "NoteRequest", "NoteSection",
     "OriginalPageLocation", "PageContent", "ProjectState", "document_id_for_file",

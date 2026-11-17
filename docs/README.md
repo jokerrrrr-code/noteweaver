@@ -20,6 +20,7 @@
 | Implement a generation provider | [Generation](GENERATION.md) |
 | Understand shared input/output types | [Data contracts](DATA_CONTRACTS.md) |
 | Work as a contributor | [Contributing](../CONTRIBUTING.md), [team plan](../TEAM_PLAN.md), [agent guide](../TEAMMATE_GUIDE.md) |
+| Prepare a PyPI release | [Release checklist](RELEASING.md) and [artifact validation](RELEASE_VALIDATION.md) |
 | Check unfinished work | [Roadmap](../ROADMAP.md) |
 
 ## Top-level files and folders
@@ -27,6 +28,10 @@
 | Path | Purpose |
 | --- | --- |
 | `README.md` | Main entry point: what works, installation, and links |
+| `LICENSE` and `NOTICE` | AGPL v3 license text and project copyright/license grant |
+| `MANIFEST.in` | Source distribution contents, including examples, tests, and fixture license |
+| `CHANGELOG.md` | Versioned release notes |
+| `THIRD_PARTY_NOTICES.md` | Dependency and bundled-font license information |
 | `pyproject.toml` | Package metadata, Python requirement, dependencies, and build configuration |
 | `src/noteweaver/` | Installable Python package; module map below |
 | `tests/` | Behavior, failure-handling, and integration tests |
@@ -46,6 +51,7 @@ contents. `.git/` stores version history and is managed by Git.
 
 | Module | Responsibility | Main public entry points |
 | --- | --- | --- |
+| [`_version.py`](../src/noteweaver/_version.py) | Single release version used by packaging and the HTTP client | `__version__` |
 | [`models.py`](../src/noteweaver/models.py) | Shared dataclasses, JSON validation, source identity, and page maps | `DocumentInfo`, `ProjectState`, `NoteRequest`, `GeneratedNote`, validators |
 | [`interfaces.py`](../src/noteweaver/interfaces.py) | Protocol signatures for module boundaries | `PDFReader`, `NoteGenerator`, `PDFExporter` protocols |
 | [`pdf_reader.py`](../src/noteweaver/pdf_reader.py) | PDF metadata, text extraction, neighboring pages, and actual page previews | Concrete `PDFReader`, `PagePreview`, `PreviewError`, `PreviewWarning` |
