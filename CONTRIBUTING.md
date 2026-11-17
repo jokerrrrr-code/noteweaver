@@ -11,7 +11,7 @@ and local changes; coordinate shared interfaces instead of creating duplicates.
 Follow [Quick start](docs/QUICKSTART.md) to create an environment. From the root:
 
 ```bash
-python -m pip install -e ".[preview]"
+python -m pip install -e ".[preview,export]"
 python -m unittest discover -s tests -v
 python -m pip check
 ```

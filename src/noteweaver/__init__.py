@@ -25,10 +25,11 @@ from .project import (
 from .persistence import load_project, save_project
 from .generation import NoteGenerator, default_generator
 from .workflow import generate_note
+from .exporters import PyMuPDFPDFExporter
 from .providers import GenerationError, FakeNoteProvider, NoteProvider, OpenAICompatibleProvider, GroqProvider
 
 __all__ = [
-    "SCHEMA_VERSION", "ContractError", "DocumentInfo", "ExportResult",
+    "PyMuPDFPDFExporter", "SCHEMA_VERSION", "ContractError", "DocumentInfo", "ExportResult",
     "GeneratedNote", "NotePageLocation", "NoteRequest", "NoteSection",
     "OriginalPageLocation", "PageContent", "ProjectState", "document_id_for_file",
     "validate_export", "validate_generation", "validate_page", "validate_request",

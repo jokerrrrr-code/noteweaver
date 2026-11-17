@@ -3,7 +3,7 @@
 [Repository home](../README.md) · [Installation](../docs/QUICKSTART.md) · [All documentation](../docs/README.md)
 
 Run scripts from the repository root after installing the checkout. The preview
-extra is required for preview demos and the full test suite. It is not needed
+extra is required for preview demos; install `.[preview,export]` for the full suite. It is not needed
 for text-only generation. Keep notebooks inside the checkout so they can find
 the sample PDF.
 
@@ -11,6 +11,7 @@ the sample PDF.
 
 | Goal | Entry point | Needs a key? | Result |
 | --- | --- | --- | --- |
+| Export approved notes | `python examples/export_demo.py` | No | Five-page study PDF and project JSON |
 | First offline run | `python examples/groq_notes_demo.py --offline` | No | Real PDF input, fixed draft, and saved project JSON |
 | Manual notebook walkthrough | [manual_workflow_demo.ipynb](manual_workflow_demo.ipynb) | No | Page preview, personal note, editing/review, save/reload |
 | AI notebook walkthrough | [generation_workflow_demo.ipynb](generation_workflow_demo.ipynb) | Only in Groq mode | Generated draft, optional editing/review, save/reload |
@@ -24,6 +25,7 @@ source; execute it in Jupyter to see the cleared outputs.
 
 | File | Purpose | Inputs and side effects |
 | --- | --- | --- |
+| [export_demo.py](export_demo.py) | Export reviewed bilingual samples or an existing project | No AI calls; default approves supplied demo notes only; `--project` preserves user review states; `--long` exercises pagination; saves `generated/export-demo/run-*` |
 | [contract_demo.py](contract_demo.py) | Validate the shared schemas and a synthetic export map | Reads synthetic JSON fixtures; no PDF creation or AI call |
 | [manual_notes_demo.py](manual_notes_demo.py) | Add, edit, approve, filter, and delete personal notes | Uses synthetic document metadata; no PDF/file writes or AI calls |
 | [persistence_demo.py](persistence_demo.py) | Save/reload, relink a source, and reject changed bytes | Uses temporary synthetic source bytes and JSON; removes them afterward |
@@ -53,6 +55,7 @@ project, use metadata from `PDFReader.inspect()` and retain the original PDF.
 
 ## Generated files and replay
 
+- PDF export results: `generated/export-demo/run-*`.
 - Manual notebook results: `generated/notebook-demo/run-*`.
 - Generation notebook results: `generated/groq-notebook/run-*`.
 - Command-line generation results: `generated/groq-demo/run-*`.
@@ -64,4 +67,4 @@ Read the notebook instructions before rerunning individual save/approval cells.
 Clear outputs before committing notebook edits.
 
 All instructions and code comments are in English. Chinese appears as deliberate
-bilingual sample content. None of these examples currently exports a study PDF.
+bilingual sample content. The export demo produces a study PDF; the existing notebooks still stop at project JSON.

@@ -1,7 +1,7 @@
 # NoteWeaver Four-Member Team Plan
 
 The reader, structured generation, Groq integration, manual-note operations, and
-verified save/load are implemented. Supplementary-page rendering/export and
+verified save/load are implemented. Supplementary-page rendering/export are also implemented; notebook export cells and
 course/release acceptance remain pending. See [current scope](README.md#current-scope),
 [the roadmap](ROADMAP.md), and [recorded contribution evidence](docs/EVALUATION.md).
 Member numbers identify responsibilities, not a claim that all listed work is complete.
@@ -60,9 +60,9 @@ Acceptance: return structured notes without modifying PDFs; failures allow retry
 - Build page maps and bookmarks, exporting to a new file.
 - Inspect representative rendered PDF pages as well as running structural/text checks.
 
-Suggested files: `src/noteweaver/rendering.py`, `src/noteweaver/export.py`, related tests, and export documentation.
+Implementation: `src/noteweaver/exporters.py`, `tests/test_pdf_exporter.py`, `examples/export_demo.py`, and `docs/EXPORT.md`.
 
-First task: insert a short fake note after page 2 of an original three-page PDF, producing four output pages.
+Initial milestone completed: approved-note insertion, shared page maps, bilingual pagination, bookmarks, and source protection are implemented. See [PDF export](docs/EXPORT.md).
 
 Acceptance: short, long, and multiple notes export correctly; Chinese glyphs render; content is not clipped or overlapping; original pages retain their order.
 
@@ -78,7 +78,7 @@ Acceptance: short, long, and multiple notes export correctly; Chinese glyphs ren
 
 Suggested files: `src/noteweaver/project.py`, `src/noteweaver/__init__.py`, project and integration tests, and `examples/`. Coordinate shared changes to `models.py` and `pyproject.toml` rather than replacing them.
 
-Current progress: in-memory manual-note creation, editing, approval, deletion, filtering, and JSON file save/load with source verification are implemented. The [English notebook demo](docs/NOTEBOOK_DEMO.md) now integrates the real PDF reader with editing, approval, and verified save/load. The [Groq generation workflow](docs/GROQ_SETUP.md) also connects the reader and generator to editable drafts and request history. Next, integrate PDF export when its implementation is available. Reuse ProjectState and the existing model definitions.
+Current progress: in-memory manual-note creation, editing, approval, deletion, filtering, and JSON file save/load with source verification are implemented. The [English notebook demo](docs/NOTEBOOK_DEMO.md) now integrates the real PDF reader with editing, approval, and verified save/load. The [Groq generation workflow](docs/GROQ_SETUP.md) also connects the reader and generator to editable drafts and request history. The export API and script are available; next add notebook export cells and complete course/release checks. Reuse ProjectState and the existing model definitions.
 
 Acceptance: the public API supports the complete workflow; content and anchors survive save/reload; manual mode works without AI credentials.
 
@@ -123,6 +123,6 @@ Each feature owner maintains the relevant README sections. Member 4 coordinates 
 - Member 4: about 15 seconds to preview, edit, and confirm the note.
 - Member 3: about 20 seconds to export and show original pages, supplementary pages, and the page map.
 
-The export segment depends on Member 3 delivery. For a runnable demonstration of the current version, use [the evaluator guide](docs/EVALUATION.md).
+The export segment can use examples/export_demo.py or the public export API. For a runnable demonstration of the current version, use [the evaluator guide](docs/EVALUATION.md).
 
 Rehearse and prepare clearly labeled pre-generated backup notes. Do not describe backup output as live generation. Verify installation in advance and keep installation/version evidence available.
