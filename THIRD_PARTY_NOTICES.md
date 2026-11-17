@@ -1,6 +1,7 @@
 # Third-party notices
 
-NoteWeaver's own license decision is recorded in [release preparation](docs/RELEASING.md).
+NoteWeaver's original code and documentation use AGPL-3.0-only; see `LICENSE`
+and `NOTICE` distributed alongside this file.
 Third-party works retain their own licenses. Dependencies are installed separately
 by pip; their code and license texts are not copied into the NoteWeaver wheel.
 

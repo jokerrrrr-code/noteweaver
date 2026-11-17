@@ -28,6 +28,7 @@
 | Path | Purpose |
 | --- | --- |
 | `README.md` | Main entry point: what works, installation, and links |
+| `LICENSE` and `NOTICE` | AGPL v3 license text and project copyright/license grant |
 | `MANIFEST.in` | Source distribution contents, including examples, tests, and fixture license |
 | `CHANGELOG.md` | Versioned release notes |
 | `THIRD_PARTY_NOTICES.md` | Dependency and bundled-font license information |

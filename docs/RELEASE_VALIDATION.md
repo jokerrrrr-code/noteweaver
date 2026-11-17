@@ -40,8 +40,10 @@ repository's original bilingual sample, not a user's lecture upload.
 
 Artifacts and logs stay in ignored local build/output directories. Rebuild from
 the final reviewed release commit and retain that build's hashes when publishing.
-The current artifacts retain `Private :: Do Not Upload` and have no package-wide
-license grant while the team decision is pending; they are not upload-ready.
+The maintainer approved AGPL-3.0-only on 2026-11-17. Preparation artifacts
+include the full license, project notice, and third-party notices in both archive
+formats, with `License-Expression: AGPL-3.0-only` metadata. The artifacts retain
+`Private :: Do Not Upload` while the final release decision is pending.
 
 ## Limits
 

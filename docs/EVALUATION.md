@@ -172,7 +172,8 @@ integration verification. Committed notebooks have no outputs or execution count
 
 See [release artifact validation](RELEASE_VALIDATION.md) for wheel/source builds,
 clean installation checks, and offline regression results for the 0.1.0 candidate.
-The package-wide license decision and final release authorization remain pending.
+AGPL-3.0-only is approved and included in the artifacts. Final release
+authorization remains pending.
 
 ## Inspect contributions
 
@@ -210,7 +211,7 @@ Label prepared backup results honestly. The export demo can now show the final P
 ## Remaining assignment work
 
 - Test installation of the eventual published PyPI version on school JupyterHub.
-- Agree on the package-wide license and available PyPI distribution name, then
+- Confirm PyPI distribution-name acceptance, then
   complete packaging/release checks and publication. Metadata currently retains
   `Private :: Do Not Upload`.
 - Rehearse the final joint presentation and update this evidence when behavior changes.

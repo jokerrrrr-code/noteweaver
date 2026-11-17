@@ -122,9 +122,10 @@ instructions are in English. Chinese text appears in bilingual fixtures and
 content examples. See the [team plan](https://github.com/jokerrrrr-code/noteweaver/blob/main/TEAM_PLAN.md) and [roadmap](https://github.com/jokerrrrr-code/noteweaver/blob/main/ROADMAP.md).
 
 The proposed first release is `noteweaver` version `0.1.0`. The name has no
-public PyPI project at the last check, but is not reserved. A package-wide
-AGPL-3.0-only license is proposed for team approval because PDF export uses
-PyMuPDF. See the [release decisions and checks](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/RELEASING.md).
+public PyPI project at the last check, but is not reserved. The team's original code and documentation are licensed under
+[AGPL-3.0-only](https://github.com/jokerrrrr-code/noteweaver/blob/main/LICENSE);
+see the [copyright and license notice](https://github.com/jokerrrrr-code/noteweaver/blob/main/NOTICE).
+PDF export uses PyMuPDF. See the [release decisions and checks](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/RELEASING.md).
 Metadata retains `Private :: Do Not Upload` until release readiness is confirmed.
 The sample font has its own
 [documented OFL license and provenance](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/data/fonts/README.md).

@@ -41,8 +41,9 @@ See the [0.1.0 release checklist](docs/RELEASING.md).
 - [x] Rerun the integrated OpenRouter notebook on school JupyterHub at merged PR #13.
 - [x] Validate the preparation wheel/source archive in clean Python 3.14 environments;
   see [artifact validation](docs/RELEASE_VALIDATION.md).
-- [ ] Rebuild and validate the final upload artifacts after license/release approval.
-- [ ] Agree on the package-wide license and available PyPI distribution name.
+- [ ] Rebuild and validate the final upload artifacts after release approval.
+- [x] Adopt AGPL-3.0-only and include the full license, project notice, and SPDX metadata.
+- [ ] Confirm PyPI distribution-name acceptance at first publication.
 - [ ] Review dependencies, public metadata, and documentation; remove the upload
       blocker only when the team is ready to publish.
 - [ ] Publish a versioned package with the repository as its project homepage.

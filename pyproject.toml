@@ -7,7 +7,8 @@ name = "noteweaver"
 dynamic = ["version"]
 description = "Lecture-linked notes with PDF reading, AI drafts, editing, and project persistence"
 readme = "README.md"
-license-files = ["THIRD_PARTY_NOTICES.md"]
+license = "AGPL-3.0-only"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
 requires-python = ">=3.10"
 dependencies = [
     "pypdf>=4.0",

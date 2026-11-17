@@ -1,4 +1,4 @@
-include README.md pyproject.toml CHANGELOG.md THIRD_PARTY_NOTICES.md
+include README.md pyproject.toml CHANGELOG.md LICENSE NOTICE THIRD_PARTY_NOTICES.md
 include AGENTS.md CONTRIBUTING.md ROADMAP.md TEAM_PLAN.md TEAMMATE_GUIDE.md
 recursive-include docs *.md
 recursive-include tests *.py

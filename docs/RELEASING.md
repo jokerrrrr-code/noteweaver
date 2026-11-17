@@ -10,7 +10,7 @@
 | Python import | `noteweaver` | Existing public API remains unchanged |
 | First version | `0.1.0` | Functional beta candidate; not uploaded |
 | Python requirement | `>=3.10` | Retained compatibility claim; local and school execution evidence currently covers Python 3.14 |
-| Project license | Proposed `AGPL-3.0-only` | Awaiting the team's decision before adding the license grant and SPDX metadata |
+| Project license | `AGPL-3.0-only` | Approved by the project maintainer on 2026-11-17; license text, notice, and SPDX metadata included |
 | Upload protection | `Private :: Do Not Upload` | Retained until the release decision |
 
 PyPI can reject names that are reserved, prohibited, or too similar to another
@@ -26,27 +26,25 @@ stable 1.x API. It does not change the existing JSON `schema_version = 1`.
 
 ## License decision
 
-There was no package-wide license in the previous checkout. A public GitHub
-repository alone does not grant a general right to redistribute the code.
-The proposed license for the team's original code is GNU AGPL version 3 only,
-using the SPDX identifier `AGPL-3.0-only`. This is an open-source release path
-consistent with the existing PyMuPDF export dependency's AGPL option; it is
-not an MIT-licensed export stack. Confirm that all contributors can license
-their contributions and agree to the choice before publishing.
+The project maintainer approved GNU AGPL version 3 only on 2026-11-17 for the
+team's original code and documentation. The SPDX identifier is `AGPL-3.0-only`.
+The full, unmodified GNU license text is in [LICENSE](../LICENSE), and the
+project copyright/license grant is in [NOTICE](../NOTICE).
 
-Once agreed, include the unmodified GNU AGPL v3 text in `LICENSE`, add the project
-copyright/license notice, and configure:
+The metadata includes:
 
 ```toml
 license = "AGPL-3.0-only"
-license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
 ```
 
-The build backend already requires setuptools 77.0.3 or newer for these SPDX
-metadata fields. The separately licensed fixture font retains its OFL notices.
-See [third-party notices](../THIRD_PARTY_NOTICES.md). If the team wants a different
-license strategy, resolve PyMuPDF use with the rights holder or replace the
-export dependency before representing the entire workflow as permissively licensed.
+The build backend requires setuptools 77.0.3 or newer for these SPDX fields.
+Both the wheel and source archive include the license and notices. The fixture
+font retains its separately supplied OFL license. Dependencies retain their
+own terms; see [third-party notices](../THIRD_PARTY_NOTICES.md). This project
+does not supply an Artifex commercial license for PyMuPDF/MuPDF.
+
+The license approval does not authorize an upload or remove the upload blocker.
 
 ## Build and validate locally
 
@@ -87,7 +85,8 @@ performed on this candidate. These do not replace the final release gate.
 
 ## Final release gate
 
-- Obtain contributor agreement on the license and finalize metadata/notices.
+- Verify that the approved license text, notices, and SPDX metadata are included
+  in the final artifacts; preserve notices for any new third-party contributions.
 - Verify name availability and package contents, then review and merge the release PR.
 - Check supported Python versions beyond the currently recorded 3.14 runs before
   claiming them as tested; build success alone is not a runtime compatibility test.
