@@ -1,8 +1,8 @@
 # NoteWeaver Shared Data Contracts v1
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
-This document, `src/noteweaver/models.py`, `interfaces.py`, and `examples/data/` define the common agreement between the four modules. Models, validators, JSON conversion, [in-memory note operations](PROJECT_WORKFLOW.md), and [verified file save/load](PERSISTENCE.md) are implemented. PDF reading, structured generation, Groq calls, and the question-to-draft workflow are implemented. Approved-note rendering and PDF export are implemented; see [PDF export](EXPORT.md). See [the repository map](README.md) for implementations.
+This document, `src/noteweaver/models.py`, `interfaces.py`, and `examples/data/` define the common agreement between the four modules. Models, validators, JSON conversion, [in-memory note operations](PROJECT_WORKFLOW.md), and [verified file save/load](PERSISTENCE.md) are implemented. PDF reading, structured generation, Groq calls, and the question-to-draft workflow are implemented. Approved-note rendering and PDF export are implemented; see [PDF export](EXPORT.md). See [the repository map](../README.md) for implementations.
 
 ## 1. Data flow
 
@@ -54,7 +54,7 @@ The source path is stored separately in ProjectState.source_path. Do not use a p
 - `validate_page(document, page)` also verifies document identity and the upper page bound.
 - Previews are regenerable cache files, not part of the project format. Extracted text does not imply understanding images or formulas.
 
-Example: [page.json](../examples/data/page.json).
+Example: [page.json](../../examples/data/page.json).
 
 ## 5. NoteRequest: student question (member 4 → member 2)
 
@@ -169,7 +169,7 @@ Use arrays of objects instead of integer-keyed dictionaries, because JSON conver
 }
 ```
 
-This excerpt shows mapping fields only. See [export.json](../examples/data/export.json) for a complete example.
+This excerpt shows mapping fields only. See [export.json](../../examples/data/export.json) for a complete example.
 
 - V1 exports **approved notes only**; drafts stay in the project and may be previewed separately.
 - Render original pages in order. After each original page, insert its approved notes in project.notes order.
@@ -202,10 +202,10 @@ The block above illustrates signatures, not executable Python. Type/field mismat
 
 ## 10. Common fixtures and quick start
 
-- [project.json](../examples/data/project.json): a three-page document, one question, an approved supplementary note, and a manual draft.
-- [page.json](../examples/data/page.json): page 2 context.
-- [export.json](../examples/data/export.json): four output pages; the manual draft is not exported.
-- [contract_demo.py](../examples/contract_demo.py): data-flow and JSON round-trip validation.
+- [project.json](../../examples/data/project.json): a three-page document, one question, an approved supplementary note, and a manual draft.
+- [page.json](../../examples/data/page.json): page 2 context.
+- [export.json](../../examples/data/export.json): four output pages; the manual draft is not exported.
+- [contract_demo.py](../../examples/contract_demo.py): data-flow and JSON round-trip validation.
 
 These original synthetic fixtures make **no real model calls and create no PDF**. The all-zero SHA-256 value is a placeholder. The demo.pdf, preview, and output paths do not refer to existing files. Real sources require a freshly computed hash from the reader. Chinese fixture content demonstrates Unicode and bilingual support; documentation and explanatory messages are in English.
 

@@ -1,6 +1,6 @@
 # Generate Notes with OpenRouter
 
-[Repository home](../README.md) · [Notebook setup](NOTEBOOK_DEMO.md) · [School test record](SCHOOL_TEST_RECORD.md)
+[Repository home](../../README.md) · [Notebook setup](NOTEBOOK_DEMO.md) · [School test record](../validation/SCHOOL_TEST_RECORD.md)
 
 OpenRouter is an optional service for the existing `OpenAICompatibleProvider`.
 No additional SDK or package dependency is required. Manual notes and offline
@@ -29,7 +29,7 @@ The bundled original lecture is suitable for the first test.
 
 Install this checkout with `python -m pip install -e ".[preview,export]"` in the
 notebook kernel's environment. Open
-[generation_workflow_demo.ipynb](../examples/generation_workflow_demo.ipynb).
+[generation_workflow_demo.ipynb](../../examples/generation_workflow_demo.ipynb).
 
 1. In the **first code cell**, change only the assignment to `MODE = "openrouter"`.
    Do not change the `if MODE == ...` conditions under **Choose the provider**.

@@ -1,13 +1,13 @@
 # Notebook Workflows: Review, Export, and Download
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
 Both notebooks connect the real reader, editable project state, verified JSON
 persistence, and approved-note PDF exporter:
 
-- [Manual workflow](../examples/manual_workflow_demo.ipynb): supplied English
+- [Manual workflow](../../examples/manual_workflow_demo.ipynb): supplied English
   personal note; no AI provider, key, or model request.
-- [Generation workflow](../examples/generation_workflow_demo.ipynb): fixed offline
+- [Generation workflow](../../examples/generation_workflow_demo.ipynb): fixed offline
   content by default, or explicit OpenRouter/Groq mode for a real answer.
   See [OpenRouter setup](OPENROUTER_SETUP.md) or [Groq setup](GROQ_SETUP.md).
 
@@ -30,7 +30,7 @@ requirement. Open the generation notebook in the same JupyterLab window.
 On JupyterHub, install the checkout and both extras into its selected kernel's
 environment, then open the notebooks in the existing browser interface. Do not
 start a separate JupyterLab server. Follow the university's kernel permissions.
-See the [school test record](SCHOOL_TEST_RECORD.md) for the tested environment
+See the [school test record](../validation/SCHOOL_TEST_RECORD.md) for the tested environment
 and remaining release checks.
 
 Keep the notebooks in the checkout. Kernels can start at the repository root or
@@ -107,7 +107,7 @@ certify every browser or JupyterHub policy.
 
 The JSON does not contain the lecture PDF. Keep the unchanged lecture and use
 `load_project(..., source_path=...)` to relink it after moving downloaded files;
-see [persistence path rules](PERSISTENCE.md). Do not publish personal notebook
+see [persistence path rules](../api/PERSISTENCE.md). Do not publish personal notebook
 outputs: previews and embedded downloads contain the note/project content.
 
 ## Repeatable execution
@@ -132,5 +132,5 @@ continue to leave drafts unapproved and skip PDF export.
 Notebook instructions, comments, and sample personal notes are in English.
 Chinese remains deliberate bilingual fixture/input content. The export API
 supports Chinese notes; it does not translate manual text automatically.
-See [PDF export](EXPORT.md) for font coverage, literal formula syntax, source
+See [PDF export](../api/EXPORT.md) for font coverage, literal formula syntax, source
 protection, and limitations. The manual notebook does not generate AI content.

@@ -1,6 +1,6 @@
 # Preparing the first PyPI release
 
-[Repository home](../README.md) · [Changelog](../CHANGELOG.md) · [School checks](SCHOOL_TEST_RECORD.md)
+[Repository home](../../README.md) · [Changelog](../../CHANGELOG.md) · [School checks](../validation/SCHOOL_TEST_RECORD.md)
 
 ## Candidate decisions
 
@@ -28,8 +28,8 @@ stable 1.x API. It does not change the existing JSON `schema_version = 1`.
 
 The project maintainer approved GNU AGPL version 3 only on 2026-11-17 for the
 team's original code and documentation. The SPDX identifier is `AGPL-3.0-only`.
-The full, unmodified GNU license text is in [LICENSE](../LICENSE), and the
-project copyright/license grant is in [NOTICE](../NOTICE).
+The full, unmodified GNU license text is in [LICENSE](../../LICENSE), and the
+project copyright/license grant is in [NOTICE](../../NOTICE).
 
 The metadata includes:
 
@@ -41,7 +41,7 @@ license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
 The build backend requires setuptools 77.0.3 or newer for these SPDX fields.
 Both the wheel and source archive include the license and notices. The fixture
 font retains its separately supplied OFL license. Dependencies retain their
-own terms; see [third-party notices](../THIRD_PARTY_NOTICES.md). This project
+own terms; see [third-party notices](../../THIRD_PARTY_NOTICES.md). This project
 does not supply an Artifex commercial license for PyMuPDF/MuPDF.
 
 The license approval does not authorize an upload or remove the upload blocker.
@@ -80,7 +80,7 @@ and run its tests to check that fixtures are not accidentally missing.
 
 ## Recorded preparation checks
 
-See [local artifact validation](RELEASE_VALIDATION.md) for the checks actually
+See [local artifact validation](../validation/RELEASE_VALIDATION.md) for the checks actually
 performed on this candidate. These do not replace the final release gate.
 
 ## Final release gate

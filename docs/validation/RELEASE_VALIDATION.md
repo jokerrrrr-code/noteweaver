@@ -1,6 +1,6 @@
 # Release preparation validation
 
-[Release checklist](RELEASING.md) · [School record](SCHOOL_TEST_RECORD.md)
+[Release checklist](../development/RELEASING.md) · [School record](SCHOOL_TEST_RECORD.md)
 
 Date: 2026-11-17. Candidate: **noteweaver 0.1.0**.
 Environment: **CPython 3.14.7, macOS, arm64**. These are local preparation checks,

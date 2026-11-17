@@ -1,6 +1,6 @@
 # School JupyterHub Test Record
 
-[Repository home](../README.md) · [Evaluator guide](EVALUATION.md) · [OpenRouter setup](OPENROUTER_SETUP.md)
+[Repository home](../../README.md) · [Evaluator guide](EVALUATION.md) · [OpenRouter setup](../guides/OPENROUTER_SETUP.md)
 
 Date: **2026-11-17 (Asia/Hong_Kong)**. Operator: **Member 4**.
 
@@ -104,8 +104,8 @@ do not switch the notebook kernel. They install the checkout, not a PyPI release
 The current test count may exceed the historical 127 as checks are added.
 Never commit the virtual environment.
 
-Run both notebooks using [notebook instructions](NOTEBOOK_DEMO.md). For live
-generation, follow [OpenRouter setup](OPENROUTER_SETUP.md), explicitly review,
+Run both notebooks using [notebook instructions](../guides/NOTEBOOK_DEMO.md). For live
+generation, follow [OpenRouter setup](../guides/OPENROUTER_SETUP.md), explicitly review,
 then save/export/preview without rerunning generation. Preserve test output and
 the final PDF privately for the class demonstration.
 

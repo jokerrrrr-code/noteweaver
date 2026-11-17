@@ -1,6 +1,6 @@
 # PDF Export
 
-[Repository home](../README.md) · [Documentation index](README.md)
+[Repository home](../../README.md) · [Documentation index](../README.md)
 
 `PyMuPDFPDFExporter` inserts approved notes after their original PDF pages and
 returns the shared `ExportResult`. It does not call AI or approve notes.
@@ -28,7 +28,7 @@ python examples/export_demo.py --project generated/your-run/study.json
 
 Replace the path with your project. Drafts are excluded. A project containing no
 approved notes produces the original pages plus navigation, with no note pages.
-Both [notebooks](NOTEBOOK_DEMO.md) also export approved notes, display a real
+Both [notebooks](../guides/NOTEBOOK_DEMO.md) also export approved notes, display a real
 output-page preview, and offer PDF/JSON downloads. The generation notebook
 requires explicit confirmation; its default Run All keeps drafts and skips export.
 
@@ -116,7 +116,7 @@ and release. This change does not choose a package-wide license or publish PyPI.
 ## Validation
 
 Verified locally on Python 3.14 with PyMuPDF 1.26.7 and 2.1; see the
-[evaluator guide](EVALUATION.md) for installation evidence and limits.
+[evaluator guide](../validation/EVALUATION.md) for installation evidence and limits.
 
 `tests/test_pdf_exporter.py` uses actual shared models and tests approved/draft
 filtering, multiple notes, complete maps, original-page rendered pixels, long
