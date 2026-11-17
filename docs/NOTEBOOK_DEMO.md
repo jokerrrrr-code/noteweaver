@@ -8,7 +8,8 @@ persistence, and approved-note PDF exporter:
 - [Manual workflow](../examples/manual_workflow_demo.ipynb): supplied English
   personal note; no AI provider, key, or model request.
 - [Generation workflow](../examples/generation_workflow_demo.ipynb): fixed offline
-  content by default, or explicit Groq mode for a real answer. See [Groq setup](GROQ_SETUP.md).
+  content by default, or explicit OpenRouter/Groq mode for a real answer.
+  See [OpenRouter setup](OPENROUTER_SETUP.md) or [Groq setup](GROQ_SETUP.md).
 
 ## Setup and launch
 
@@ -29,7 +30,8 @@ requirement. Open the generation notebook in the same JupyterLab window.
 On JupyterHub, install the checkout and both extras into its selected kernel's
 environment, then open the notebooks in the existing browser interface. Do not
 start a separate JupyterLab server. Follow the university's kernel permissions.
-Actual course JupyterHub acceptance remains a separate check.
+See the [school test record](SCHOOL_TEST_RECORD.md) for the tested environment
+and remaining release checks.
 
 Keep the notebooks in the checkout. Kernels can start at the repository root or
 inside `examples`. Each setup run creates a new ignored run folder.
@@ -62,8 +64,13 @@ It does not approve content automatically. To finish the demonstration:
 2. Set `CONFIRM_REVIEW = True` and run the confirmation cell after reviewing.
 3. Run the save, export, and preview/download cells below it.
 
-You do not need to rerun the provider or generation cells to export. In Groq
-mode, rerunning generation makes a new request; exporting never calls AI.
+For a real request, change only `MODE` in the first code cell to `"openrouter"`
+or `"groq"`, then execute setup, provider selection, and generation in order.
+The OpenRouter mode uses `openrouter/free` with a service-specific hidden key
+prompt or `OPENROUTER_API_KEY`; it requires no extra SDK.
+
+You do not need to rerun the provider or generation cells to export. In either
+live mode, rerunning generation makes a new request; exporting never calls AI.
 If several notes exist, all currently approved notes export in stored order;
 drafts remain in the JSON and are excluded from the PDF.
 

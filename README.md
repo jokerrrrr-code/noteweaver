@@ -7,13 +7,16 @@ original PDF pages. Use it in a Python script or a Jupyter notebook.
 request AI drafts, review/edit notes, and save/reopen verified project JSON.
 **Also available:** approved-note PDF export with Chinese/English pagination and bookmarks.
 Both notebooks include export, page previews, and PDF/JSON download links.
-Course JupyterHub acceptance and publication remain pending.
+School JupyterHub installation, notebooks, and one live OpenRouter-to-PDF workflow
+have been checked; see the [school test record](docs/SCHOOL_TEST_RECORD.md).
+PyPI publication remains pending.
 
 ## Start here
 
 | I want to... | Open |
 | --- | --- |
 | Install and try the package | [Quick start](docs/QUICKSTART.md) |
+| Set up OpenRouter free-model generation | [OpenRouter setup](docs/OPENROUTER_SETUP.md) |
 | Review the university assignment | [Evaluator guide](docs/EVALUATION.md) |
 | Export approved notes to PDF | [PDF export guide](docs/EXPORT.md) |
 | Choose a runnable demonstration | [Examples index](examples/README.md) |
@@ -48,15 +51,17 @@ folder. It makes no model request and does not answer arbitrary questions.
 | Write and review your own notes | [Manual notebook](examples/manual_workflow_demo.ipynb) | None | Editable project JSON and approved-note PDF |
 | Test the connected generation workflow | `python examples/groq_notes_demo.py --offline` | None | Fixed test draft and JSON |
 | Generate a real AI explanation | `python examples/groq_notes_demo.py` | Your Groq key | AI draft and JSON |
-| Generate, edit, and review interactively | [Generation notebook](examples/generation_workflow_demo.ipynb) | Needed only in Groq mode | Editable project JSON and approved-note PDF |
+| Generate, edit, and review interactively | [Generation notebook](examples/generation_workflow_demo.ipynb) | Your OpenRouter or Groq key in live mode | Editable project JSON and approved-note PDF |
 
 Use the [notebook setup guide](docs/NOTEBOOK_DEMO.md) to select the correct Python
 kernel. Notebooks are committed with outputs cleared; run them to see results.
 The manual sample exports on Run All. The generation notebook requires explicit
 review confirmation before export; its default Run All keeps the draft.
-The generation notebook starts in `MODE = "offline"`; set it to `"groq"` for a
-real request. See [Groq setup](docs/GROQ_SETUP.md) for hidden key input, quotas,
-certificate troubleshooting, and the public `generate_note()` API.
+The generation notebook starts in `MODE = "offline"`; set the first code cell
+to `MODE = "openrouter"` or `MODE = "groq"` for a real request. Do not change
+the provider cell's conditional branches. See [OpenRouter setup](docs/OPENROUTER_SETUP.md)
+or [Groq setup](docs/GROQ_SETUP.md) for hidden key input, quotas, troubleshooting,
+and the public `generate_note()` API.
 
 ## How the package fits together
 
@@ -78,12 +83,13 @@ source reference, not a copy of the PDF or API credentials.
 | --- | --- |
 | PDF metadata, selectable text, and original-page previews | Implemented |
 | Manual notes, editing, approval, filtering, and deletion | Implemented |
-| Structured generation, fake test provider, and Groq provider | Implemented; one live English Groq example verified |
+| Structured generation, offline fake provider, Groq, and OpenRouter configuration | Implemented; recorded English live examples for Groq and OpenRouter |
 | Source verification and project save/reload | Implemented |
 | English instructions and bilingual lecture/note content | Supported; see examples and tests |
 | Supplementary PDF pages, pagination, bookmarks, and export | Implemented through the API, script, and both notebooks |
 | OCR, handwriting recognition, and automatic topic search | Outside the first-release scope |
-| Course JupyterHub acceptance and PyPI publication | Pending |
+| Course JupyterHub validation | Sample workflows verified; evidence and limits in [school record](docs/SCHOOL_TEST_RECORD.md) |
+| PyPI publication | Pending |
 
 AI output needs review. Source labels and schema checks do not prove factual
 accuracy. Free API allowances depend on the user's provider account and quotas.

@@ -8,7 +8,7 @@ This guide is for contributors. New users should start with
 ## Current baseline
 
 Start from the latest merged `main`. PDF reading, manual-note operations,
-verified save/load, structured generation, Groq configuration, and the
+verified save/load, structured generation, Groq/OpenRouter configuration, and the
 question-to-draft workflow are implemented. Approved-note rendering and PDF
 export are available in the API, script, and both notebooks. See [current scope](README.md#current-scope) and
 [the roadmap](ROADMAP.md) before planning work.

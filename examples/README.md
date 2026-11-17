@@ -14,11 +14,11 @@ the sample PDF.
 | Export approved notes | `python examples/export_demo.py` | No | Five-page study PDF and project JSON |
 | First offline run | `python examples/groq_notes_demo.py --offline` | No | Real PDF input, fixed draft, and saved project JSON |
 | Manual notebook walkthrough | [manual_workflow_demo.ipynb](manual_workflow_demo.ipynb) | No | Page preview, personal note, editing/review, save/reload, PDF export and downloads |
-| AI notebook walkthrough | [generation_workflow_demo.ipynb](generation_workflow_demo.ipynb) | Only in Groq mode | Generated draft, optional editing/review, save/reload; PDF export after confirmation |
+| AI notebook walkthrough | [generation_workflow_demo.ipynb](generation_workflow_demo.ipynb) | Only in OpenRouter/Groq mode | Generated draft, optional editing/review, save/reload; PDF export after confirmation |
 | Real AI command-line run | `python examples/groq_notes_demo.py` | Groq key | Live draft and verified project JSON |
 
 Follow [notebook setup](../docs/NOTEBOOK_DEMO.md) or
-[Groq setup](../docs/GROQ_SETUP.md) as appropriate. GitHub displays notebook
+[OpenRouter setup](../docs/OPENROUTER_SETUP.md) / [Groq setup](../docs/GROQ_SETUP.md) as appropriate. GitHub displays notebook
 source; execute it in Jupyter to see the cleared outputs.
 
 ## Every script
