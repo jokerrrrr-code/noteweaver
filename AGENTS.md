@@ -2,7 +2,7 @@
 
 ## Start here
 
-Read `README.md`, `CONTRIBUTING.md`, `docs/development/ROADMAP.md`, and
+Read `README.md`, `docs/CONTRIBUTING.md`, `docs/development/ROADMAP.md`, and
 `docs/api/DATA_CONTRACTS.md`. Use `docs/README.md` to locate the relevant guide.
 Inspect the current code and Git state before editing; preserve existing work.
 Explicit user instructions and higher-priority instructions take precedence.
@@ -12,7 +12,7 @@ editing/review, verified JSON persistence, and approved-note PDF export. Both
 English notebooks demonstrate the connected workflow. Extend existing modules;
 do not recreate illustrative APIs or treat roadmap items as implemented features.
 PyPI publication is pending. Verify actual publication before recommending a
-PyPI install command. Team roles and the common agent prompt are in `CONTRIBUTING.md`.
+PyPI install command. Team roles and the common agent prompt are in `docs/CONTRIBUTING.md`.
 
 ## Preserve the contracts
 
@@ -46,7 +46,7 @@ in intentional bilingual fixtures. Keep user instructions, the roadmap, and reco
 evidence consistent. Keep keys, personal lectures, generated outputs, and notebook
 execution outputs out of Git. Preserve license notices and font provenance.
 
-Install `.[preview,export]` and run relevant checks from `CONTRIBUTING.md`. Check
+Install `.[preview,export]` and run relevant checks from `docs/CONTRIBUTING.md`. Check
 links and execute changed commands; inspect rendered PDFs for layout changes.
 Do not claim an unrun test passed or present fake/mocked content as real AI output.
 End with behavior changes, actual validation, limitations, teammate handoff, and

@@ -1,15 +1,15 @@
 # Contributing to NoteWeaver
 
-[Repository home](README.md) · [Documentation](docs/README.md) · [Roadmap](docs/development/ROADMAP.md)
+[Repository home](../README.md) · [Documentation](README.md) · [Roadmap](development/ROADMAP.md)
 
 This is the shared guide for the four contributors and their coding agents.
 It consolidates the former team plan and teammate guide. New users should start
-with [installation](docs/guides/QUICKSTART.md); lecturers should use the
-[evaluator guide](docs/validation/EVALUATION.md).
+with [installation](guides/QUICKSTART.md); lecturers should use the
+[evaluator guide](validation/EVALUATION.md).
 
 ## Before editing
 
-Read [AGENTS.md](AGENTS.md), the [data contracts](docs/api/DATA_CONTRACTS.md),
+Read [AGENTS.md](../AGENTS.md), the [data contracts](api/DATA_CONTRACTS.md),
 and the relevant API guide. Inspect the current code, Git status, and roadmap.
 Extend existing modules rather than recreating implemented features. Coordinate
 changes to shared models and public interfaces with affected members.
@@ -31,7 +31,7 @@ integration and release work; they do not own all teammates' unfinished work.
 Members 1 and 3 review page identity/source preservation together. Members 2
 and 4 review generation, formats, editing state, and failure handling together.
 
-Exact types and validation rules belong in [data contracts](docs/api/DATA_CONTRACTS.md),
+Exact types and validation rules belong in [data contracts](api/DATA_CONTRACTS.md),
 not in a second schema. The shared flow is `PageContent` → `NoteRequest` →
 `GeneratedNote` → reviewed `ProjectState` → `ExportResult`. Manual notes enter
 through project operations and bypass the provider. Note page numbers always
@@ -39,7 +39,7 @@ refer to the 1-based original PDF, even after supplementary pages are inserted.
 
 ## Set up and verify
 
-Follow [Quick start](docs/guides/QUICKSTART.md) to create an environment. From
+Follow [Quick start](guides/QUICKSTART.md) to create an environment. From
 the repository root, install an editable checkout for development:
 
 ```bash
@@ -48,7 +48,7 @@ python -m unittest discover -s tests -v
 python -m pip check
 ```
 
-Run affected [examples](examples/README.md). Ordinary tests are offline; live
+Run affected [examples](../examples/README.md). Ordinary tests are offline; live
 requests require explicit opt-in. Mock HTTP responses when testing providers.
 For PDF layout changes, inspect rendered pages as well as text/page-map checks.
 For documentation changes, check links and execute changed runnable examples.
@@ -95,7 +95,7 @@ Repository: https://github.com/jokerrrrr-code/noteweaver
 Local checkout: [PATH]
 I am Member [1/2/3/4]. My task is [ONE CONCRETE CHANGE].
 
-Read AGENTS.md, README.md, CONTRIBUTING.md, docs/api/DATA_CONTRACTS.md,
+Read AGENTS.md, README.md, docs/CONTRIBUTING.md, docs/api/DATA_CONTRACTS.md,
 and the relevant guides in docs/README.md. Inspect current code and Git status.
 Preserve existing work and reuse the shared models and implemented modules.
 Coordinate shared-interface changes with affected members.
@@ -118,13 +118,13 @@ Report behavior, validation, limitations, teammate handoff, and the PR link.
   The bundled font subset is for the sample PDF, not arbitrary Chinese content.
 - Keep user instructions in `docs/guides/`, API contracts in `docs/api/`, release
   planning in `docs/development/`, and dated evidence in `docs/validation/`.
-- Follow the [release checklist](docs/development/RELEASING.md). The version lives
-  in `src/noteweaver/_version.py`; update `CHANGELOG.md` when changing it.
+- Follow the [release checklist](development/RELEASING.md). The version lives
+  in `src/noteweaver/_version.py`; update `docs/development/CHANGELOG.md` when changing it.
 - Retain `Private :: Do Not Upload` until distribution naming and release readiness
   are agreed and publication is explicitly authorized. The project license is
   AGPL-3.0-only; dependencies and the fixture font retain their own terms.
 
 For the joint presentation, members 1, 2, 4, and 3 can demonstrate reading,
-generation, review, and export respectively. The [evaluator guide](docs/validation/EVALUATION.md)
+generation, review, and export respectively. The [evaluator guide](validation/EVALUATION.md)
 contains the timed walkthrough and evidence links. Rehearse with clearly labeled
 backup output; do not present a saved result as live generation.

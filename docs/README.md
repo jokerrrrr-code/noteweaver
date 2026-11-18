@@ -1,6 +1,6 @@
 # Documentation
 
-[Repository home](../README.md) · [Examples](../examples/README.md) · [Contributing](../CONTRIBUTING.md)
+[Repository home](../README.md) · [Examples](../examples/README.md) · [Contributing](CONTRIBUTING.md)
 
 ## Use NoteWeaver
 
@@ -30,7 +30,7 @@ The package's public imports are in `src/noteweaver/__init__.py`. Its version is
 in `_version.py`, and `py.typed` marks its type annotations. Protocols describe
 interfaces; concrete reader/exporter implementations live in the modules above.
 Tests under `tests/` follow these responsibilities; notebook tests execute the
-actual provider/export cells. Run them using [the contributor guide](../CONTRIBUTING.md#set-up-and-verify).
+actual provider/export cells. Run them using [the contributor guide](CONTRIBUTING.md#set-up-and-verify).
 
 ## Evaluate the assignment
 
@@ -45,26 +45,30 @@ They do not imply that every platform or future provider response is verified.
 
 ## Develop and release
 
-- [Contributor guide](../CONTRIBUTING.md): four-member roles, Git workflow, testing, and a coding-agent prompt.
+- [Contributor guide](CONTRIBUTING.md): four-member roles, Git workflow, testing, and a coding-agent prompt.
 - [Roadmap](development/ROADMAP.md): completed milestones and remaining work.
 - [Release checklist](development/RELEASING.md): naming, licensing, packaging, and publication gates.
-- [Changelog](../CHANGELOG.md), [project license](../LICENSE), [notice](../NOTICE), and [dependency notices](../THIRD_PARTY_NOTICES.md).
+- [Changelog](development/CHANGELOG.md), [project license](../LICENSE), [project and dependency notices](LICENSE_NOTICES.md).
 
 The former root-level `TEAM_PLAN.md` and `TEAMMATE_GUIDE.md` are consolidated into
-`CONTRIBUTING.md`. The roadmap now lives under `docs/development/`. Earlier versions
-remain available in Git history.
+`docs/CONTRIBUTING.md`. The roadmap and changelog live under `docs/development/`.
+The former `NOTICE` and `THIRD_PARTY_NOTICES.md` are combined in
+[License and Third-party Notices](LICENSE_NOTICES.md). Earlier versions remain in Git history.
 
 ## Repository layout
 
 ```text
 README.md              Start here
-CONTRIBUTING.md        Team roles and development workflow
 AGENTS.md              Instructions for coding agents
+LICENSE                Full project license
+.gitignore             Excludes local/private/generated files
 pyproject.toml         Package metadata and dependencies
 MANIFEST.in            Source archive contents
 src/noteweaver/        Python package
 examples/              Runnable scripts, two notebooks, and licensed fixtures
 tests/                 Offline unit and integration tests
+docs/CONTRIBUTING.md   Team roles and development workflow
+docs/LICENSE_NOTICES.md Project attribution and dependency notices
 docs/guides/           Installation, notebooks, and AI setup
 docs/api/              Public operations and shared contracts
 docs/development/      Roadmap and release checklist
