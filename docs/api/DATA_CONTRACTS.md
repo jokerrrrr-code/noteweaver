@@ -6,6 +6,7 @@ This document, `src/noteweaver/models.py`, `interfaces.py`, and `examples/data/`
 
 ## 1. Data flow
 
+
 ```text
 Member 1: PDF → DocumentInfo + PageContent
 Member 4: student question → NoteRequest
