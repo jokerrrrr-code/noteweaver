@@ -218,7 +218,7 @@ python examples/contract_demo.py
 python -m unittest discover -s tests -v
 ```
 
-Use a virtual environment. These commands install the local checkout, not a PyPI release. The contract models use the standard library; installing the package also installs its PDF-reading dependency. Full reader/export tests require the preview and export extras. Builds require setuptools. Package metadata currently prevents upload; confirm distribution naming, licensing, and feature readiness before release.
+Use a virtual environment. These commands install the local checkout, not a PyPI release. The contract models use the standard library; installing the package also installs its PDF-reading dependency. Full reader/export tests require the preview and export extras. Builds require setuptools. Publication uses the manual release workflow; confirm distribution naming, licensing, and feature readiness before dispatching it.
 
 ## 11. Changing the format
 

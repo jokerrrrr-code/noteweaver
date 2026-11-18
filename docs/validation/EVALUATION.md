@@ -212,8 +212,8 @@ Label prepared backup results honestly. The export demo can now show the final P
 
 - Test installation of the eventual published PyPI version on school JupyterHub.
 - Confirm PyPI distribution-name acceptance, then
-  complete packaging/release checks and publication. Metadata currently retains
-  `Private :: Do Not Upload`.
+  complete the release workflow checks and manually dispatch publication.
+  Merging the release configuration does not upload the package.
 - Rehearse the final joint presentation and update this evidence when behavior changes.
 
 The [roadmap](../development/ROADMAP.md) tracks these remaining tasks. The repository is

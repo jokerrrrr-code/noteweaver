@@ -43,7 +43,8 @@ the final reviewed release commit and retain that build's hashes when publishing
 The maintainer approved AGPL-3.0-only on 2026-11-17. Preparation artifacts
 include the full license, project notice, and third-party notices in both archive
 formats, with `License-Expression: AGPL-3.0-only` metadata. The artifacts retain
-`Private :: Do Not Upload` while the final release decision is pending.
+`Private :: Do Not Upload` at the time of these preparation checks. The later
+trusted-publishing change removes it; publication remains a separate manual action.
 
 ## Limits
 

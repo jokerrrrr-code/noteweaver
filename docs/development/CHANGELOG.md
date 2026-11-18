@@ -15,6 +15,8 @@ The earlier `0.0.1.dev0` version was used for checkout-based development tests.
 - Export approved supplementary notes after their original PDF pages, with
   English/Chinese text, pagination, bookmarks, and page maps.
 - Provide English script and notebook examples and school JupyterHub evidence.
+- Validate built distributions on Python 3.10–3.14 in GitHub Actions and support
+  manual PyPI Trusted Publishing from `main`.
 
 Scanned PDFs/OCR, handwriting, rich Markdown/LaTeX rendering, and automatic
 multi-document topic search are outside this release. Live AI requires a

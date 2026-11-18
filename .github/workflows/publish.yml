@@ -1,0 +1,122 @@
+name: Validate and publish
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact package version to publish (for example, 0.1.0)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.14'
+      - name: Build and validate distributions
+        run: |
+          python -m pip install build twine
+          python -m build
+          python -m twine check --strict dist/*
+      - name: Check release metadata and record checksums
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          python - <<'PY'
+          import hashlib
+          import os
+          import runpy
+          import zipfile
+          from email.parser import BytesParser
+          from pathlib import Path
+
+          version = runpy.run_path('src/noteweaver/_version.py')['__version__']
+          if os.environ['GITHUB_EVENT_NAME'] == 'workflow_dispatch':
+              assert os.environ['GITHUB_REF'] == 'refs/heads/main', 'Publish only from main'
+              assert os.environ['REQUESTED_VERSION'] == version, 'Version must match the package'
+          files = sorted(Path('dist').iterdir())
+          assert {p.name for p in files} == {
+              f'noteweaver-{version}-py3-none-any.whl', f'noteweaver-{version}.tar.gz'
+          }
+          with zipfile.ZipFile(next(p for p in files if p.suffix == '.whl')) as wheel:
+              prefix = f'noteweaver-{version}.dist-info/'
+              metadata = BytesParser().parsebytes(wheel.read(prefix + 'METADATA'))
+              assert metadata['Name'] == 'noteweaver'
+              assert metadata['Version'] == version
+              assert metadata['License-Expression'] == 'AGPL-3.0-only'
+              assert 'Private :: Do Not Upload' not in metadata.get_all('Classifier', [])
+              for name in ['LICENSE', 'docs/LICENSE_NOTICES.md']:
+                  assert wheel.read(prefix + 'licenses/' + name) == Path(name).read_bytes()
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write(f'Commit: `{os.environ["GITHUB_SHA"]}`\n\n')
+              for path in files:
+                  digest = hashlib.sha256(path.read_bytes()).hexdigest()
+                  summary.write(f'- `{path.name}`: `{digest}`\n')
+          PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: distributions
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.11', '3.12', '3.13', '3.14']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: distributions
+          path: dist/
+      - name: Install the built wheel and run offline checks
+        run: |
+          python -m pip install "$(find dist -name '*.whl')[preview,export]"
+          python -m pip check
+          python -I -c "import noteweaver; from importlib.metadata import version; assert noteweaver.__version__ == version('noteweaver'); print(noteweaver.__file__)"
+          python -I -m unittest discover -s tests -v
+          python -I examples/export_demo.py
+
+  publish:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: pypi-publish
+      cancel-in-progress: false
+    environment:
+      name: pypi
+      url: https://pypi.org/p/noteweaver
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: distributions
+          path: dist/
+      - name: Publish verified distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # release/v1
