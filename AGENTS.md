@@ -11,8 +11,8 @@ NoteWeaver already implements PDF reading/previews, manual and generated drafts,
 editing/review, verified JSON persistence, and approved-note PDF export. Both
 English notebooks demonstrate the connected workflow. Extend existing modules;
 do not recreate illustrative APIs or treat roadmap items as implemented features.
-PyPI publication is pending. Verify actual publication before recommending a
-PyPI install command. Team roles and the common agent prompt are in `docs/CONTRIBUTING.md`.
+Version 0.1.0 is published on PyPI; see the release validation record. Verify
+actual publication before recommending any newer version. Team roles and the common agent prompt are in `docs/CONTRIBUTING.md`.
 
 ## Preserve the contracts
 

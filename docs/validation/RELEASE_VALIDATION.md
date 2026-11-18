@@ -55,3 +55,35 @@ installation of the eventual published version were not tested in this task.
 The earlier school run used Python 3.14.9 and the development checkout. PDF layout
 was not changed here; this task checked export behavior/page maps, with prior
 visual evidence recorded separately in the school record.
+
+## Published 0.1.0 verification
+
+On 2026-11-18, [release run 44228517605](https://github.com/jokerrrrr-code/noteweaver/actions/runs/44228517605)
+published [noteweaver 0.1.0](https://pypi.org/project/noteweaver/0.1.0/) from commit
+`95d345778e6cfde103bcc193bd119ac2b98ba51c`. Build and all five Linux test jobs
+(Python 3.10–3.14) passed before the Trusted Publishing job succeeded.
+The exact commit is tagged [v0.1.0](https://github.com/jokerrrrr-code/noteweaver/releases/tag/v0.1.0/),
+with both distributions retained as release assets.
+
+PyPI's JSON API confirmed the name, version, AGPL-3.0-only metadata, and both
+SHA-256 digests matching the tested workflow artifacts:
+
+| File | SHA-256 |
+| --- | --- |
+| `noteweaver-0.1.0-py3-none-any.whl` | `fbfb2717bd8af0389df2fa1bbc96b27abe8fbbd9a3ef106d2406fc7cca8fa7be` |
+| `noteweaver-0.1.0.tar.gz` | `be8c8bd7fef4837f53b652a680cead68aea0804c370588cd7c70b80f969abdd0` |
+
+A fresh macOS Python 3.14 environment installed
+`noteweaver[preview,export]==0.1.0` from `https://pypi.org/simple` with pip's cache
+disabled. Import/version checks confirmed the installed site-packages copy.
+`pip check` passed; the exact release source snapshot's suite ran 133 tests with
+one live test skipped. The offline export demo produced a five-page study PDF.
+No AI request was made. Published-version installation on school JupyterHub still
+needs to be verified; earlier school evidence is for checkout installations.
+
+The README embedded in the immutable 0.1.0 distribution still says publication
+is pending. This record supersedes that preparation-era wording. A subsequent
+version is required to update the description on PyPI. The local page fetch
+returned a client challenge, so visual rendering and the maintainer display on
+PyPI were not independently inspected; upload success and file identity were
+verified through the workflow and JSON API.

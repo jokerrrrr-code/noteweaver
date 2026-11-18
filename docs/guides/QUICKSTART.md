@@ -3,7 +3,8 @@
 [Repository home](../../README.md) · [Documentation](../README.md)
 
 Use NoteWeaver from Python scripts or notebooks. This walkthrough first produces
-a study PDF without an API key. PyPI publication is pending; install this checkout.
+a study PDF without an API key. Version 0.1.0 is published on PyPI; this walkthrough uses a checkout for its
+notebooks and sample lecture. Published-version school validation is still pending.
 
 ## 1. Get the repository
 

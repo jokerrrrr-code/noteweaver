@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.1.0 — Unreleased
+## 0.1.0 — 2026-11-18
 
-First functional beta release candidate. This version has not been uploaded to PyPI.
+First functional beta release, [published on PyPI](https://pypi.org/project/noteweaver/0.1.0/).
 The earlier `0.0.1.dev0` version was used for checkout-based development tests.
 
 - License original project code and documentation under AGPL-3.0-only, with

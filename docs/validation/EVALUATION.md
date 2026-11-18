@@ -211,9 +211,9 @@ Label prepared backup results honestly. The export demo can now show the final P
 ## Remaining assignment work
 
 - Test installation of the eventual published PyPI version on school JupyterHub.
-- Confirm PyPI distribution-name acceptance, then
-  complete the release workflow checks and manually dispatch publication.
-  Merging the release configuration does not upload the package.
+- Version 0.1.0 was published on 2026-11-18. See the
+  [published release checks](RELEASE_VALIDATION.md#published-010-verification);
+  retain the distinction between these checks and school checkout evidence.
 - Rehearse the final joint presentation and update this evidence when behavior changes.
 
 The [roadmap](../development/ROADMAP.md) tracks these remaining tasks. The repository is
