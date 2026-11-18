@@ -6,12 +6,12 @@
 
 | Item | Prepared value | Status |
 | --- | --- | --- |
-| Distribution name | `noteweaver` | Public project page and JSON endpoint returned HTTP 404 on 2026-11-17; not reserved or guaranteed available |
+| Distribution name | `noteweaver` | JSON endpoint returned HTTP 404 again on 2026-11-18; not reserved or guaranteed available |
 | Python import | `noteweaver` | Existing public API remains unchanged |
 | First version | `0.1.0` | Functional beta candidate; not uploaded |
 | Python requirement | `>=3.10` | Retained compatibility claim; local and school execution evidence currently covers Python 3.14 |
 | Project license | `AGPL-3.0-only` | Approved by the project maintainer on 2026-11-17; license text, notice, and SPDX metadata included |
-| Upload protection | `Private :: Do Not Upload` | Retained until the release decision |
+| Publication | Manual GitHub Actions dispatch | Requires matching version, `main`, passing checks, and the `pypi` trusted publisher |
 
 PyPI can reject names that are reserved, prohibited, or too similar to another
 project even when no public project page exists. Recheck immediately before the
@@ -44,7 +44,8 @@ font retains its separately supplied OFL license. Dependencies retain their
 own terms; see [third-party notices](../LICENSE_NOTICES.md). This project
 does not supply an Artifex commercial license for PyMuPDF/MuPDF.
 
-The license approval does not authorize an upload or remove the upload blocker.
+The maintainer requested publication after approving the license. The release
+workflow removes the preparation-only upload blocker; merging a PR does not publish.
 
 ## Build and validate locally
 
@@ -83,30 +84,66 @@ and run its tests to check that fixtures are not accidentally missing.
 See [local artifact validation](../validation/RELEASE_VALIDATION.md) for the checks actually
 performed on this candidate. These do not replace the final release gate.
 
-## Final release gate
+## Connect PyPI to GitHub (one-time setup)
 
-- Verify that the approved license text, notices, and SPDX metadata are included
-  in the final artifacts; preserve notices for any new third-party contributions.
-- Verify name availability and package contents, then review and merge the release PR.
-- Check supported Python versions beyond the currently recorded 3.14 runs before
-  claiming them as tested; build success alone is not a runtime compatibility test.
-- Remove `Private :: Do Not Upload` only after the explicit release decision,
-  rebuild in a fresh output directory, and repeat metadata and installation checks.
-- Set up the team's PyPI account and two-factor authentication. Keep any upload
-  token outside Git and notebooks; a trusted publisher is an alternative.
-- Upload only the reviewed wheel and source archive after explicit authorization.
-  No upload command or automatic publication workflow is enabled by this preparation.
-- Tag the exact release commit `v0.1.0` and retain artifact checksums and test logs.
-- Verify the published project's owner, version, files, README rendering, and license.
-- In a fresh school environment, install the verified published version with extras,
-  run `pip check`, and repeat the manual-to-PDF demo. Only then update the public
-  quick start to use the team's verified PyPI installation command.
+The maintainer must have a verified PyPI email and two-factor authentication.
+No PyPI API token or AI provider key is needed for this workflow.
 
-A successful `twine check` validates distribution metadata/README, not name
-ownership, runtime behavior, license approval, or publication. The upload blocker
-is intentionally retained in preparation builds. Previous school checks installed
-the checkout, not this release wheel and not a published PyPI package.
+1. In GitHub repository Settings → Environments, create an environment named
+   `pypi`. Restrict deployment branches to `main`. Add a required reviewer if
+   the repository settings support it and the team wants a separate release approval.
+2. Open [PyPI account publishing](https://pypi.org/manage/account/publishing/).
+   Under **Add a new pending publisher**, select GitHub and enter:
+
+   | Field | Value |
+   | --- | --- |
+   | PyPI project name | `noteweaver` |
+   | Owner | `jokerrrrr-code` |
+   | Repository name | `noteweaver` |
+   | Workflow name | `publish.yml` |
+   | Environment name | `pypi` |
+
+3. Save the pending publisher. This does not reserve the package name or upload
+   anything. If PyPI rejects the name, stop and agree a distribution name first.
+
+The workflow file is `.github/workflows/publish.yml`. PyPI expects only its
+filename, not the `.github/workflows/` prefix. Settings must match exactly.
+
+## Validate and publish
+
+Pull requests and pushes to `main` run build checks and an offline Python
+3.10–3.14 matrix. The default build creates the wheel from the source archive.
+Each matrix job installs that same wheel with preview/export extras, runs
+`pip check`, unit tests, and the offline PDF export example. A configured matrix
+is not evidence of a pass; inspect the actual results for the release commit.
+
+The build checks the package name, version, license metadata and bundled notices,
+and records artifact SHA-256 hashes and the commit in the Actions summary.
+Actions retain the distributions for 30 days. Download them and retain the run
+URL/checksums with the release record.
+
+1. Review and merge the release PR after its validation checks pass.
+2. Confirm the pending publisher and GitHub `pypi` environment are configured.
+3. Open **Actions → Validate and publish → Run workflow**. Select branch `main`
+   and enter `0.1.0` (or the exact version in `_version.py` for a later release).
+   Dispatching this workflow requests publication; a PR merge alone does not.
+4. The dispatch rebuilds and reruns all checks. Only the final publish job has
+   `id-token: write`; it downloads the checked artifacts without checking out or
+   building source. It authenticates through PyPI Trusted Publishing.
+5. If an environment approval is configured, review the run commit and checksums
+   before approving. A version mismatch, failed check, or non-main dispatch stops
+   publication. Upload failures remain failures; existing files are not silently skipped.
+6. Verify the published project's owner, version, files, README rendering, and
+   license. Tag the exact successful run commit `v0.1.0`; do not tag a newer HEAD.
+7. Install the published version in a fresh school environment, run `pip check`,
+   and repeat the manual-to-PDF demo. Only then update the public quick start to
+   use the verified PyPI installation command and mark the changelog released.
+
+A successful `twine check` validates metadata/README, not ownership, runtime
+behavior, or publication. Earlier school checks installed a checkout, not a
+published PyPI distribution. No live AI request is part of this release workflow.
 
 References: [PyPI naming](https://docs.pypi.org/project-management/choosing-a-name/),
-[packaging metadata](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/),
-[GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.html).
+[Trusted Publishing setup](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/),
+[Publishing action](https://github.com/pypa/gh-action-pypi-publish),
+[packaging metadata](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).

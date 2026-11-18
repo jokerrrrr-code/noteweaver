@@ -22,8 +22,8 @@ These checks installed a checkout or local artifact, not a published PyPI versio
 
 - [ ] Verify supported Python versions beyond the recorded 3.14 runs.
 - [ ] Confirm PyPI distribution-name acceptance at first publication.
-- [ ] Review final metadata and dependencies; remove `Private :: Do Not Upload`
-      only after an explicit release decision, then rebuild and validate.
+- [ ] Review final metadata, dependencies, and the release workflow results before
+      manually dispatching publication from `main`.
 - [ ] Publish reviewed versioned artifacts and tag the corresponding commit.
 - [ ] Verify installation of the published version on school JupyterHub.
 - [ ] Rehearse the joint presentation with clearly labeled backup results.

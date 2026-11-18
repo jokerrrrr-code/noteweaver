@@ -21,7 +21,6 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Education",
     "Typing :: Typed",
-    "Private :: Do Not Upload",
 ]
 
 [project.optional-dependencies]

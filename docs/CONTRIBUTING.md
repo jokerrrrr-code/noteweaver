@@ -120,8 +120,8 @@ Report behavior, validation, limitations, teammate handoff, and the PR link.
   planning in `docs/development/`, and dated evidence in `docs/validation/`.
 - Follow the [release checklist](development/RELEASING.md). The version lives
   in `src/noteweaver/_version.py`; update `docs/development/CHANGELOG.md` when changing it.
-- Retain `Private :: Do Not Upload` until distribution naming and release readiness
-  are agreed and publication is explicitly authorized. The project license is
+- Publish only through the manually dispatched release workflow after reviewing
+  its tested commit and configuring the trusted publisher. The project license is
   AGPL-3.0-only; dependencies and the fixture font retain their own terms.
 
 For the joint presentation, members 1, 2, 4, and 3 can demonstrate reading,
