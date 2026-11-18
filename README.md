@@ -37,7 +37,7 @@ using the commands above until the published distribution is verified.
 | Generate an AI explanation for a lecture page | [Generation notebook](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/generation_workflow_demo.ipynb), [OpenRouter setup](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/guides/OPENROUTER_SETUP.md), or [Groq setup](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/guides/GROQ_SETUP.md) |
 | Use the Python API or find an example | [Documentation](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/README.md) and [examples](https://github.com/jokerrrrr-code/noteweaver/blob/main/examples/README.md) |
 | Evaluate the university assignment | [Evaluator guide and test evidence](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/validation/EVALUATION.md) |
-| Contribute or work with a coding agent | [Contributor guide and four-member roles](https://github.com/jokerrrrr-code/noteweaver/blob/main/CONTRIBUTING.md) |
+| Contribute or work with a coding agent | [Contributor guide and four-member roles](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/CONTRIBUTING.md) |
 
 ## Current scope
 
@@ -60,11 +60,10 @@ outside the current scope. Keep the original lecture alongside your saved JSON.
 ## Project and license
 
 A four-member university Python-package project, with English documentation and
-intentional bilingual fixtures. See the [changelog](https://github.com/jokerrrrr-code/noteweaver/blob/main/CHANGELOG.md),
+intentional bilingual fixtures. See the [changelog](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/development/CHANGELOG.md),
 [roadmap](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/development/ROADMAP.md),
 and [release checklist](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/development/RELEASING.md).
 
 Original code and documentation use [AGPL-3.0-only](https://github.com/jokerrrrr-code/noteweaver/blob/main/LICENSE).
-[NOTICE](https://github.com/jokerrrrr-code/noteweaver/blob/main/NOTICE) and
-[third-party notices](https://github.com/jokerrrrr-code/noteweaver/blob/main/THIRD_PARTY_NOTICES.md)
+[Project and third-party notices](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/LICENSE_NOTICES.md)
 cover attribution and dependencies; the sample font retains its OFL license.

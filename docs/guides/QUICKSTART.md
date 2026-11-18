@@ -38,7 +38,7 @@ py -3 -m venv .venv
 In PowerShell, use `.\.venv\Scripts\python.exe` in place of `python` below.
 The `preview` extra supplies page images; `export` supplies PDF output. Text-only
 reading, manual note management, and generation can use `python -m pip install .`.
-Contributors should use an [editable install](../../CONTRIBUTING.md#set-up-and-verify).
+Contributors should use an [editable install](../CONTRIBUTING.md#set-up-and-verify).
 
 On school JupyterHub, install into the existing notebook kernel instead:
 

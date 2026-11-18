@@ -1,6 +1,6 @@
 # Development Roadmap
 
-[Repository home](../../README.md) · [Team roles](../../CONTRIBUTING.md#team-responsibilities) · [Release checklist](RELEASING.md)
+[Repository home](../../README.md) · [Team roles](../CONTRIBUTING.md#team-responsibilities) · [Release checklist](RELEASING.md)
 
 ## Completed milestones
 

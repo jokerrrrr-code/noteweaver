@@ -1,6 +1,6 @@
 # Preparing the first PyPI release
 
-[Repository home](../../README.md) · [Changelog](../../CHANGELOG.md) · [School checks](../validation/SCHOOL_TEST_RECORD.md)
+[Repository home](../../README.md) · [Changelog](CHANGELOG.md) · [School checks](../validation/SCHOOL_TEST_RECORD.md)
 
 ## Candidate decisions
 
@@ -29,19 +29,19 @@ stable 1.x API. It does not change the existing JSON `schema_version = 1`.
 The project maintainer approved GNU AGPL version 3 only on 2026-11-17 for the
 team's original code and documentation. The SPDX identifier is `AGPL-3.0-only`.
 The full, unmodified GNU license text is in [LICENSE](../../LICENSE), and the
-project copyright/license grant is in [NOTICE](../../NOTICE).
+project copyright/license grant is in [project notice](../LICENSE_NOTICES.md).
 
 The metadata includes:
 
 ```toml
 license = "AGPL-3.0-only"
-license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+license-files = ["LICENSE", "docs/LICENSE_NOTICES.md"]
 ```
 
 The build backend requires setuptools 77.0.3 or newer for these SPDX fields.
 Both the wheel and source archive include the license and notices. The fixture
 font retains its separately supplied OFL license. Dependencies retain their
-own terms; see [third-party notices](../../THIRD_PARTY_NOTICES.md). This project
+own terms; see [third-party notices](../LICENSE_NOTICES.md). This project
 does not supply an Artifex commercial license for PyMuPDF/MuPDF.
 
 The license approval does not authorize an upload or remove the upload blocker.
