@@ -26,8 +26,9 @@ project JSON under `generated/export-demo/`. It makes no AI request.
 
 For Windows, JupyterHub, or your own lecture, follow the
 [quick start](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/guides/QUICKSTART.md).
-Version **0.1.0** is prepared; **PyPI publication is pending**. Install the repository
-using the commands above until the published distribution is verified.
+Version **0.1.0** is [published on PyPI](https://pypi.org/project/noteweaver/0.1.0/).
+The commands above include the sample files and notebooks needed for this walkthrough.
+See the [release verification](https://github.com/jokerrrrr-code/noteweaver/blob/main/docs/validation/RELEASE_VALIDATION.md#published-010-verification) for installation checks.
 
 ## Choose your next step
 

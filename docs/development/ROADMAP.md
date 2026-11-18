@@ -16,15 +16,15 @@
 
 See the [school record](../validation/SCHOOL_TEST_RECORD.md) and
 [artifact validation](../validation/RELEASE_VALIDATION.md) for evidence and limits.
-These checks installed a checkout or local artifact, not a published PyPI version.
+Earlier school checks installed a checkout. Version 0.1.0 is now published; its
+PyPI installation was separately verified on macOS Python 3.14.
 
 ## Remaining release and assignment work
 
-- [ ] Verify supported Python versions beyond the recorded 3.14 runs.
-- [ ] Confirm PyPI distribution-name acceptance at first publication.
-- [ ] Review final metadata, dependencies, and the release workflow results before
-      manually dispatching publication from `main`.
-- [ ] Publish reviewed versioned artifacts and tag the corresponding commit.
+- [x] Verify the built wheel on Linux Python 3.10–3.14 in the release workflow.
+- [x] Confirm PyPI accepted `noteweaver` at first publication.
+- [x] Review final metadata, dependencies, and successful release workflow results.
+- [x] Publish 0.1.0 and tag release commit `95d3457` as `v0.1.0`.
 - [ ] Verify installation of the published version on school JupyterHub.
 - [ ] Rehearse the joint presentation with clearly labeled backup results.
 

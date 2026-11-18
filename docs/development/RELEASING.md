@@ -1,15 +1,15 @@
-# Preparing the first PyPI release
+# Publishing NoteWeaver
 
 [Repository home](../../README.md) · [Changelog](CHANGELOG.md) · [School checks](../validation/SCHOOL_TEST_RECORD.md)
 
-## Candidate decisions
+## Release configuration
 
 | Item | Prepared value | Status |
 | --- | --- | --- |
-| Distribution name | `noteweaver` | JSON endpoint returned HTTP 404 again on 2026-11-18; not reserved or guaranteed available |
+| Distribution name | `noteweaver` | Accepted at publication on 2026-11-18 |
 | Python import | `noteweaver` | Existing public API remains unchanged |
-| First version | `0.1.0` | Functional beta candidate; not uploaded |
-| Python requirement | `>=3.10` | Retained compatibility claim; local and school execution evidence currently covers Python 3.14 |
+| First version | `0.1.0` | Published on 2026-11-18 |
+| Python requirement | `>=3.10` | Release workflow passed on Linux Python 3.10–3.14; school checkout checks cover 3.14 |
 | Project license | `AGPL-3.0-only` | Approved by the project maintainer on 2026-11-17; license text, notice, and SPDX metadata included |
 | Publication | Manual GitHub Actions dispatch | Requires matching version, `main`, passing checks, and the `pypi` trusted publisher |
 
@@ -83,6 +83,11 @@ and run its tests to check that fixtures are not accidentally missing.
 
 See [local artifact validation](../validation/RELEASE_VALIDATION.md) for the checks actually
 performed on this candidate. These do not replace the final release gate.
+
+The first release is complete; see [published-release verification](../validation/RELEASE_VALIDATION.md#published-010-verification).
+The setup below is retained for maintainers. After first publication, the pending
+publisher becomes the project's regular trusted publisher. Do not recreate it for
+each version.
 
 ## Connect PyPI to GitHub (one-time setup)
 
